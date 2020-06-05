@@ -1,60 +1,93 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+    <!--App Bar oben -->
+    <v-card color="grey lighten-4" flattile dark style="margin-bottom: 80px;">
+      <v-app-bar height="90px" fixed>
+        <v-toolbar-title
+          ><router-link to="/" tag="span" style="cursor: pointer;"
+            ><img
+              src="./assets/swc_schrift.png"
+              height="70px"
+              style="padding-top: 10px;" /></router-link
+        ></v-toolbar-title>
+        <v-spacer></v-spacer>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+        <v-app-bar-nav-icon
+          @click.stop="sideNav = !sideNav"
+        ></v-app-bar-nav-icon>
+      </v-app-bar>
+    </v-card>
+    <!--Header mobile, der sich von unten hochfährt-->
+    <v-navigation-drawer v-model="sideNav" absolute temporary bottom>
+      <v-list shaped>
+        <v-subheader>Menu</v-subheader>
+        <v-list-item-group color="primary">
+          <v-list-item
+            v-for="item in menuItems"
+            :key="item.title"
+            :to="item.link"
+          >
+            <v-list-item-icon>
+              <v-icon v-text="item.icon"></v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
 
-      <v-spacer></v-spacer>
+          <v-list-item @click="onLogout" v-if="userIsAuthenticated">
+            <v-list-item-icon>
+              <v-icon>mdi-exit_to_app</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Logout</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
+    <!--Header groß------------------------------------------------------------------------------------->
 
-    <v-content>
-      <HelloWorld/>
-    </v-content>
+    <main style="margin: 30px;"><router-view></router-view></main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
 export default {
-  name: 'App',
-
-  components: {
-    HelloWorld,
+  data() {
+    return {
+      sideNav: false,
+    };
   },
-
-  data: () => ({
-    //
-  }),
+  computed: {
+    menuItems() {
+      let menuItems = [
+        { icon: "mdi-star", title: "Turnierinformationen", link: "/about" },
+        { icon: "mdi-newspaper", title: "News", link: "/news" },
+        {
+          icon: "mdi-table",
+          title: "Spielpläne",
+          link: "/spielplan",
+        },
+        { icon: "mdi-trophy", title: "Ergebnisse", link: "/results" },
+        { icon: "mdi-help", title: "FAQ", link: "/faq" },
+        { icon: "mdi-beer", title: "Pegelstand", link: "/pegelstand" },
+        { icon: "mdi-key", title: "Admin Login", link: "/admin" },
+      ];
+      return menuItems;
+    },
+    userIsAuthenticated() {
+      return (
+        this.$store.getters.user !== null &&
+        this.$store.getters.user !== undefined
+      );
+    },
+  },
+  methods: {
+    onLogout() {
+      this.$store.dispatch("logout");
+    },
+  },
 };
 </script>
