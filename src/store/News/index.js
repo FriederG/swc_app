@@ -149,7 +149,7 @@ export default {
         });
     },
 
-    updateMeetupData({ commit }, payload) {
+    updateNewsData({ commit }, payload) {
       commit("setLoading", true);
       //leeres Objekt, Dinge, die geupdated werden werden zugefügt
       const updateObj = {};

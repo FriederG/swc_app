@@ -12,6 +12,7 @@ import * as firebase from "firebase";
 
 import AlertCmp from "./components/Alert";
 
+import EditNewsDialog from "./components/Admin/Edit/EditNewsDialog";
 import appFooter from "./components/Footer";
 
 Vue.config.productionTip = false;
@@ -24,6 +25,7 @@ Vue.use(VueI18n);
 Vue.filter("date", DateFilter);
 Vue.component("app-footer", appFooter);
 Vue.component("app-alert", AlertCmp);
+Vue.component("edit-news-dialog", EditNewsDialog);
 
 export const i18n = new VueI18n({
   locale: "de",

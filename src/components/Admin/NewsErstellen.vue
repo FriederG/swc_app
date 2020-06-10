@@ -115,7 +115,7 @@ export default {
         date: this.submittableDateTime,
       };
       this.$store.dispatch("createNews", NewsData);
-      this.$router.push("/news");
+      this.$router.push("/admin/news/edit");
     },
     onPickFile() {
       this.$refs.fileInput.click();

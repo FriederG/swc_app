@@ -8,6 +8,7 @@ import News from "../components/News";
 import Spielplan from "../components/Spielplan";
 import AdminLogin from "../components/Admin/AdminLogin";
 import NewsErstellen from "../components/Admin/NewsErstellen";
+import NewsBearbeiten from "../components/Admin/NewsBearbeiten";
 
 import AuthGuard from "./auth-guard";
 
@@ -53,6 +54,12 @@ const routes = [
     path: "/admin/news/new",
     name: "NewsErstellen",
     component: NewsErstellen,
+    beforeEnter: AuthGuard,
+  },
+  {
+    path: "/admin/news/edit",
+    name: "NewsBearbeiten",
+    component: NewsBearbeiten,
     beforeEnter: AuthGuard,
   },
 ];

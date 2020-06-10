@@ -80,6 +80,11 @@ export default {
             title: "News erstellen",
             link: "/admin/news/new",
           },
+          {
+            icon: "mdi-star",
+            title: "News bearbeiten",
+            link: "/admin/news/edit",
+          },
         ];
       }
       return menuItems;
