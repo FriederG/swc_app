@@ -11,8 +11,13 @@
         </v-img>
 
         <v-card-text class="text--primary">
+          <div>{{ singleNews.date }}</div>
+        </v-card-text>
+
+        <v-card-text class="text--primary">
           <div>{{ singleNews.description }}</div>
         </v-card-text>
+
         <!--<v-card-actions
           ><v-btn outlined :to="/meetup/ + news.id">
             View News</v-btn

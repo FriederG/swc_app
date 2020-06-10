@@ -25,8 +25,8 @@ export default {
     setLoadedNews(state, payload) {
       state.loadedNews = payload;
     },
-    createNews(state, payload) {
-      state.loadedNews.push(payload);
+    createNews() {
+      //state.loadedNews.push(payload);
     },
     updateNews(state, payload) {
       const news = state.loadedNews.find((news) => {
@@ -79,6 +79,7 @@ export default {
       firebase
         .database()
         .ref("news")
+        //sobald sich etwas in der Firebase ändert
         .on("value", function (snapshot) {
           const news = [];
           const obj = snapshot.val();
@@ -115,6 +116,7 @@ export default {
           key = data.key;
           return key;
         })
+
         .then((key) => {
           const filename = payload.image.name;
           const ext = filename.slice(filename.lastIndexOf("."));
