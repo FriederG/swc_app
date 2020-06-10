@@ -6,6 +6,11 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import VueI18n from "vue-i18n";
 import messages from "./lang";
+//alles aus firebase package wird importiert. Es können auch einzelne Features
+import * as firebase from "firebase";
+
+import AlertCmp from "./components/Alert";
+
 import appFooter from "./components/Footer";
 
 Vue.config.productionTip = false;
@@ -16,6 +21,7 @@ Vue.use(VueI18n);
 
 //Komponenten global registrieren
 Vue.component("app-footer", appFooter);
+Vue.component("app-alert", AlertCmp);
 
 export const i18n = new VueI18n({
   locale: "de",
@@ -29,4 +35,14 @@ new Vue({
   i18n,
   vuetify,
   render: (h) => h(App),
+  //firebase initialisieren
+  created() {
+    firebase.initializeApp({
+      apiKey: "AIzaSyAsWovk-Pd2D4PVCxil8rtB94Yb0XGk3SM",
+      authDomain: "schietwettercup.firebaseapp.com",
+      databaseURL: "https://schietwettercup.firebaseio.com",
+      projectId: "schietwettercup",
+      storageBucket: "gs://schietwettercup.appspot.com",
+    });
+  },
 }).$mount("#app");

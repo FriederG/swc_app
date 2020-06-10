@@ -1,3 +1,5 @@
+<!--Diese Seite brauchen wie nicht. Admins können so nur über das firebase-backend angelegt werden-->
+
 <template>
   <v-container>
     <v-layout row v-if="error"
@@ -12,7 +14,7 @@
         <v-card>
           <v-card-text>
             <v-container>
-              <form @submit.prevent="onSignin">
+              <form @submit.prevent="onSignup">
                 <v-layout row>
                   <v-flex xs12>
                     <v-text-field
@@ -37,11 +39,23 @@
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
+                <v-layout row>
+                  <v-flex xs12>
+                    <v-text-field
+                      name="confirmPassword"
+                      label="Confirm Password"
+                      id="confirmPassword"
+                      v-model="confirmPassword"
+                      type="password"
+                      :rules="[comparePasswords]"
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
 
                 <v-layout row>
                   <v-flex xs12>
                     <v-btn type="submit" :disabled="loading" :loading="loading">
-                      Sign in
+                      Neuen Admin anlegen
                       <span slot="loader" class="custom-loader">
                         <v-icon light>mdi-cached</v-icon>
                       </span>
@@ -63,9 +77,15 @@ export default {
     return {
       email: "",
       password: "",
+      confirmPassword: "",
     };
   },
   computed: {
+    comparePasswords() {
+      return this.password !== this.confirmPassword
+        ? "Passwords do not match"
+        : "";
+    },
     user() {
       return this.$store.getters.user;
     },
@@ -84,8 +104,8 @@ export default {
     },
   },
   methods: {
-    onSignin() {
-      this.$store.dispatch("signUserIn", {
+    onSignup() {
+      this.$store.dispatch("signUserUp", {
         email: this.email,
         password: this.password,
       });

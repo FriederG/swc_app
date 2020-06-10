@@ -73,8 +73,10 @@ export default {
         { icon: "mdi-trophy", title: "Ergebnisse", link: "/results" },
         { icon: "mdi-help", title: "FAQ", link: "/faq" },
         { icon: "mdi-beer", title: "Pegelstand", link: "/pegelstand" },
-        { icon: "mdi-key", title: "Admin Login", link: "/admin" },
       ];
+      if (this.userIsAuthenticated) {
+        menuItems = [{ icon: "mdi-star", title: "Eingeloggt", link: "/about" }];
+      }
       return menuItems;
     },
     userIsAuthenticated() {
