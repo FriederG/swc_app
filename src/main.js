@@ -5,6 +5,7 @@ import router from "./router";
 import { store } from "./store/index";
 import vuetify from "./plugins/vuetify";
 import VueI18n from "vue-i18n";
+import DateFilter from "./filters/date";
 import messages from "./lang";
 //alles aus firebase package wird importiert. Es können auch einzelne Features
 import * as firebase from "firebase";
@@ -20,6 +21,7 @@ Vue.config.productionTip = false;
 Vue.use(VueI18n);
 
 //Komponenten global registrieren
+Vue.filter("date", DateFilter);
 Vue.component("app-footer", appFooter);
 Vue.component("app-alert", AlertCmp);
 

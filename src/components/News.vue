@@ -1,6 +1,10 @@
 <template
-  ><v-container>
-    <v-container v-for="singleNews in news" :key="singleNews.id" class="mb-2">
+  ><v-expansion-panels>
+    <v-expansion-panel
+      v-for="singleNews in news"
+      :key="singleNews.id"
+      class="mb-2"
+    >
       <v-card class="mx-auto" max-width="400">
         <v-img
           class="white--text align-end"
@@ -14,9 +18,13 @@
           <div>{{ singleNews.date }}</div>
         </v-card-text>
 
-        <v-card-text class="text--primary">
+        <v-expansion-panel-header
+          ><b>Beitrag lesen...</b></v-expansion-panel-header
+        >
+
+        <v-expansion-panel-content class="text--primary">
           <div>{{ singleNews.description }}</div>
-        </v-card-text>
+        </v-expansion-panel-content>
 
         <!--<v-card-actions
           ><v-btn outlined :to="/meetup/ + news.id">
@@ -24,8 +32,8 @@
           ></v-card-actions
         >-->
       </v-card>
-    </v-container>
-  </v-container>
+    </v-expansion-panel>
+  </v-expansion-panels>
 </template>
 
 <script>
