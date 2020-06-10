@@ -66,7 +66,7 @@ export default {
         });
     },
     autoSignIn({ commit }, payload) {
-      commit("setUser", { id: payload.uid, registeredMeetups: [], fbKeys: {} });
+      commit("setUser", { id: payload.uid, fbKeys: {} });
     },
 
     logout({ commit }) {

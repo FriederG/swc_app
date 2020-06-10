@@ -25,12 +25,6 @@
         <v-expansion-panel-content class="text--primary">
           <div>{{ singleNews.description }}</div>
         </v-expansion-panel-content>
-
-        <!--<v-card-actions
-          ><v-btn outlined :to="/meetup/ + news.id">
-            View News</v-btn
-          ></v-card-actions
-        >-->
       </v-card>
     </v-expansion-panel>
   </v-expansion-panels>

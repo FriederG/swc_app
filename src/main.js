@@ -46,6 +46,12 @@ new Vue({
       projectId: "schietwettercup",
       storageBucket: "gs://schietwettercup.appspot.com",
     });
+    //checken, ob der admin im local Store eingeloggt ist
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.dispatch("autoSignIn", user);
+      }
+    });
     this.$store.dispatch("loadNews");
   },
 }).$mount("#app");

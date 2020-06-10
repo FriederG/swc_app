@@ -7,10 +7,12 @@
           :text="error.message"
         ></app-alert></v-flex
     ></v-layout>
+
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
         <v-card>
           <v-card-text>
+            <h2>Admin Login</h2>
             <v-container>
               <form @submit.prevent="onSignin">
                 <v-layout row>

@@ -9,6 +9,8 @@ import Spielplan from "../components/Spielplan";
 import AdminLogin from "../components/Admin/AdminLogin";
 import NewsErstellen from "../components/Admin/NewsErstellen";
 
+import AuthGuard from "./auth-guard";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -51,6 +53,7 @@ const routes = [
     path: "/admin/news/new",
     name: "NewsErstellen",
     component: NewsErstellen,
+    beforeEnter: AuthGuard,
   },
 ];
 
