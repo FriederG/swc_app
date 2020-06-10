@@ -18,7 +18,7 @@
       </v-app-bar>
     </v-card>
     <!--Header mobile, der sich von unten hochfährt-->
-    <v-navigation-drawer v-model="sideNav" absolute temporary>
+    <v-navigation-drawer v-model="sideNav" fixed app temporary>
       <v-list shaped>
         <v-subheader>Menu</v-subheader>
         <v-list-item-group color="primary">
@@ -48,7 +48,6 @@
     </v-navigation-drawer>
 
     <!--Header groß------------------------------------------------------------------------------------->
-
     <main style="margin: 30px;"><router-view></router-view></main>
   </v-app>
 </template>
