@@ -7,6 +7,7 @@ import FAQ from "../components/FAQ";
 import News from "../components/News";
 import Spielplan from "../components/Spielplan";
 import AdminLogin from "../components/Admin/AdminLogin";
+import NewsErstellen from "../components/Admin/NewsErstellen";
 
 Vue.use(VueRouter);
 
@@ -45,6 +46,11 @@ const routes = [
     path: "/admin/login",
     name: "AdminLogin",
     component: AdminLogin,
+  },
+  {
+    path: "/admin/news/new",
+    name: "NewsErstellen",
+    component: NewsErstellen,
   },
 ];
 

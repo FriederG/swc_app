@@ -75,7 +75,13 @@ export default {
         { icon: "mdi-beer", title: "Pegelstand", link: "/pegelstand" },
       ];
       if (this.userIsAuthenticated) {
-        menuItems = [{ icon: "mdi-star", title: "Eingeloggt", link: "/about" }];
+        menuItems = [
+          {
+            icon: "mdi-star",
+            title: "News erstellen",
+            link: "/admin/news/new",
+          },
+        ];
       }
       return menuItems;
     },

@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
-import store from "./store";
+import { store } from "./store/index";
 import vuetify from "./plugins/vuetify";
 import VueI18n from "vue-i18n";
 import messages from "./lang";
@@ -44,5 +44,6 @@ new Vue({
       projectId: "schietwettercup",
       storageBucket: "gs://schietwettercup.appspot.com",
     });
+    this.$store.dispatch("loadNews");
   },
 }).$mount("#app");
