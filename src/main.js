@@ -7,6 +7,7 @@ import vuetify from "./plugins/vuetify";
 import VueI18n from "vue-i18n";
 import DateFilter from "./filters/date";
 import messages from "./lang";
+import VueInstagram from "vue-instagram";
 //alles aus firebase package wird importiert. Es können auch einzelne Features
 import * as firebase from "firebase";
 
@@ -21,6 +22,8 @@ Vue.config.productionTip = false;
 //sprachdatei konfigurieren
 //mehr Infos: https://webdeasy.de/vue-i18n-app/
 Vue.use(VueI18n);
+
+Vue.use(VueInstagram);
 
 //Komponenten global registrieren
 Vue.filter("date", DateFilter);
