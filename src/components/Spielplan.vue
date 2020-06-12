@@ -1,23 +1,19 @@
 <template
   ><div>
-    <h1>Spielplan</h1>
+    <h2>Spielplan</h2>
     <br />
-    <v-row>
-      <v-col>
-        <v-sheet height="400">
-          <v-calendar color="green" type="day">
-            <template v-slot:day-header="{ present }">
-              <template v-if="present" class="text-center">
-                Today
-              </template>
-            </template>
-
-            <template v-slot:interval="{ hour }">
-              <div class="text-center">{{ hour }} o'clock</div>
-            </template>
-          </v-calendar>
-        </v-sheet>
-      </v-col>
-    </v-row>
+    <h4>10:00h</h4>
+    <v-card class="mx-auto" max-width="344">
+      <v-list-item three-line>
+        <v-list-item-content>
+          <v-list-item-subtitle>Platz A</v-list-item-subtitle>
+          <v-list-item-title>Team 1 vs Team 2</v-list-item-title>
+        </v-list-item-content>
+        <v-list-item-content>
+          <v-list-item-subtitle>Ergebnis</v-list-item-subtitle>
+          <v-list-item-title>Hallo</v-list-item-title></v-list-item-content
+        >
+      </v-list-item>
+    </v-card>
   </div></template
 >
