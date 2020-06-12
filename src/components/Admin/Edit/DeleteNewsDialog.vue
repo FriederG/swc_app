@@ -1,7 +1,7 @@
 <template>
-  <v-dialog width="350px" persistent v-model="editDialog"
+  <v-dialog width="350px" class="v-alert" persistent v-model="editDialog"
     ><template v-slot:activator="{ on }">
-      <v-btn accent v-on="on">
+      <v-btn class="red--text darken-1" accent v-on="on">
         <v-icon>mdi-delete</v-icon>
       </v-btn></template
     >
@@ -9,18 +9,9 @@
       <v-container>
         <v-layout row wrap>
           <v-flex xs12>
-            <v-card-title>Beitrag löschen</v-card-title>
+            <v-card-title>Beitrag wirklich löschen?</v-card-title>
           </v-flex>
         </v-layout>
-        <v-divider></v-divider>
-        <v-layout row wrap>
-          <v-flex xs12>
-            <v-card-text>
-              <v-text-field>Beitrag wirklich löschen?</v-text-field>
-            </v-card-text>
-          </v-flex>
-        </v-layout>
-        <v-divider></v-divider>
         <v-layout row wrap>
           <v-flex xs12>
             <v-card-actions>
@@ -28,10 +19,10 @@
                 text
                 class="blue--text darken-1"
                 @click="editDialog = false"
-                >Close</v-btn
+                >Abbrechen</v-btn
               >
-              <v-btn text class="blue--text darken-1" @click="onSaveDelete"
-                >Save</v-btn
+              <v-btn text class="red--text darken-1" @click="onSaveDelete"
+                >Löschen</v-btn
               >
             </v-card-actions>
           </v-flex>

@@ -202,7 +202,7 @@ export default {
       });
     },
     featuredNews(state, getters) {
-      return getters.loadedNews.slice(0, 5);
+      return getters.loadedNews.slice(-1);
     },
     loadedMeetup(state) {
       return (meetupId) => {

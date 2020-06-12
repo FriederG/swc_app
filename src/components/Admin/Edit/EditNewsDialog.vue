@@ -1,7 +1,7 @@
 <template>
   <v-dialog width="350px" persistent v-model="editDialog"
     ><template v-slot:activator="{ on }">
-      <v-btn accent v-on="on">
+      <v-btn style="margin: 10px;" accent v-on="on">
         <v-icon>mdi-border-color</v-icon>
       </v-btn></template
     >
