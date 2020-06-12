@@ -10,6 +10,7 @@ import AdminLogin from "../components/Admin/AdminLogin";
 import NewsErstellen from "../components/Admin/NewsErstellen";
 import NewsBearbeiten from "../components/Admin/NewsBearbeiten";
 import InstaFeed from "../components/InstaFeed";
+import TeamsVerwalten from "../components/Admin/TeamVerwaltung";
 
 import AuthGuard from "./auth-guard";
 
@@ -66,6 +67,12 @@ const routes = [
     path: "/admin/news/edit",
     name: "NewsBearbeiten",
     component: NewsBearbeiten,
+    beforeEnter: AuthGuard,
+  },
+  {
+    path: "/admin/teams",
+    name: "TeamsVerwalten",
+    component: TeamsVerwalten,
     beforeEnter: AuthGuard,
   },
 ];

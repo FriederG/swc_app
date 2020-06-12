@@ -81,14 +81,19 @@ export default {
       if (this.userIsAuthenticated) {
         menuItems = [
           {
-            icon: "mdi-star",
+            icon: "mdi-plus",
             title: "News erstellen",
             link: "/admin/news/new",
           },
           {
-            icon: "mdi-star",
+            icon: "mdi-newspaper",
             title: "News bearbeiten",
             link: "/admin/news/edit",
+          },
+          {
+            icon: "mdi-human",
+            title: "Teams bearbeiten",
+            link: "/admin/teams",
           },
         ];
       }
