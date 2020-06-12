@@ -197,12 +197,12 @@ export default {
 
   getters: {
     loadedNews(state) {
-      return state.loadedNews.sort((newsA, newsB) => {
+      return state.loadedNews.reverse((newsA, newsB) => {
         return newsA.date > newsB.date;
       });
     },
     featuredNews(state, getters) {
-      return getters.loadedNews.slice(-1);
+      return getters.loadedNews.slice(0, 1);
     },
     loadedMeetup(state) {
       return (meetupId) => {

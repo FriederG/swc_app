@@ -10,21 +10,22 @@
             v-for="singleNews in news"
             :key="singleNews.id"
             class="mb-2"
-          >
-            <v-card class="mx-auto" max-width="400"
-              ><h3 style="padding: 20px;">News</h3>
-              <v-img
-                class="white--text align-end"
-                height="200px"
-                :src="singleNews.imageUrl"
-              >
-                <v-card-title>{{ singleNews.title }}</v-card-title>
-              </v-img>
+            ><router-link style="text-decoration: none;" to="/news">
+              <v-card class="mx-auto" max-width="400"
+                ><h3 style="padding: 20px;">News</h3>
+                <v-img
+                  class="white--text align-end"
+                  height="200px"
+                  :src="singleNews.imageUrl"
+                >
+                  <v-card-title>{{ singleNews.title }}</v-card-title>
+                </v-img>
 
-              <v-expansion-panel-content class="text--primary">
-                <div>{{ singleNews.description }}</div>
-              </v-expansion-panel-content>
-            </v-card>
+                <v-expansion-panel-content class="text--primary">
+                  <div>{{ singleNews.description }}</div>
+                </v-expansion-panel-content>
+              </v-card></router-link
+            >
           </v-expansion-panel>
         </v-expansion-panels>
       </v-layout>
