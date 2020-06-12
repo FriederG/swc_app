@@ -1,8 +1,8 @@
 <template>
   <vue-instagram
-    token="IGQVJWLXdOVXAtQjkweG5wZAGtLUTRjTkQ5VXlZAWTlYYkdKZA09pVS15OGVfTjF0UjZAVQnFONnBvb2FNbWJKLU1MT1dhNUlRTnRqU2VLUjdoLXBSQkc1d2xJMGFjdDI2cXQ5aWtsQVdSZAUxpSl9Ja2x3TQZDZD"
-    :count="5"
-    :tags="['segeln', 'hashtag2']"
+    token="IGQVJXRlB0YThtNEk5SXR0c3hoM051eU5HZAHpGQ1Ftd1NIa1RVRnFMd0RLN2pWYzB5ajBxUUl0TlR5SjUyRF9aalA3cWFkaG5VSHNRdDJhZAVdNbDQ4NjJsLWdxczdnczMwSkRFWmFtLWo5T2k2LVc4SgZDZD"
+    :count="10"
+    :tags="['boat', 'sailing']"
     mediaType="image"
   >
     <template slot="feeds" slot-scope="props">
