@@ -9,6 +9,7 @@ import Spielplan from "../components/Spielplan";
 import AdminLogin from "../components/Admin/AdminLogin";
 import NewsErstellen from "../components/Admin/NewsErstellen";
 import NewsBearbeiten from "../components/Admin/NewsBearbeiten";
+import InstaFeed from "../components/InstaFeed";
 
 import AuthGuard from "./auth-guard";
 
@@ -44,6 +45,11 @@ const routes = [
     path: "/spielplan",
     name: "Spielplan",
     component: Spielplan,
+  },
+  {
+    path: "/instafeed",
+    name: "InstaFeed",
+    component: InstaFeed,
   },
   {
     path: "/admin/login",
