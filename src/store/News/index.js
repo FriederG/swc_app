@@ -176,6 +176,23 @@ export default {
           commit("setLoading", false);
         });
     },
+
+    deleteNewsData({ commit }, payload) {
+      commit("setLoading", true);
+      firebase
+        .database()
+        .ref("news")
+        .child(payload.id)
+        .remove()
+        .then(() => {
+          commit("setLoading", false);
+          commit("updateNews", payload);
+        })
+        .catch((error) => {
+          console.log(error);
+          commit("setLoading", false);
+        });
+    },
   },
 
   getters: {

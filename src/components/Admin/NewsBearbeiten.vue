@@ -14,7 +14,7 @@
           <v-card-title>{{ singleNews.title }}</v-card-title>
         </v-img>
         <edit-news-dialog :news="singleNews"></edit-news-dialog>
-
+        <delete-news-dialog :news="singleNews"></delete-news-dialog>
         <v-card-text class="text--primary">
           <div>{{ singleNews.date }}</div>
         </v-card-text>
