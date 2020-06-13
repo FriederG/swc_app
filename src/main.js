@@ -17,6 +17,8 @@ import AlertCmp from "./components/Alert";
 import EditNewsDialog from "./components/Admin/Edit/EditNewsDialog";
 import DeleteNewsDialog from "@/components/Admin/Edit/DeleteNewsDialog";
 import appFooter from "./components/Footer";
+import DeleteTeamDialog from "@/components/Admin/Edit/DeleteTeamDialog";
+import EditTeamDialog from "@/components/Admin/Edit/EditTeamDialog";
 
 Vue.config.productionTip = false;
 
@@ -32,6 +34,8 @@ Vue.component("app-footer", appFooter);
 Vue.component("app-alert", AlertCmp);
 Vue.component("edit-news-dialog", EditNewsDialog);
 Vue.component("delete-news-dialog", DeleteNewsDialog);
+Vue.component("delete-team-dialog", DeleteTeamDialog);
+Vue.component("edit-team-dialog", EditTeamDialog);
 
 export const i18n = new VueI18n({
   locale: "de",
@@ -61,5 +65,6 @@ new Vue({
       }
     });
     this.$store.dispatch("loadNews");
+    this.$store.dispatch("loadTeams");
   },
 }).$mount("#app");

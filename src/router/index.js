@@ -11,6 +11,7 @@ import NewsErstellen from "../components/Admin/NewsErstellen";
 import NewsBearbeiten from "../components/Admin/NewsBearbeiten";
 import InstaFeed from "../components/InstaFeed";
 import TeamsVerwalten from "../components/Admin/TeamVerwaltung";
+import SpielplanVerwaltung from "@/components/Admin/SpielplanVerwaltung";
 
 import AuthGuard from "./auth-guard";
 
@@ -73,6 +74,12 @@ const routes = [
     path: "/admin/teams",
     name: "TeamsVerwalten",
     component: TeamsVerwalten,
+    beforeEnter: AuthGuard,
+  },
+  {
+    path: "/admin/spielplan",
+    name: "SpielplanVerwalten",
+    component: SpielplanVerwaltung,
     beforeEnter: AuthGuard,
   },
 ];

@@ -41,7 +41,7 @@
 
           <v-list-item @click="onLogout" v-if="userIsAuthenticated">
             <v-list-item-icon>
-              <v-icon>mdi-exit_to_app</v-icon>
+              <v-icon>mdi-logout</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Logout</v-list-item-title>
@@ -92,8 +92,13 @@ export default {
           },
           {
             icon: "mdi-human",
-            title: "Teams bearbeiten",
+            title: "Teams verwalten",
             link: "/admin/teams",
+          },
+          {
+            icon: "mdi-table",
+            title: "Spielplan verwalten",
+            link: "/admin/spielplan",
           },
         ];
       }

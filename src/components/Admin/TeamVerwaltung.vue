@@ -26,12 +26,22 @@
               <v-btn class="primary" :disabled="!formIsValid" type="submit"
                 >Team hinzufügen</v-btn
               >
-              {{ submittableDateTime }}
+              <!--      {{ submittableDateTime }} -->
             </v-flex>
           </v-layout>
         </form>
       </v-flex>
     </v-layout>
+
+    <v-container> </v-container>
+    <!-- Anzeige und Bearbeitung -->
+    <v-container v-for="team in teams" :key="team.id">
+      <v-card class="mx-auto" max-width="400px"
+        ><v-card-text>{{ team.title }}</v-card-text
+        ><edit-team-dialog :team="team"></edit-team-dialog>
+        <delete-team-dialog :team="team"></delete-team-dialog
+      ></v-card>
+    </v-container>
   </v-container>
 </template>
 
@@ -59,6 +69,9 @@ export default {
         date.setMinutes(this.time.getMinutes());
       }
       return date;
+    },
+    teams() {
+      return this.$store.getters.loadedTeams;
     },
   },
   methods: {

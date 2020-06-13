@@ -2,24 +2,28 @@ import * as firebase from "firebase";
 
 export default {
   state: {
-    loadedTeams: [],
+    loadedTeams: [
+      {
+        title: "Kiel",
+      },
+    ],
   },
   mutations: {
-    setLoadedNews(state, payload) {
-      state.loadedNews = payload;
+    setLoadedTeams(state, payload) {
+      state.loadedTeams = payload;
     },
     // createTeam() {
     //state.loadedNews.push(payload);
     //  },
-    updateNews(state, payload) {
-      const news = state.loadedNews.find((news) => {
-        return news.id === payload.id;
+    updateTeams(state, payload) {
+      const team = state.loadedNews.find((team) => {
+        return team.id === payload.id;
       });
       if (payload.title) {
-        news.title = payload.title;
+        team.title = payload.title;
       }
       if (payload.description) {
-        news.description = payload.description;
+        team.description = payload.description;
       }
     },
   },
@@ -57,27 +61,25 @@ export default {
             },*/
 
     //load news jetzt mit live update
-    loadNews({ commit }) {
+    loadTeams({ commit }) {
       commit("setLoading", true);
       firebase
         .database()
-        .ref("news")
+        .ref("teams")
         //sobald sich etwas in der Firebase ändert
         .on("value", function (snapshot) {
-          const news = [];
+          const teams = [];
           const obj = snapshot.val();
           //Daten aus firebase in Array überführen
           for (let key in obj) {
-            news.push({
+            teams.push({
               id: key,
               title: obj[key].title,
-              description: obj[key].description,
-              imageUrl: obj[key].imageUrl,
               date: obj[key].date,
               //creatorId: obj[key].creatorId,
             });
           }
-          commit("setLoadedNews", news);
+          commit("setLoadedTeams", teams);
           commit("setLoading", false);
         });
     },
@@ -103,27 +105,24 @@ export default {
           console.log(error);
         });
     },
-    updateNewsData({ commit }, payload) {
+    updateTeamsData({ commit }, payload) {
       commit("setLoading", true);
       //leeres Objekt, Dinge, die geupdated werden werden zugefügt
       const updateObj = {};
       if (payload.title) {
         updateObj.title = payload.title;
       }
-      if (payload.description) {
-        updateObj.description = payload.description;
-      }
       if (payload.date) {
         updateObj.date = payload.date;
       }
       firebase
         .database()
-        .ref("news")
+        .ref("teams")
         .child(payload.id)
         .update(updateObj)
         .then(() => {
           commit("setLoading", false);
-          commit("updateNews", payload);
+          //  commit("updateTeams", payload);
         })
         .catch((error) => {
           console.log(error);
@@ -131,16 +130,16 @@ export default {
         });
     },
 
-    deleteNewsData({ commit }, payload) {
+    deleteTeamData({ commit }, payload) {
       commit("setLoading", true);
       firebase
         .database()
-        .ref("news")
+        .ref("teams")
         .child(payload.id)
         .remove()
         .then(() => {
           commit("setLoading", false);
-          commit("updateNews", payload);
+          commit("updateTeams", payload);
         })
         .catch((error) => {
           console.log(error);
@@ -150,15 +149,15 @@ export default {
   },
 
   getters: {
-    loadedNews(state) {
-      return state.loadedNews.reverse((newsA, newsB) => {
+    loadedTeams(state) {
+      return state.loadedTeams.reverse((newsA, newsB) => {
         return newsA.date > newsB.date;
       });
     },
-    featuredNews(state, getters) {
+    featuredTeams(state, getters) {
       return getters.loadedNews.slice(0, 1);
     },
-    loadedMeetup(state) {
+    loadedTeam(state) {
       return (meetupId) => {
         return state.loadedNews.find((meetup) => {
           return meetup.id === meetupId;
