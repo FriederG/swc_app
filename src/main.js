@@ -66,5 +66,6 @@ new Vue({
     });
     this.$store.dispatch("loadNews");
     this.$store.dispatch("loadTeams");
+    this.$store.dispatch("loadGames");
   },
 }).$mount("#app");

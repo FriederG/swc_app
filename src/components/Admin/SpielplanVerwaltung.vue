@@ -10,7 +10,7 @@
     <v-layout row>
       <v-flex xs12>
         <!--Prevent verhindert http-request-->
-        <form @submit.prevent="onCreateMeetup">
+        <form @submit.prevent="onCreateGame">
           <!-- Platz --------------------------------------------------------------->
           <v-layout row>
             <h4>Platz:</h4>
@@ -89,12 +89,6 @@
               >
             </v-flex>
           </v-layout>
-
-          <v-layout row>
-            <v-flex xs12 sm6 offset-sm3>
-              <img :src="imageUrl" height="150" />
-            </v-flex>
-          </v-layout>
         </form>
       </v-flex>
     </v-layout>
@@ -108,11 +102,9 @@ export default {
       pitches: ["A", "B", "C"],
       team1: "",
       team2: "",
-      pitch: "A",
-      title: "",
-      location: "",
-      imageUrl: "",
-      description: "",
+      scoreTeam1: "",
+      scoreTeam2: "",
+      pitch: "",
       picker: new Date().toISOString().substr(0, 10),
       time: new Date(),
       image: null,
@@ -120,12 +112,7 @@ export default {
   },
   computed: {
     formIsValid() {
-      return (
-        this.title !== "" &&
-        this.location !== "" &&
-        this.imageUrl !== "" &&
-        this.description !== ""
-      );
+      return this.pitch !== "" && this.team1 !== "" && this.team2 !== "";
     },
     submittableDateTime() {
       const date = new Date(this.picker);
@@ -145,39 +132,21 @@ export default {
     },
   },
   methods: {
-    onCreateMeetup() {
+    onCreateGame() {
       //Wenn die Form ungültig ist
       if (!this.formIsValid) {
         return;
       }
-      if (!this.image) {
-        return;
-      }
-      const meetupData = {
-        title: this.title,
-        location: this.location,
-        image: this.image,
-        description: this.description,
+      const gameData = {
+        pitch: this.pitch,
+        team1: this.team1,
+        team2: this.team2,
+        scoreTeam1: this.scoreTeam1,
+        scoreTeam2: this.scoreTeam2,
         date: this.submittableDateTime,
       };
-      this.$store.dispatch("createMeetup", meetupData);
-      this.$router.push("/meetups");
-    },
-    onPickFile() {
-      this.$refs.fileInput.click();
-    },
-    onFilePicked(event) {
-      const files = event.target.files;
-      let filename = files[0].name;
-      if (filename.lastIndexOf(".") <= 0) {
-        return alert("Please add a valid file!");
-      }
-      const fileReader = new FileReader();
-      fileReader.addEventListener("load", () => {
-        this.imageUrl = fileReader.result;
-      });
-      fileReader.readAsDataURL(files[0]);
-      this.image = files[0];
+      this.$store.dispatch("createGame", gameData);
+      //this.$router.push("/meetups");
     },
   },
 };

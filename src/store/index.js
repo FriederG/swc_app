@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import news from "./News";
 import signin from "./SignIn";
 import teams from "./Teams";
+import games from "./Games";
 
 Vue.use(Vuex);
 
@@ -12,5 +13,6 @@ export const store = new Vuex.Store({
     news: news,
     signin: signin,
     teams: teams,
+    games: games,
   },
 });
