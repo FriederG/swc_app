@@ -5,6 +5,7 @@ export default {
     loadedGames: [
       {
         title: "Kiel",
+        time: "19999999999",
       },
     ],
   },
