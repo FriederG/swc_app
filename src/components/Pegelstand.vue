@@ -34,6 +34,8 @@
         </tr>
       </table>
     </v-simple-table>
+    <br />
+    <p>{{ alc_calc_male }}</p>
   </div>
 </template>
 
@@ -61,6 +63,20 @@ export default {
     },
     more_drinks() {
       this.drink_count = this.drink_count + 1;
+    },
+  },
+  computed: {
+    alc_calc_male() {
+      return (
+        (this.beer_count * 12 +
+          this.wine_count * 15 +
+          this.shot_count * 7 +
+          this.drink_count * 12) /
+        (70 * 0.55)
+      );
+    },
+    alc_calc_female() {
+      return (this.beer_count * 12) / (70 * 0.68);
     },
   },
 };
