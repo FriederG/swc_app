@@ -6,6 +6,7 @@ import Ergebnisse from "../components/Ergebnisse";
 import FAQ from "../components/FAQ";
 import News from "../components/News";
 import Spielplan from "../components/Spielplan";
+import Pegelstand from "../components/Pegelstand";
 import AdminLogin from "../components/Admin/AdminLogin";
 import NewsErstellen from "../components/Admin/NewsErstellen";
 import NewsBearbeiten from "../components/Admin/NewsBearbeiten";
@@ -52,6 +53,11 @@ const routes = [
     path: "/instafeed",
     name: "InstaFeed",
     component: InstaFeed,
+  },
+  {
+    path: "/pegelstand",
+    name: "Pegelstand",
+    component: Pegelstand,
   },
   {
     path: "/admin/login",
