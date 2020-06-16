@@ -5,6 +5,7 @@ export default {
     loadedGames: [
       {
         title: "Kiel",
+        time: "19999999999",
       },
     ],
   },
@@ -126,9 +127,12 @@ export default {
 
   getters: {
     loadedGames(state) {
-      return state.loadedGames.reverse((newsA, newsB) => {
-        return newsA.date > newsB.date;
+      return state.loadedGames.sort((newsA, newsB) => {
+        return newsA.time > newsB.time;
       });
+      //      state.loadedGames.sort(function (a, b) {
+      //      return new Date(b.time) - new Date(a.time);
+      //  });
     },
     featuredGames(state, getters) {
       return getters.loadedNews.slice(0, 1);

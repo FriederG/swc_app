@@ -6,6 +6,7 @@ import { store } from "./store/index";
 import vuetify from "./plugins/vuetify";
 import VueI18n from "vue-i18n";
 import DateFilter from "./filters/date";
+import DayFilter from "./filters/day";
 import messages from "./lang";
 import VueInstagram from "vue-instagram";
 
@@ -30,6 +31,7 @@ Vue.use(VueInstagram);
 
 //Komponenten global registrieren
 Vue.filter("date", DateFilter);
+Vue.filter("day", DayFilter);
 Vue.component("app-footer", appFooter);
 Vue.component("app-alert", AlertCmp);
 Vue.component("edit-news-dialog", EditNewsDialog);
