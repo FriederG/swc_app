@@ -4,7 +4,7 @@
     <br />
 
     <v-container v-for="group in groupedByDate" :key="group.id">
-      <h1>{{ group.time | date }}</h1>
+      <h1>{{ group.time }}</h1>
       <div v-for="game in group.characters" :key="game.id">
         <v-card class="mx-auto" max-width="400">
           <v-list-item three-line>
@@ -122,7 +122,9 @@ export default {
       return _.chain(this.games)
         .groupBy((character) => character.time)
         .map((characters, time) => ({ time, characters }))
-        .orderBy((group) => Number(group.time), ["asc"])
+        .orderBy((group) => Number(group.time.slice(11, 16).replace(":", "")), [
+          "asc",
+        ])
         .value();
     },
   },
