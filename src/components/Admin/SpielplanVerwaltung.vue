@@ -34,6 +34,24 @@
               </v-radio-group>
             </v-flex>
           </v-layout>
+          <!--Geschlecht ----------------------------------------------------------->
+          <v-layout row>
+            <h4>Turnierbaum</h4>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-radio-group v-model="modelGender" row>
+                <v-radio
+                  style="margin-left: 20px;"
+                  label="Damen"
+                  value="female"
+                ></v-radio>
+                <v-radio
+                  style="margin-left: 20px;"
+                  label="Herren"
+                  value="male"
+                ></v-radio>
+              </v-radio-group>
+            </v-flex>
+          </v-layout>
 
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3><h4>Datum und Uhrzeit</h4></v-flex>
@@ -52,35 +70,70 @@
             >
           </v-layout>
           <!--Teamauswahl ---------------------------------------------------------------->
-          <v-layout row>
-            <v-flex xs12 sm6 offset-sm3>
-              <v-select
-                name="team1"
-                label="Team 1"
-                id="team1"
-                v-model="team1"
-                required
-                :items="teams"
-                item-text="title"
-                ><option>Fe</option></v-select
-              >
-            </v-flex>
-          </v-layout>
-          <v-card-text>vs.</v-card-text>
-          <v-layout row>
-            <v-flex xs12 sm6 offset-sm3>
-              <v-select
-                name="team2"
-                label="Team 2"
-                id="team2"
-                v-model="team2"
-                required
-                :items="teams"
-                item-text="title"
-                ><option>Fe</option></v-select
-              >
-            </v-flex>
-          </v-layout>
+          <!--männlicher Baum-->
+          <div v-if="modelGender === 'male'">
+            <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <v-select
+                  name="team1"
+                  label="Team 1"
+                  id="team1"
+                  v-model="team1"
+                  required
+                  :items="maleTeams"
+                  item-text="title"
+                  ><option>Fe</option></v-select
+                >
+              </v-flex>
+            </v-layout>
+            <v-card-text>vs.</v-card-text>
+            <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <v-select
+                  name="team2"
+                  label="Team 2"
+                  id="team2"
+                  v-model="team2"
+                  required
+                  :items="maleTeams"
+                  item-text="title"
+                  ><option>Fe</option></v-select
+                >
+              </v-flex>
+            </v-layout>
+          </div>
+          <!--weiblicher Baum-->
+          <div v-if="modelGender === 'female'">
+            <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <v-select
+                  name="team1"
+                  label="Team 1"
+                  id="team1"
+                  v-model="team1"
+                  required
+                  :items="femaleTeams"
+                  item-text="title"
+                  ><option>Fe</option></v-select
+                >
+              </v-flex>
+            </v-layout>
+            <v-card-text>vs.</v-card-text>
+            <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <v-select
+                  name="team2"
+                  label="Team 2"
+                  id="team2"
+                  v-model="team2"
+                  required
+                  :items="femaleTeams"
+                  item-text="title"
+                  ><option>Fe</option></v-select
+                >
+              </v-flex>
+            </v-layout>
+          </div>
 
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
@@ -105,6 +158,7 @@ export default {
       scoreTeam1: "",
       scoreTeam2: "",
       pitch: "",
+      modelGender: "",
       picker: new Date().toISOString().substr(0, 10),
       time: new Date(),
       image: null,
@@ -130,6 +184,16 @@ export default {
     teams() {
       return this.$store.getters.loadedTeams;
     },
+    femaleTeams() {
+      const damen = "female";
+      //filtern nach Inhalten, die als gender female eingetragen haben
+      return this.teams.filter((c) => c.gender.indexOf(damen) > -1);
+    },
+    maleTeams() {
+      const herren = "male";
+      //filtern nach Inhalten, die als gender male eingetragen haben
+      return this.teams.filter((c) => c.gender.indexOf(herren) < 1);
+    },
   },
   methods: {
     onCreateGame() {
@@ -139,6 +203,7 @@ export default {
       }
       const gameData = {
         pitch: this.pitch,
+        gameGender: this.modelGender,
         team1: this.team1,
         team2: this.team2,
         scoreTeam1: this.scoreTeam1,
