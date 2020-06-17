@@ -30,7 +30,7 @@
           name="team1"
           label="Team 1"
           id="team1"
-          v-model="team1"
+          v-model="selectedTeam"
           required
           :items="teams"
           item-text="title"
@@ -39,20 +39,24 @@
       </v-flex>
     </v-layout>
 
-    {{ this.team1 }}
+    {{ this.selectedTeam }}
 
     <v-container v-for="group in selectedGamesByDate" :key="group.id">
       <h1>{{ group.time | date }}</h1>
       <div v-for="game in group.characters" :key="game.id">
         <v-card class="mx-auto" max-width="400">
-          <v-list-item three-line>
+          <v-list-item
+            three-line
+            v-bind:class="[
+              game.team1 === selectedTeam || game.team2 === selectedTeam
+                ? { selectedTeam: true }
+                : { selectedTeam: false },
+            ]"
+          >
             <v-list-item-content>
-              <a v-if="game.team1 === team1" style="color: red;">
-                Hiier
-                <v-list-item-subtitle
-                  >Platz: {{ game.pitch }}</v-list-item-subtitle
-                >
-              </a>
+              <v-list-item-subtitle
+                >Platz: {{ game.pitch }}</v-list-item-subtitle
+              >
               <v-list-item-title
                 ><b>{{ game.team1 }}</b></v-list-item-title
               >
@@ -80,10 +84,11 @@ import _ from "lodash";
 export default {
   data() {
     return {
+      isActive: true,
       title: "",
       day: "2020-06-29T13:46:00.000Z",
       time: new Date(),
-      team1: "",
+      selectedTeam: "",
       message: "",
     };
   },
@@ -139,3 +144,10 @@ export default {
   },
 };
 </script>
+
+<style>
+.selectedTeam {
+  color: white;
+  background-color: lightgreen;
+}
+</style>
