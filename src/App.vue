@@ -101,6 +101,11 @@ export default {
             link: "/admin/spielplan",
           },
           {
+            icon: "mdi-group",
+            title: "Gruppen verwalten",
+            link: "/admin/gruppen",
+          },
+          {
             icon: "mdi-reply",
             title: "Ergebnisse bearbeiten",
             link: "/admin/ergebnisse",

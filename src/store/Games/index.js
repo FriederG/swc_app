@@ -119,12 +119,12 @@ export default {
       commit("setLoading", true);
       firebase
         .database()
-        .ref("teams")
+        .ref("games")
         .child(payload.id)
         .remove()
         .then(() => {
           commit("setLoading", false);
-          commit("updateTeams", payload);
+          commit("updateGames", payload);
         })
         .catch((error) => {
           console.log(error);

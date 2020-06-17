@@ -77,7 +77,8 @@
                 {{ game.scoreTeam2 }}</v-list-item-title
               ></v-list-item-content
             ><edit-results-dialog :game="game"></edit-results-dialog>
-          </v-list-item> </v-card
+          </v-list-item>
+          <delete-game-dialog :game="game"></delete-game-dialog> </v-card
         ><br />
       </div>
     </v-container></div
