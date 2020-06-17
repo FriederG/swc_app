@@ -129,7 +129,7 @@ export default {
           this.wine_count * 15 +
           this.shot_count * 7 +
           this.drink_count * 12) /
-        (70 * 0.55)
+        (this.weight * 0.55)
       );
     },
     alc_calc_female() {
@@ -138,7 +138,7 @@ export default {
           this.wine_count * 15 +
           this.shot_count * 7 +
           this.drink_count * 12) /
-        (70 * 0.68)
+        (this.weight * 0.68)
       );
     },
   },
