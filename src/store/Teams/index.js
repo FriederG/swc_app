@@ -22,6 +22,9 @@ export default {
       if (payload.title) {
         team.title = payload.title;
       }
+      if (payload.gender) {
+        team.gender = payload.gender;
+      }
       if (payload.description) {
         team.description = payload.description;
       }
@@ -75,6 +78,7 @@ export default {
             teams.push({
               id: key,
               title: obj[key].title,
+              gender: obj[key].gender,
               date: obj[key].date,
               //creatorId: obj[key].creatorId,
             });
@@ -88,6 +92,7 @@ export default {
       console.log(payload.title);
       const team = {
         title: payload.title,
+        gender: payload.gender,
         date: payload.date.toISOString(),
         //creatorId: getters.user.id,
       };
@@ -111,6 +116,9 @@ export default {
       const updateObj = {};
       if (payload.title) {
         updateObj.title = payload.title;
+      }
+      if (payload.gender) {
+        updateObj.gender = payload.gender;
       }
       if (payload.date) {
         updateObj.date = payload.date;

@@ -26,6 +26,25 @@
             </v-card-text>
           </v-flex>
         </v-layout>
+
+        <v-layout row>
+          <v-card-text>Turnierzweig</v-card-text>
+          <v-flex xs12 sm6 offset-sm3>
+            <v-radio-group v-model="gender" row>
+              <v-radio
+                style="margin-left: 20px;"
+                label="Damen"
+                value="female"
+              ></v-radio>
+              <v-radio
+                style="margin-left: 20px;"
+                label="Herren"
+                value="male"
+              ></v-radio>
+            </v-radio-group>
+          </v-flex>
+        </v-layout>
+
         <v-divider></v-divider>
         <v-layout row wrap>
           <v-flex xs12>
@@ -48,11 +67,12 @@
 </template>
 <script>
 export default {
-  //prop aus der News.vue
+  //prop aus der TeamVerwaltung.vue
   props: ["team"],
   data() {
     return {
       editDialog: false,
+      gender: this.team.gender,
       editedTitle: this.team.title,
     };
   },
@@ -65,6 +85,7 @@ export default {
       this.$store.dispatch("updateTeamsData", {
         id: this.team.id,
         title: this.editedTitle,
+        gender: this.gender,
       });
     },
   },
