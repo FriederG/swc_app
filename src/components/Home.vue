@@ -37,6 +37,38 @@
                 </v-card></router-link
               >
             </v-expansion-panel>
+            <!--Score -->
+            <v-expansion-panel class="mb-2" style="margin-top: 10px;"
+              ><router-link style="text-decoration: none;" to="/spielplan">
+                <v-card class="mx-auto" max-width="400"
+                  ><h3 style="padding: 20px;">Spielplan</h3>
+                  <v-img
+                    class="white--text align-end"
+                    height="200px"
+                    src="../assets/pirate_low.jpg"
+                  >
+                  </v-img>
+
+                  <v-expansion-panel-content class="text--primary">
+                  </v-expansion-panel-content> </v-card
+              ></router-link>
+            </v-expansion-panel>
+
+            <v-expansion-panel class="mb-2" style="margin-top: 10px;"
+              ><router-link style="text-decoration: none;" to="/pegelstand">
+                <v-card class="mx-auto" max-width="400"
+                  ><h3 style="padding: 20px;">Pegelstand</h3>
+                  <v-img
+                    class="white--text align-end"
+                    height="200px"
+                    src="../assets/bier_low.jpg"
+                  >
+                  </v-img>
+
+                  <v-expansion-panel-content class="text--primary">
+                  </v-expansion-panel-content> </v-card
+              ></router-link>
+            </v-expansion-panel>
           </v-expansion-panels>
         </v-layout>
       </div>

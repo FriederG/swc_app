@@ -25,7 +25,7 @@
       </v-flex>
     </v-layout>
 
-    <h4>Dein Team:</h4>
+    <h4>Team hervorheben:</h4>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
         <v-select
