@@ -16,7 +16,7 @@ export default {
     // createTeam() {
     //state.loadedNews.push(payload);
     //  },
-    updateTeams(state, payload) {
+    updateGames(state, payload) {
       const team = state.loadedNews.find((team) => {
         return team.id === payload.id;
       });
@@ -45,6 +45,7 @@ export default {
               id: key,
               time: obj[key].date,
               pitch: obj[key].pitch,
+              gameGender: obj[key].gameGender,
               team1: obj[key].team1,
               team2: obj[key].team2,
               scoreTeam1: obj[key].scoreTeam1,
@@ -61,6 +62,7 @@ export default {
       console.log(payload.title);
       const game = {
         pitch: payload.pitch,
+        gameGender: payload.gameGender,
         team1: payload.team1,
         team2: payload.team2,
         scoreTeam1: payload.scoreTeam1,
@@ -92,9 +94,15 @@ export default {
       if (payload.date) {
         updateObj.date = payload.date;
       }
+      if (payload.scoreTeam1) {
+        updateObj.scoreTeam1 = payload.scoreTeam1;
+      }
+      if (payload.scoreTeam2) {
+        updateObj.scoreTeam2 = payload.scoreTeam2;
+      }
       firebase
         .database()
-        .ref("teams")
+        .ref("games")
         .child(payload.id)
         .update(updateObj)
         .then(() => {

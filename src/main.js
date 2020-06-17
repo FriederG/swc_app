@@ -20,6 +20,7 @@ import DeleteNewsDialog from "@/components/Admin/Edit/DeleteNewsDialog";
 import appFooter from "./components/Footer";
 import DeleteTeamDialog from "@/components/Admin/Edit/DeleteTeamDialog";
 import EditTeamDialog from "@/components/Admin/Edit/EditTeamDialog";
+import EditResultsDialog from "@/components/Admin/Edit/EditResultsDialog";
 
 Vue.config.productionTip = false;
 
@@ -38,6 +39,7 @@ Vue.component("edit-news-dialog", EditNewsDialog);
 Vue.component("delete-news-dialog", DeleteNewsDialog);
 Vue.component("delete-team-dialog", DeleteTeamDialog);
 Vue.component("edit-team-dialog", EditTeamDialog);
+Vue.component("edit-results-dialog", EditResultsDialog);
 
 export const i18n = new VueI18n({
   locale: "de",

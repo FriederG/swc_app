@@ -5,6 +5,7 @@ export default {
     loadedTeams: [
       {
         title: "Kiel",
+        gender: "gender",
       },
     ],
   },
@@ -89,7 +90,7 @@ export default {
     },
 
     createTeam(state, payload) {
-      console.log(payload.title);
+      //console.log(payload.title);
       const team = {
         title: payload.title,
         gender: payload.gender,

@@ -1,6 +1,6 @@
 <template
   ><div>
-    <h1>Spielplan</h1>
+    <h1>Ergebnisse eintragen</h1>
     <br />
     <h4>Tag wählen:</h4>
     <v-layout row>
@@ -76,7 +76,7 @@
                 >{{ game.scoreTeam1 }} :
                 {{ game.scoreTeam2 }}</v-list-item-title
               ></v-list-item-content
-            >
+            ><edit-results-dialog :game="game"></edit-results-dialog>
           </v-list-item> </v-card
         ><br />
       </div>

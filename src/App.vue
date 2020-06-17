@@ -100,6 +100,11 @@ export default {
             title: "Spielplan verwalten",
             link: "/admin/spielplan",
           },
+          {
+            icon: "mdi-reply",
+            title: "Ergebnisse bearbeiten",
+            link: "/admin/ergebnisse",
+          },
         ];
       }
       return menuItems;
