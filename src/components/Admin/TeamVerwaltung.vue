@@ -3,6 +3,7 @@
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
         <h2>Neues Team</h2>
+        <br />
       </v-flex>
     </v-layout>
     <v-layout row>
@@ -11,6 +12,7 @@
         <form @submit.prevent="onCreateTeam">
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
+              <h4>Teamname</h4>
               <v-text-field
                 name="title"
                 label="Teamname"
@@ -18,6 +20,24 @@
                 v-model="title"
                 required
               ></v-text-field>
+            </v-flex>
+          </v-layout>
+
+          <v-layout row>
+            <h4>Turnierzweig</h4>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-radio-group v-model="gender" row>
+                <v-radio
+                  style="margin-left: 20px;"
+                  label="Damen"
+                  value="female"
+                ></v-radio>
+                <v-radio
+                  style="margin-left: 20px;"
+                  label="Herren"
+                  value="male"
+                ></v-radio>
+              </v-radio-group>
             </v-flex>
           </v-layout>
 
@@ -50,12 +70,13 @@ export default {
   data() {
     return {
       title: "",
+      gender: "",
       time: new Date(),
     };
   },
   computed: {
     formIsValid() {
-      return this.title !== "";
+      return this.title !== "" && this.gender !== "";
     },
     submittableDateTime() {
       const date = new Date();
@@ -83,6 +104,7 @@ export default {
       }
       const TeamData = {
         title: this.title,
+        gender: this.gender,
         date: this.submittableDateTime,
       };
       this.$store.dispatch("createTeam", TeamData);
