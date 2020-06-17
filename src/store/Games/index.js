@@ -94,9 +94,15 @@ export default {
       if (payload.date) {
         updateObj.date = payload.date;
       }
+      if (payload.scoreTeam1) {
+        updateObj.scoreTeam1 = payload.scoreTeam1;
+      }
+      if (payload.scoreTeam2) {
+        updateObj.scoreTeam2 = payload.scoreTeam2;
+      }
       firebase
         .database()
-        .ref("teams")
+        .ref("games")
         .child(payload.id)
         .update(updateObj)
         .then(() => {
