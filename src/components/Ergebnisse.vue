@@ -106,3 +106,52 @@
     </v-container>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      title: "",
+      gender: "",
+      time: new Date(),
+    };
+  },
+  computed: {
+    formIsValid() {
+      return this.title !== "" && this.gender !== "";
+    },
+    submittableDateTime() {
+      const date = new Date();
+      if (typeof this.time == "string") {
+        const hours = this.time.match(/^(\d+)/)[1];
+        const minutes = this.time.match(/:(\d+)/)[1];
+        date.setHours(hours);
+        date.setMinutes(minutes);
+      } else {
+        date.setHours(this.time.getHours());
+        date.setMinutes(this.time.getMinutes());
+      }
+      return date;
+    },
+    groups() {
+      return this.$store.getters.loadedGroups;
+    },
+  },
+  methods: {
+    onCreateTeam() {
+      console.log(this.title);
+      //Wenn die Form ungültig ist
+      if (!this.formIsValid) {
+        return;
+      }
+      const TeamData = {
+        title: this.title,
+        gender: this.gender,
+        date: this.submittableDateTime,
+      };
+      this.$store.dispatch("createTeam", TeamData);
+      //this.$router.push("/admin/news/edit");
+    },
+  },
+};
+</script>
