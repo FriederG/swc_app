@@ -104,15 +104,21 @@ export default {
     //Fragt ab ob die Seite bereits auf diesem Gerät aufgerufen wurde
     if (localStorage.getItem("entered") === "true") {
       this.entered = "true";
+      this.gender = localStorage.getItem("gender");
+      this.weight = parseInt(localStorage.getItem("weight"));
+      this.beer_count = parseInt(localStorage.getItem("beer_count"));
+      this.wine_count = parseInt(localStorage.getItem("wine_count"));
+      this.shot_count = parseInt(localStorage.getItem("shot_count"));
+      this.drink_count = parseInt(localStorage.getItem("drink_count"));
     } else {
       this.entered = "false";
+      this.gender = "female";
+      this.weight = 70;
+      this.beer_count = 0;
+      this.wine_count = 0;
+      this.shot_count = 0;
+      this.drink_count = 0;
     }
-    this.gender = localStorage.getItem("gender");
-    this.weight = parseInt(localStorage.getItem("weight"));
-    this.beer_count = parseInt(localStorage.getItem("beer_count"));
-    this.wine_count = parseInt(localStorage.getItem("wine_count"));
-    this.shot_count = parseInt(localStorage.getItem("shot_count"));
-    this.drink_count = parseInt(localStorage.getItem("drink_count"));
   },
 
   methods: {
