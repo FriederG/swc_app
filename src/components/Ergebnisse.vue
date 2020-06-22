@@ -1,49 +1,50 @@
 <template>
   <div>
-    <h1>Ergebnisse</h1>
+    <h1>Punkte</h1>
     <br />
 
     <h2>Gruppenphase</h2>
-    <v-container fluid>
+    <v-container fluid v-for="group in groups" :key="group.id">
       <v-row align="center">
         <v-col>
           <v-card width="400px">
-            <v-card-title>Gruppe A</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card width="400px">
-            <v-card-title>Gruppe B</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card width="400px">
-            <v-card-title>Gruppe C</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card width="400px">
-            <v-card-title>Gruppe D</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-            <v-card-text>Team 1 - Team 2</v-card-text>
+            <v-card-title>Gruppe: {{ group.groupName }} </v-card-title>
+
+            <v-card-text>{{ group.groupTeam1 }} </v-card-text>
+            <div v-for="game in games" :id="game.id" v-bind:key="game.id">
+              <div v-if="game.team1 === group.groupTeam1">{{ game.team1 }}</div>
+            </div>
+
+            <v-card-text>{{ group.groupTeam2 }}</v-card-text>
+            <v-card-text v-if="group.groupTeam3">{{
+              group.groupTeam3
+            }}</v-card-text>
+            <v-card-text v-if="group.groupTeam4">{{
+              group.groupTeam4
+            }}</v-card-text>
+            <v-card-text v-if="group.groupTeam5">{{
+              group.groupTeam5
+            }}</v-card-text>
+            <v-card-text v-if="group.groupTeam6">{{
+              group.groupTeam6
+            }}</v-card-text>
+            <v-card-text v-if="group.groupTeam7">{{
+              group.groupTeam7
+            }}</v-card-text>
+            <v-card-text v-if="group.groupTeam8">{{
+              group.groupTeam8
+            }}</v-card-text>
           </v-card>
         </v-col>
       </v-row>
     </v-container>
+
+    <v-container v-for="game in games" :key="game.id"
+      >{{ game }}{{ game.team1 }} punkte: {{ game.scoreTeam1 }}</v-container
+    >
+    <v-container v-for="teamGame in gamesOfTeam" :key="teamGame.id">
+      Games of Team: {{ teamGame }}</v-container
+    >
 
     <v-container fluid>
       <h2>Viertelfinale</h2>
@@ -117,40 +118,19 @@ export default {
     };
   },
   computed: {
-    formIsValid() {
-      return this.title !== "" && this.gender !== "";
-    },
-    submittableDateTime() {
-      const date = new Date();
-      if (typeof this.time == "string") {
-        const hours = this.time.match(/^(\d+)/)[1];
-        const minutes = this.time.match(/:(\d+)/)[1];
-        date.setHours(hours);
-        date.setMinutes(minutes);
-      } else {
-        date.setHours(this.time.getHours());
-        date.setMinutes(this.time.getMinutes());
-      }
-      return date;
-    },
     groups() {
       return this.$store.getters.loadedGroups;
     },
-  },
-  methods: {
-    onCreateTeam() {
-      console.log(this.title);
-      //Wenn die Form ungültig ist
-      if (!this.formIsValid) {
-        return;
+    games() {
+      return this.$store.getters.loadedGames;
+    },
+    gamesOfTeam() {
+      var games = this.games;
+      let result = "";
+      for (let i = 0; i < games.length; i++) {
+        result = games[i].team1;
       }
-      const TeamData = {
-        title: this.title,
-        gender: this.gender,
-        date: this.submittableDateTime,
-      };
-      this.$store.dispatch("createTeam", TeamData);
-      //this.$router.push("/admin/news/edit");
+      return result;
     },
   },
 };
