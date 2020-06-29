@@ -115,6 +115,10 @@ export default {
         this.$store.getters.user !== undefined
       );
     },
+
+    timer() {
+      return "lul";
+    },
   },
   methods: {
     onLogout() {
