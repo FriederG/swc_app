@@ -2,16 +2,16 @@ import * as firebase from "firebase";
 
 export default {
   state: {
-    loadedGames: [
+    loadedGroups: [
       {
-        title: "Kiel",
-        time: "19999999999",
+        groupName: "Kiel",
+        groupTeam1: "19999999999",
       },
     ],
   },
   mutations: {
     setLoadedGroups(state, payload) {
-      state.loadedGames = payload;
+      state.loadedGroups = payload;
     },
     // createTeam() {
     //state.loadedNews.push(payload);
@@ -34,32 +34,36 @@ export default {
       commit("setLoading", true);
       firebase
         .database()
-        .ref("games")
+        .ref("groups")
         //sobald sich etwas in der Firebase ändert
         .on("value", function (snapshot) {
-          const games = [];
+          const groups = [];
           const obj = snapshot.val();
           //Daten aus firebase in Array überführen
           for (let key in obj) {
-            games.push({
+            groups.push({
               id: key,
-              time: obj[key].date,
-              pitch: obj[key].pitch,
-              gameGender: obj[key].gameGender,
-              team1: obj[key].team1,
-              team2: obj[key].team2,
-              scoreTeam1: obj[key].scoreTeam1,
-              scoreTeam2: obj[key].scoreTeam2,
+              groupName: obj[key].groupName,
+              groupGender: obj[key].groupGender,
+              groupTeam1: obj[key].groupTeam1,
+              groupTeam2: obj[key].groupTeam2,
+              groupTeam3: obj[key].groupTeam3,
+              groupTeam4: obj[key].groupTeam4,
+              groupTeam5: obj[key].groupTeam5,
+              groupTeam6: obj[key].groupTeam6,
+              groupTeam7: obj[key].groupTeam7,
+              groupTeam8: obj[key].groupTeam8,
+
               //creatorId: obj[key].creatorId,
             });
           }
-          commit("setLoadedGames", games);
+          commit("setLoadedGroups", groups);
           commit("setLoading", false);
         });
     },
 
     createGroup(state, payload) {
-      console.log(payload.title);
+      console.log("Gruppe eingefügt");
       const group = {
         groupGender: payload.groupGender,
         groupName: payload.groupName,
@@ -140,13 +144,12 @@ export default {
 
   getters: {
     loadedGroups(state) {
-      return state.loadedGames.sort((newsA, newsB) => {
-        return newsA.time > newsB.time;
-      });
-      //      state.loadedGames.sort(function (a, b) {
-      //      return new Date(b.time) - new Date(a.time);
-      //  });
+      return state.loadedGroups;
     },
+    //      state.loadedGames.sort(function (a, b) {
+    //      return new Date(b.time) - new Date(a.time);
+    //  });
+
     featuredGroups(state, getters) {
       return getters.loadedNews.slice(0, 1);
     },

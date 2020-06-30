@@ -10,9 +10,24 @@ export default {
     ],
   },
   mutations: {
+    //Hier bin ich
+    registerTeamForGame(state, payload) {
+      const id = payload.id;
+      if (
+        state.loadedTeams.registeredMeetups.findIndex(
+          (meetup) => meetup.id === id
+        ) >= 0
+      ) {
+        return;
+      }
+      state.team.registeredGames.push(id);
+      state.team.fbKeys[id] = payload.fbKey;
+    },
+
     setLoadedTeams(state, payload) {
       state.loadedTeams = payload;
     },
+
     // createTeam() {
     //state.loadedNews.push(payload);
     //  },
@@ -32,38 +47,6 @@ export default {
     },
   },
   actions: {
-    /*
-            loadNews({ commit }) {
-              commit("setLoading", true);
-              //um realtime Updates zu bekommen statt once auf .on
-              firebase
-                .database()
-                .ref("meetups")
-                .once("value")
-                .then((data) => {
-                  const meetups = [];
-                  const obj = data.val();
-                  //Daten aus firebase in Array überführen
-                  for (let key in obj) {
-                    meetups.push({
-                      id: key,
-                      title: obj[key].title,
-                      description: obj[key].description,
-                      imageUrl: obj[key].imageUrl,
-                      location: obj[key].location,
-                      date: obj[key].date,
-                      creatorId: obj[key].creatorId,
-                    });
-                  }
-                  commit("setLoadedNews", meetups);
-                  commit("setLoading", false);
-                })
-                .catch((error) => {
-                  console.log(error);
-                  commit("setLoading", false);
-                });
-            },*/
-
     //load news jetzt mit live update
     loadTeams({ commit }) {
       commit("setLoading", true);
@@ -81,9 +64,17 @@ export default {
               title: obj[key].title,
               gender: obj[key].gender,
               date: obj[key].date,
+              selfScore: obj[key].selfScore,
+              games: obj[key].games,
+
               //creatorId: obj[key].creatorId,
             });
           }
+          console.log(teams);
+          // console.log(teams[0].games["-MAk9QEWgf1kStR57bQi"].selfScore);
+
+          // console.log(teams[0].games);
+
           commit("setLoadedTeams", teams);
           commit("setLoading", false);
         });
@@ -94,6 +85,11 @@ export default {
       const team = {
         title: payload.title,
         gender: payload.gender,
+        totalScore: payload.totalScore,
+        opponentScore: payload.opponentScore,
+        wins: payload.wins,
+        losses: payload.losses,
+        draw: payload.draw,
         date: payload.date.toISOString(),
         //creatorId: getters.user.id,
       };
@@ -123,6 +119,60 @@ export default {
       }
       if (payload.date) {
         updateObj.date = payload.date;
+      }
+      if (payload.selfScore) {
+        updateObj.totalScore = payload.selfScore + payload.oldSelfScore;
+      }
+      if (payload.otherScore) {
+        updateObj.opponentScore = payload.otherScore;
+      }
+
+      if (payload.losses) {
+        updateObj.losses = payload.losses;
+      }
+      if (payload.draw) {
+        updateObj.draw = payload.draw;
+      }
+      firebase
+        .database()
+        .ref("teams")
+        .child(payload.id)
+        .update(updateObj)
+        .then(() => {
+          commit("setLoading", false);
+          //  commit("updateTeams", payload);
+        })
+        .catch((error) => {
+          console.log(error);
+          commit("setLoading", false);
+        });
+    },
+
+    updateTeamsData2({ commit }, payload) {
+      commit("setLoading", true);
+      //leeres Objekt, Dinge, die geupdated werden werden zugefügt
+      const updateObj = {};
+      if (payload.title) {
+        updateObj.title = payload.title;
+      }
+      if (payload.gender) {
+        updateObj.gender = payload.gender;
+      }
+      if (payload.date) {
+        updateObj.date = payload.date;
+      }
+      if (payload.selfScore) {
+        updateObj.totalScore = payload.selfScore;
+      }
+      if (payload.otherScore) {
+        updateObj.opponentScore = payload.otherScore;
+      }
+
+      if (payload.losses) {
+        updateObj.losses = payload.losses;
+      }
+      if (payload.draw) {
+        updateObj.draw = payload.draw;
       }
       firebase
         .database()
@@ -155,6 +205,44 @@ export default {
           commit("setLoading", false);
         });
     },
+
+    registerTeam1ForGame({ commit }, payload) {
+      commit("setLoading", true);
+      const team1 = payload.id;
+      console.log("team1:" + team1);
+      firebase
+        .database()
+        .ref("/teams/" + team1)
+        .child("/games/")
+        .push(payload)
+        .then((data) => {
+          commit("setLoading", false);
+          commit("registerTeamForGame", { id: payload, fbKey: data.key });
+        })
+        .catch((error) => {
+          console.log(error);
+          commit("setLoading", false);
+        });
+    },
+
+    registerTeam2ForGame({ commit }, payload) {
+      commit("setLoading", true);
+      const team1 = payload.id;
+      console.log("team1:" + team1);
+      firebase
+        .database()
+        .ref("/teams/" + team1)
+        .child("/games/")
+        .push(payload)
+        .then((data) => {
+          commit("setLoading", false);
+          commit("registerTeamForGame", { id: payload, fbKey: data.key });
+        })
+        .catch((error) => {
+          console.log(error);
+          commit("setLoading", false);
+        });
+    },
   },
 
   getters: {
@@ -163,6 +251,7 @@ export default {
         return newsA.date > newsB.date;
       });
     },
+
     featuredTeams(state, getters) {
       return getters.loadedNews.slice(0, 1);
     },

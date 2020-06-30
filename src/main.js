@@ -73,5 +73,7 @@ new Vue({
     this.$store.dispatch("loadNews");
     this.$store.dispatch("loadTeams");
     this.$store.dispatch("loadGames");
+    this.$store.dispatch("loadGroups");
+    this.$store.dispatch("loadTeamGames");
   },
 }).$mount("#app");
