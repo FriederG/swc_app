@@ -1,5 +1,12 @@
 <template>
   <v-container>
+    <!-- Test Area: Löschen falls nicht mehr benötigt -->
+    <p>{{ timestamp_a }}</p>
+    <p>{{ timestamp_b }}</p>
+    <p>{{ time_dif_music }}</p>
+    <p>{{ countdown }}s</p>
+    <!-- Test Area: Löschen falls nicht mehr benötigt -->
+
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
         <h2>Musikwünsche</h2>
@@ -81,7 +88,14 @@ export default {
       time: new Date(),
 
       wunschGemacht: localStorage.getItem("Wunsch"),
-      freieWuensche: 3 - localStorage.getItem("Wunsch"),
+
+      counter: null,
+      timestamp_a: null,
+      timestamp_b: null,
+      time_dif_music: null,
+      countdown: 60,
+
+      test: null,
     };
   },
 
@@ -115,7 +129,14 @@ export default {
           "Wunsch",
           parseInt(localStorage.getItem("Wunsch")) + 1
         );
+        if (parseInt(localStorage.getItem("Wunsch")) === 3) {
+          this.timestamp_a = new Date();
+          localStorage.setItem("timestamp_a", this.timestamp_a);
+          this.timestamp_b = new Date(localStorage.getItem("timestamp_a"));
+          this.timer();
+        }
       }
+
       //Wenn noch kein Wunsch gemacht wurde, auf 1 setzen
       else {
         localStorage.setItem("Wunsch", 1);
@@ -142,6 +163,26 @@ export default {
         rating: songRating,
       };
       this.$store.dispatch("DownVoteSong", SongData);
+    },
+
+    timer() {
+      this.counter = setInterval(() => {
+        this.timestamp_a = new Date();
+
+        this.time_dif_music =
+          Math.floor(
+            Math.abs(this.timestamp_b - this.timestamp_a) / 1000 / 60
+          ) % 60;
+
+        this.countdown = this.countdown - 1;
+
+        if (this.time_dif_music >= 1) {
+          localStorage.removeItem("Wunsch");
+          this.wunschGemacht = localStorage.getItem("Wunsch");
+          this.countdown = 60;
+          clearInterval(this.counter);
+        }
+      }, 1000);
     },
   },
 };
