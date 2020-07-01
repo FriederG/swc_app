@@ -68,6 +68,7 @@
       <p>{{ time_difference_h }} : {{ time_difference_m }}</p>
       <p>{{ this.counter }}</p>
       <p>{{ this.bac }}</p>
+      <p>{{ this.pegel_f }}</p>
     </v-simple-table>
 
     <div v-if="(entered === 'false')">
@@ -78,13 +79,15 @@
       <input type="radio" id="rFemale" value="female" v-model="gender" />
 
       <br />
+      <br />
+      <br />
       <v-slider
-        :max="120"
-        :min="30"
+        :max="150"
+        :min="40"
         v-model="weight"
         thumb-label="always"
       ></v-slider>
-      <p>Weight: {{ weight }} kg</p>
+      <p>Gewicht: {{ weight }} kg</p>
       <br />
       <v-btn v-on:click="enter">Bestätigen</v-btn>
     </div>
@@ -108,7 +111,8 @@ export default {
 
       bac: false,
       counter: null,
-      zero: "lul",
+      pegel_m: null,
+      pegel_f: null,
 
       timestamp_1: null,
       timestamp_2: null,
@@ -190,26 +194,69 @@ export default {
       localStorage.setItem("drink_count", this.drink_count);
     },
     less_beer() {
-      if (this.beer_count > 0) {
+      if (
+        this.beer_count === 1 &&
+        this.shot_count === 0 &&
+        this.drink_count === 0 &&
+        this.wine_count === 0
+      ) {
+        this.beer_count = this.beer_count - 1;
+        localStorage.setItem("beer_count", this.beer_count);
+        this.bac = false;
+        localStorage.setItem("bac", "false");
+        clearInterval(this.counter);
+      } else if (this.beer_count > 0) {
         this.beer_count = this.beer_count - 1;
         localStorage.setItem("beer_count", this.beer_count);
       }
     },
     less_wine() {
-      if (this.wine_count > 0) {
+      if (
+        this.beer_count === 0 &&
+        this.shot_count === 0 &&
+        this.drink_count === 0 &&
+        this.wine_count === 1
+      ) {
         this.wine_count = this.wine_count - 1;
         localStorage.setItem("wine_count", this.wine_count);
-        this.timereset();
+        this.bac = false;
+        localStorage.setItem("bac", "false");
+        clearInterval(this.counter);
+      } else if (this.wine_count > 0) {
+        this.wine_count = this.wine_count - 1;
+        localStorage.setItem("wine_count", this.wine_count);
       }
     },
     less_shots() {
-      if (this.shot_count > 0) {
+      if (
+        this.beer_count === 0 &&
+        this.shot_count === 1 &&
+        this.drink_count === 0 &&
+        this.wine_count === 0
+      ) {
+        this.shot_count = this.shot_count - 1;
+        localStorage.setItem("shot_count", this.shot_count);
+        this.bac = false;
+        localStorage.setItem("bac", "false");
+        clearInterval(this.counter);
+      } else if (this.shot_count > 0) {
         this.shot_count = this.shot_count - 1;
         localStorage.setItem("shot_count", this.shot_count);
       }
     },
     less_drinks() {
-      if (this.drink_count > 0) {
+      if (
+        this.beer_count === 0 &&
+        this.shot_count === 0 &&
+        this.drink_count === 1 &&
+        this.wine_count === 0
+      ) {
+        this.drink_count = this.drink_count - 1;
+        localStorage.setItem("drink_count", this.drink_count);
+        this.bac = false;
+        localStorage.setItem("bac", "false");
+        clearInterval(this.counter);
+      } else if (this.drink_count > 0) {
         this.drink_count = this.drink_count - 1;
         localStorage.setItem("drink_count", this.drink_count);
       }
@@ -266,12 +313,6 @@ export default {
         clearInterval(this.counter);
       }
     },
-
-    timereset() {
-      this.bac = false;
-      localStorage.setItem("bac", "false");
-      clearInterval(this.counter);
-    },
   },
   computed: {
     alc_calc_male() {
@@ -283,14 +324,15 @@ export default {
       ) {
         return 0;
       } else {
-        return (
+        return Math.max(
+          0,
           (this.beer_count * 12 +
             this.wine_count * 15 +
             this.shot_count * 7 +
             this.drink_count * 12) /
             (this.weight * 0.68) -
-          this.time_difference_h * 0.15 -
-          this.time_difference_m * 0.0025
+            this.time_difference_h * 0.15 -
+            this.time_difference_m * 0.0025
         );
       }
     },
@@ -303,20 +345,17 @@ export default {
       ) {
         return 0;
       } else {
-        return (
+        return Math.max(
+          0,
           (this.beer_count * 12 +
             this.wine_count * 15 +
             this.shot_count * 7 +
             this.drink_count * 12) /
             (this.weight * 0.55) -
-          this.time_difference_h * 0.15 -
-          this.time_difference_m * 0.0025
+            this.time_difference_h * 0.15 -
+            this.time_difference_m * 0.0025
         );
       }
-    },
-
-    testfunction() {
-      return typeof this.beer_count;
     },
   },
 };
