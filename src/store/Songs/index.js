@@ -31,18 +31,15 @@ export default {
     // createTeam() {
     //state.loadedNews.push(payload);
     //  },
-    updateTeams(state, payload) {
-      const team = state.loadedNews.find((team) => {
-        return team.id === payload.id;
+    updateSongs(state, payload) {
+      const song = state.loadedSongs.find((song) => {
+        return song.id === payload.id;
       });
       if (payload.title) {
-        team.title = payload.title;
+        song.title = payload.title;
       }
-      if (payload.gender) {
-        team.gender = payload.gender;
-      }
-      if (payload.description) {
-        team.description = payload.description;
+      if (payload.rating) {
+        song.rating = payload.rating;
       }
     },
   },
@@ -213,16 +210,16 @@ export default {
         });
     },
 
-    deleteTeamData({ commit }, payload) {
+    deleteSongData({ commit }, payload) {
       commit("setLoading", true);
       firebase
         .database()
-        .ref("teams")
+        .ref("songs")
         .child(payload.id)
         .remove()
         .then(() => {
           commit("setLoading", false);
-          commit("updateTeams", payload);
+          commit("updateSongs", payload);
         })
         .catch((error) => {
           console.log(error);

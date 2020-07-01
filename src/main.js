@@ -22,6 +22,8 @@ import DeleteTeamDialog from "@/components/Admin/Edit/DeleteTeamDialog";
 import EditTeamDialog from "@/components/Admin/Edit/EditTeamDialog";
 import EditResultsDialog from "@/components/Admin/Edit/EditResultsDialog";
 import DeleteGameDialog from "@/components/Admin/Edit/DeleteGameDialog";
+import DeleteSongDialog from "@/components/Admin/Edit/DeleteSongDialog";
+import EditSongDialog from "@/components/Admin/Edit/EditSongDialog";
 
 Vue.config.productionTip = false;
 
@@ -42,6 +44,8 @@ Vue.component("delete-team-dialog", DeleteTeamDialog);
 Vue.component("edit-team-dialog", EditTeamDialog);
 Vue.component("edit-results-dialog", EditResultsDialog);
 Vue.component("delete-game-dialog", DeleteGameDialog);
+Vue.component("delete-song-dialog", DeleteSongDialog);
+Vue.component("edit-song-dialog", EditSongDialog);
 
 export const i18n = new VueI18n({
   locale: "de",

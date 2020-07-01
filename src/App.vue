@@ -111,6 +111,11 @@ export default {
             title: "Ergebnisse bearbeiten",
             link: "/admin/ergebnisse",
           },
+          {
+            icon: "mdi-music",
+            title: "Musik bearbeiten",
+            link: "/admin/music",
+          },
         ];
       }
       return menuItems;

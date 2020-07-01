@@ -16,6 +16,7 @@ import SpielplanVerwaltung from "@/components/Admin/SpielplanVerwaltung";
 import ErgebnisseBearbeiten from "@/components/Admin/ErgebnisseBearbeiten";
 import GruppenVerwaltung from "@/components/Admin/GruppenVerwaltung";
 import Musikwunsch from "@/components/Musikwunsch";
+import MusikVerwaltung from "@/components/Admin/MusikBearbeiten";
 
 import AuthGuard from "./auth-guard";
 
@@ -106,6 +107,12 @@ const routes = [
     path: "/admin/gruppen",
     name: "GruppenBearbeiten",
     component: GruppenVerwaltung,
+    beforeEnter: AuthGuard,
+  },
+  {
+    path: "/admin/music",
+    name: "SongsBearbeiten",
+    component: MusikVerwaltung,
     beforeEnter: AuthGuard,
   },
 ];
