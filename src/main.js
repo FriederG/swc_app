@@ -75,5 +75,6 @@ new Vue({
     this.$store.dispatch("loadGames");
     this.$store.dispatch("loadGroups");
     this.$store.dispatch("loadTeamGames");
+    this.$store.dispatch("loadSongs");
   },
 }).$mount("#app");

@@ -15,6 +15,7 @@ import TeamsVerwalten from "../components/Admin/TeamVerwaltung";
 import SpielplanVerwaltung from "@/components/Admin/SpielplanVerwaltung";
 import ErgebnisseBearbeiten from "@/components/Admin/ErgebnisseBearbeiten";
 import GruppenVerwaltung from "@/components/Admin/GruppenVerwaltung";
+import Musikwunsch from "@/components/Musikwunsch";
 
 import AuthGuard from "./auth-guard";
 
@@ -60,6 +61,11 @@ const routes = [
     path: "/pegelstand",
     name: "Pegelstand",
     component: Pegelstand,
+  },
+  {
+    path: "/musik",
+    name: "Musikwunsch",
+    component: Musikwunsch,
   },
   {
     path: "/admin/login",

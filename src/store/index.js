@@ -6,6 +6,7 @@ import signin from "./SignIn";
 import teams from "./Teams";
 import games from "./Games";
 import groups from "./Groups";
+import songs from "./Songs";
 
 Vue.use(Vuex);
 
@@ -16,5 +17,6 @@ export const store = new Vuex.Store({
     teams: teams,
     games: games,
     groups: groups,
+    songs: songs,
   },
 });
