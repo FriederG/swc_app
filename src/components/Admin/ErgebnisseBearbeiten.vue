@@ -76,8 +76,14 @@
                 >{{ game.scoreTeam1 }} :
                 {{ game.scoreTeam2 }}</v-list-item-title
               ></v-list-item-content
-            ><edit-results-dialog :game="game"></edit-results-dialog>
-          </v-list-item> </v-card
+            >
+            <edit-results-dialog
+              :game="game"
+              :team1="game.team1"
+              :team2="game.team2"
+            ></edit-results-dialog>
+          </v-list-item>
+          <delete-game-dialog :game="game"></delete-game-dialog> </v-card
         ><br />
       </div>
     </v-container></div

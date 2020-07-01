@@ -57,8 +57,9 @@
     <!-- Anzeige und Bearbeitung -->
     <v-container v-for="team in teams" :key="team.id">
       <v-card class="mx-auto" max-width="400px"
-        ><v-card-text>{{ team.title }}</v-card-text
-        ><edit-team-dialog :team="team"></edit-team-dialog>
+        ><v-card-text>{{ team.title }}</v-card-text>
+
+        <edit-team-dialog :team="team"></edit-team-dialog>
         <delete-team-dialog :team="team"></delete-team-dialog
       ></v-card>
     </v-container>
@@ -66,12 +67,19 @@
 </template>
 
 <script>
+//import _ from "lodash";
+
 export default {
   data() {
     return {
       title: "",
       gender: "",
       time: new Date(),
+      wins: 0,
+      losses: 0,
+      draw: 0,
+      totalScore: 0,
+      opponentScore: 0,
     };
   },
   computed: {
@@ -94,6 +102,10 @@ export default {
     teams() {
       return this.$store.getters.loadedTeams;
     },
+
+    totalRequest() {
+      return this.teams.games.reduce((acc, item) => acc + item.selfScore, 0);
+    },
   },
   methods: {
     onCreateTeam() {
@@ -106,9 +118,20 @@ export default {
         title: this.title,
         gender: this.gender,
         date: this.submittableDateTime,
+        wins: this.wins,
+        losses: this.losses,
+        draw: this.draw,
+        totalScore: this.totalScore,
+        opponentScore: this.opponentScore,
       };
       this.$store.dispatch("createTeam", TeamData);
       //this.$router.push("/admin/news/edit");
+    },
+
+    totalSelfScore: function (games) {
+      return games.reduce((acc, val) => {
+        return acc + parseInt(val.otherScore);
+      }, 0);
     },
   },
 };

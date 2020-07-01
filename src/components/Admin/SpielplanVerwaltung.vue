@@ -73,6 +73,7 @@
           <!--männlicher Baum-->
           <div v-if="modelGender === 'male'">
             <v-layout row>
+              <!--item-value wird in v-model weitergegeben-->
               <v-flex xs12 sm6 offset-sm3>
                 <v-select
                   name="team1"
@@ -82,8 +83,8 @@
                   required
                   :items="maleTeams"
                   item-text="title"
-                  ><option>Fe</option></v-select
-                >
+                ></v-select>
+                <!--item-value="id"-->
               </v-flex>
             </v-layout>
             <v-card-text>vs.</v-card-text>
@@ -97,9 +98,9 @@
                   required
                   :items="maleTeams"
                   item-text="title"
-                  ><option>Fe</option></v-select
-                >
+                ></v-select>
               </v-flex>
+              <!--                  item-value="id" -->
             </v-layout>
           </div>
           <!--weiblicher Baum-->
@@ -210,7 +211,16 @@ export default {
         scoreTeam2: this.scoreTeam2,
         date: this.submittableDateTime,
       };
+      /*
+      const teamGameData = {
+        team1: this.team1,
+        team2: this.team2,
+        scoreTeam1: this.scoreTeam1,
+        scoreTeam2: this.scoreTeam2,
+      };*/
       this.$store.dispatch("createGame", gameData);
+      //this.$store.dispatch("registerTeamForGame", teamGameData);
+
       //this.$router.push("/meetups");
     },
   },

@@ -21,6 +21,7 @@ import appFooter from "./components/Footer";
 import DeleteTeamDialog from "@/components/Admin/Edit/DeleteTeamDialog";
 import EditTeamDialog from "@/components/Admin/Edit/EditTeamDialog";
 import EditResultsDialog from "@/components/Admin/Edit/EditResultsDialog";
+import DeleteGameDialog from "@/components/Admin/Edit/DeleteGameDialog";
 
 Vue.config.productionTip = false;
 
@@ -40,6 +41,7 @@ Vue.component("delete-news-dialog", DeleteNewsDialog);
 Vue.component("delete-team-dialog", DeleteTeamDialog);
 Vue.component("edit-team-dialog", EditTeamDialog);
 Vue.component("edit-results-dialog", EditResultsDialog);
+Vue.component("delete-game-dialog", DeleteGameDialog);
 
 export const i18n = new VueI18n({
   locale: "de",
@@ -71,5 +73,7 @@ new Vue({
     this.$store.dispatch("loadNews");
     this.$store.dispatch("loadTeams");
     this.$store.dispatch("loadGames");
+    this.$store.dispatch("loadGroups");
+    this.$store.dispatch("loadTeamGames");
   },
 }).$mount("#app");

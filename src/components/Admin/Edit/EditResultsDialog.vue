@@ -18,7 +18,7 @@
             <v-card-text>
               <v-text-field
                 name="scoreTeam1"
-                label="Team 2"
+                label="Team 1"
                 id="scoreTeam1"
                 multi-line
                 v-model="modelScoreTeam1"
@@ -63,13 +63,22 @@
 <script>
 export default {
   //prop aus der ErgebnisseBearbeiten.vue
-  props: ["game"],
+  props: ["game", "team1", "team2"],
   data() {
     return {
       editDialog: false,
       modelScoreTeam1: this.game.scoreTeam1,
       modelScoreTeam2: this.game.scoreTeam2,
     };
+  },
+  computed: {
+    teams() {
+      return this.$store.getters.loadedTeams;
+    },
+
+    selfScore() {
+      return this.teams;
+    },
   },
   methods: {
     onSaveChanges() {
@@ -82,6 +91,30 @@ export default {
         scoreTeam1: this.modelScoreTeam1,
         scoreTeam2: this.modelScoreTeam2,
       });
+      /*
+      this.$store.dispatch("updateTeamsData1", {
+        id: this.team1,
+        selfScore: this.modelScoreTeam1,
+        oldSelfScore: this.teams[0].selfScore,
+        otherScore: this.modelScoreTeam2,
+      });
+
+      this.$store.dispatch("updateTeamsData2", {
+        id: this.team2,
+        selfScore: this.modelScoreTeam2,
+        oldSelfScore: this.game.scoreTeam2,
+        otherScore: this.modelScoreTeam1,
+      });
+      this.$store.dispatch("registerTeam1ForGame", {
+        id: this.team1,
+        selfScore: this.modelScoreTeam1,
+        otherScore: this.modelScoreTeam2,
+      });
+      this.$store.dispatch("registerTeam2ForGame", {
+        id: this.team2,
+        selfScore: this.modelScoreTeam2,
+        otherScore: this.modelScoreTeam1,
+      });*/
     },
   },
 };

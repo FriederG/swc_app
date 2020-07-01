@@ -14,6 +14,7 @@ import InstaFeed from "../components/InstaFeed";
 import TeamsVerwalten from "../components/Admin/TeamVerwaltung";
 import SpielplanVerwaltung from "@/components/Admin/SpielplanVerwaltung";
 import ErgebnisseBearbeiten from "@/components/Admin/ErgebnisseBearbeiten";
+import GruppenVerwaltung from "@/components/Admin/GruppenVerwaltung";
 
 import AuthGuard from "./auth-guard";
 
@@ -93,6 +94,12 @@ const routes = [
     path: "/admin/ergebnisse",
     name: "ErgebnisseBearbeiten",
     component: ErgebnisseBearbeiten,
+    beforeEnter: AuthGuard,
+  },
+  {
+    path: "/admin/gruppen",
+    name: "GruppenBearbeiten",
+    component: GruppenVerwaltung,
     beforeEnter: AuthGuard,
   },
 ];

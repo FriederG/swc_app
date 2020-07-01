@@ -8,10 +8,20 @@ export default {
         time: "19999999999",
       },
     ],
+    loadedTeamGames: [
+      {
+        title: "Kiel",
+        time: "19999999999",
+      },
+    ],
   },
   mutations: {
     setLoadedGames(state, payload) {
       state.loadedGames = payload;
+    },
+
+    setLoadedTeamGames(state, payload) {
+      state.loadedTeamGames = payload;
     },
     // createTeam() {
     //state.loadedNews.push(payload);
@@ -28,6 +38,7 @@ export default {
       }
     },
   },
+
   actions: {
     //load news jetzt mit live update
     loadGames({ commit }) {
@@ -54,6 +65,30 @@ export default {
             });
           }
           commit("setLoadedGames", games);
+          commit("setLoading", false);
+        });
+    },
+
+    //TEst ---------------------------------------------------------------------
+    loadTeamGames({ commit }) {
+      commit("setLoading", true);
+      firebase
+        .database()
+        .ref("teams/")
+        //.child("-MB-R-j1zBmVLSqrv0KF")
+        //sobald sich etwas in der Firebase ändert
+        .on("value", function (snapshot) {
+          const teamGames = [];
+          const obj = snapshot.val();
+          //Daten aus firebase in Array überführen
+          for (let key in obj) {
+            teamGames.push({
+              id: key,
+              otherScore: obj[key].otherScore,
+              selfScore: obj[key].selfScore,
+            });
+          }
+          commit("setLoadedTeamGames", teamGames);
           commit("setLoading", false);
         });
     },
@@ -113,18 +148,36 @@ export default {
           console.log(error);
           commit("setLoading", false);
         });
+      //Statistiken updaten für die Teams -----------------------------------------------------
+      /* const updateObjStat = {};
+      if (payload.scoreTeam1 > payload.scoreTeam2) {
+        updateObj.wins = 1;
+      }
+      firebase
+        .database()
+        .ref("teams")
+        .child(payload.id)
+        .update(updateObjStat)
+        .then(() => {
+          commit("setLoading", false);
+          //  commit("updateTeams", payload);
+        })
+        .catch((error) => {
+          console.log(error);
+          commit("setLoading", false);
+        }); */
     },
 
     deleteGameData({ commit }, payload) {
       commit("setLoading", true);
       firebase
         .database()
-        .ref("teams")
+        .ref("games")
         .child(payload.id)
         .remove()
         .then(() => {
           commit("setLoading", false);
-          commit("updateTeams", payload);
+          commit("updateGames", payload);
         })
         .catch((error) => {
           console.log(error);
@@ -142,9 +195,16 @@ export default {
       //      return new Date(b.time) - new Date(a.time);
       //  });
     },
-    featuredGames(state, getters) {
-      return getters.loadedNews.slice(0, 1);
+
+    loadedTeamGames(state) {
+      return state.loadedTeamGames.sort((newsA, newsB) => {
+        return newsA.time > newsB.time;
+      });
+      //      state.loadedGames.sort(function (a, b) {
+      //      return new Date(b.time) - new Date(a.time);
+      //  });
     },
+
     loadedGame(state) {
       return (meetupId) => {
         return state.loadedNews.find((meetup) => {
