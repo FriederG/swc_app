@@ -2,17 +2,18 @@
   <v-container>
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
-        <h2>Neuer Musikwunsch</h2>
+        <h2>Musikwünsche</h2>
         <br />
       </v-flex>
     </v-layout>
-    <v-layout row>
+    <v-layout row v-if="wunschGemacht <= 2">
       <v-flex xs12>
         <!--Prevent verhindert http-request-->
         <form @submit.prevent="onCreateSong">
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <h4>Lied eingeben</h4>
+              <h4>Liedwunsch eingeben</h4>
+              <h5>Du hast noch {{ 3 - wunschGemacht }} Musikwünsche</h5>
               <v-text-field
                 name="title"
                 label="Name des Lieds"
@@ -34,6 +35,8 @@
         </form>
       </v-flex>
     </v-layout>
+
+    <v-card-text v-if="wunschGemacht > 2">WUnsch gemacht</v-card-text>
 
     <v-container> </v-container>
     <!-- Anzeige und Bearbeitung -->
@@ -76,8 +79,12 @@ export default {
     return {
       title: "",
       time: new Date(),
+
+      wunschGemacht: localStorage.getItem("Wunsch"),
+      freieWuensche: 3 - localStorage.getItem("Wunsch"),
     };
   },
+
   computed: {
     formIsValid() {
       return this.title.length > 2;
@@ -102,6 +109,20 @@ export default {
         rating: 0,
       };
       this.$store.dispatch("createSong", SongData);
+      //Wenn schon etwas im Wunsch-Store steht
+      if (localStorage.getItem("Wunsch")) {
+        localStorage.setItem(
+          "Wunsch",
+          parseInt(localStorage.getItem("Wunsch")) + 1
+        );
+      }
+      //Wenn noch kein Wunsch gemacht wurde, auf 1 setzen
+      else {
+        localStorage.setItem("Wunsch", 1);
+      }
+
+      this.wunschGemacht = localStorage.getItem("Wunsch");
+
       //this.$router.push("/admin/news/edit");
     },
 
