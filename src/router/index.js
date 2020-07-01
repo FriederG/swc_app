@@ -17,6 +17,7 @@ import ErgebnisseBearbeiten from "@/components/Admin/ErgebnisseBearbeiten";
 import GruppenVerwaltung from "@/components/Admin/GruppenVerwaltung";
 import Musikwunsch from "@/components/Musikwunsch";
 import MusikVerwaltung from "@/components/Admin/MusikBearbeiten";
+import Karte from "@/components/Karte";
 
 import AuthGuard from "./auth-guard";
 
@@ -67,6 +68,11 @@ const routes = [
     path: "/musik",
     name: "Musikwunsch",
     component: Musikwunsch,
+  },
+  {
+    path: "/map",
+    name: "Karte",
+    component: Karte,
   },
   {
     path: "/admin/login",

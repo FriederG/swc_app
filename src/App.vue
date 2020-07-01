@@ -78,6 +78,7 @@ export default {
         { icon: "mdi-beer", title: "Pegelstand", link: "/pegelstand" },
         { icon: "mdi-instagram", title: "Insta-Feed", link: "/instafeed" },
         { icon: "mdi-music", title: "Musikwünsche", link: "/musik" },
+        { icon: "mdi-map", title: "Karte", link: "/map" },
       ];
       if (this.userIsAuthenticated) {
         menuItems = [
