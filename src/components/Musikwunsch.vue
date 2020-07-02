@@ -99,6 +99,16 @@ export default {
     };
   },
 
+  mounted() {
+    this.wunschGemacht = localStorage.getItem("Wunsch");
+    this.timestamp_a = new Date();
+    this.timestamp_b = new Date(localStorage.getItem("timestamp_a"));
+
+    if (parseInt(localStorage.getItem("Wunsch")) === 3) {
+      this.timer();
+    }
+  },
+
   computed: {
     formIsValid() {
       return this.title.length > 2;
@@ -170,16 +180,14 @@ export default {
         this.timestamp_a = new Date();
 
         this.time_dif_music =
-          Math.floor(
-            Math.abs(this.timestamp_b - this.timestamp_a) / 1000 / 60
-          ) % 60;
+          Math.floor(Math.abs(this.timestamp_b - this.timestamp_a) / 1000) % 60;
 
-        this.countdown = this.countdown - 1;
+        this.countdown = 60 - this.time_dif_music;
 
-        if (this.time_dif_music >= 1) {
+        if (this.time_dif_music === 59) {
           localStorage.removeItem("Wunsch");
           this.wunschGemacht = localStorage.getItem("Wunsch");
-          this.countdown = 60;
+          this.countdown = null;
           clearInterval(this.counter);
         }
       }, 1000);
