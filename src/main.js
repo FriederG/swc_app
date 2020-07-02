@@ -9,6 +9,7 @@ import DateFilter from "./filters/date";
 import DayFilter from "./filters/day";
 import messages from "./lang";
 import VueInstagram from "vue-instagram";
+import VueHotspot from "vue-hotspot";
 
 //alles aus firebase package wird importiert. Es können auch einzelne Features
 import * as firebase from "firebase";
@@ -32,6 +33,8 @@ Vue.config.productionTip = false;
 Vue.use(VueI18n);
 
 Vue.use(VueInstagram);
+
+Vue.use(VueHotspot);
 
 //Komponenten global registrieren
 Vue.filter("date", DateFilter);
