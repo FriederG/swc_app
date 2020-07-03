@@ -7,7 +7,7 @@
   </div> -->
   <div>
     <h2>Übersichtsplan</h2>
-    Kicke auf die Punkte, um mehr zum Ort zu erfahren.
+    Klicke auf die Punkte, um mehr zum jeweiligen Ort zu erfahren.
 
     <v-hotspot
       :init-options="hotspotConfig"
@@ -27,37 +27,33 @@ export default {
     return {
       hotspotConfig: {
         image:
-          "https://kielrugby.com/wp-content/uploads/2020/07/map_openStreet-797x1024.jpg",
+          "https://kielrugby.com/wp-content/uploads/2020/07/map_openStreet-2.jpg",
         editable: false,
         interactivity: "hover",
         data: [
           {
-            Message: "Hier gibt es das legendäre Buffet",
+            Message:
+              "Hier gibt es das legendäre Schietwettercup-Buffet. Los gehts morgens um 8:00 Uhr.",
             Title: "Frühstück",
-            x: 40,
-            y: 10,
+            x: 30,
+            y: 6,
           },
           {
-            Message: "Hier könnt ihr eure Zelte aufschlagen",
+            Message: "Hier könnt ihr eure Zelte aufschlagen.",
             Title: "Camp",
-            x: 73,
-            y: 43,
+            x: 72,
+            y: 41,
           },
           {
-            Message: "A prepopulated hotspot",
-            Title: "Feld 2",
-            x: 42,
-            y: 53,
-          },
-          {
-            Message: "Another prepopulated hotspot",
-            Title: "Feld 3",
-            x: 58,
-            y: 78.3,
+            Message:
+              "Mittags gibt's Gegrilltes. Abends steigt hier die legendäre SWC-Party.",
+            Title: "Party Zelt und Grillstation",
+            x: 45,
+            y: 39,
           },
         ],
         hotspotColor: "green",
-        messageBoxColor: "grey",
+        messageBoxColor: "black",
         textColor: "white",
         opacity: 0.9,
       },
