@@ -160,6 +160,8 @@ export default {
         });*/
     },
     updateGamesData({ commit }, payload) {
+      console.log(payload.team1OldGameScore);
+
       commit("setLoading", true);
       //leeres Objekt, Dinge, die geupdated werden werden zugefügt
       const updateObj = {};
@@ -189,6 +191,43 @@ export default {
           commit("setLoading", false);
         });
       //Statistiken updaten für die Teams -----------------------------------------------------
+      //Team 1
+      //Bisherigen totalScore abrufen
+      firebase
+        .database()
+        .ref("teams/" + payload.team1)
+        .child("/totalScore")
+        .once("value")
+        .then(function (snapshot) {
+          let oldTotalScore1 = snapshot.val();
+          console.log("Alter Total Score Team 1:" + oldTotalScore1);
+
+          //Neue Scores eintragen
+          console.log("Team 1: " + payload.team1);
+          console.log("Score Team 1: " + payload.scoreTeam1);
+
+          const updateObjStat1 = {};
+          if (payload.scoreTeam1) {
+            updateObjStat1.totalScore =
+              parseInt(oldTotalScore1) +
+              parseInt(payload.scoreTeam1) -
+              parseInt(payload.team1OldGameScore);
+          }
+          firebase
+            .database()
+            .ref("teams")
+            .child(payload.team1)
+            .update(updateObjStat1)
+            .then(() => {
+              commit("setLoading", false);
+              //  commit("updateTeams", payload);
+            })
+            .catch((error) => {
+              console.log(error);
+              commit("setLoading", false);
+            });
+        });
+
       /* const updateObjStat = {};
       if (payload.scoreTeam1 > payload.scoreTeam2) {
         updateObj.wins = 1;
