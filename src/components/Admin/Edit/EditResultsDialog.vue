@@ -50,7 +50,17 @@
                 @click="editDialog = false"
                 >Close</v-btn
               >
-              <v-btn text class="blue--text darken-1" @click="onSaveChanges"
+              <v-btn
+                text
+                class="blue--text darken-1"
+                @click="
+                  onSaveChanges(
+                    team1.id,
+                    team1.totalScore,
+                    team2.id,
+                    team2.totalScore
+                  )
+                "
                 >Save</v-btn
               >
             </v-card-actions>

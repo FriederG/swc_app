@@ -10,7 +10,7 @@
     <v-layout row>
       <v-flex xs12>
         <!--Prevent verhindert http-request-->
-        <form @submit.prevent="onCreateGame">
+        <form @submit.prevent="onCreateGame()">
           <!-- Platz --------------------------------------------------------------->
           <v-layout row>
             <h4>Platz:</h4>
@@ -81,6 +81,7 @@
                   id="team1"
                   v-model="team1"
                   required
+                  item-value="id"
                   :items="maleTeams"
                   item-text="title"
                 ></v-select>
@@ -94,6 +95,7 @@
                   name="team2"
                   label="Team 2"
                   id="team2"
+                  item-value="id"
                   v-model="team2"
                   required
                   :items="maleTeams"

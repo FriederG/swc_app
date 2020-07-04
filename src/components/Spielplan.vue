@@ -53,7 +53,8 @@
           <v-list-item
             three-line
             v-bind:class="[
-              game.team1 === selectedTeam || game.team2 === selectedTeam
+              game.team1Title === selectedTeam ||
+              game.team2Title === selectedTeam
                 ? { selectedTeam: true }
                 : { selectedTeam: false },
             ]"
@@ -63,11 +64,11 @@
                 >Platz: {{ game.pitch }}</v-list-item-subtitle
               >
               <v-list-item-title
-                ><b>{{ game.team1 }}</b></v-list-item-title
+                ><b>{{ game.team1Title }}</b></v-list-item-title
               >
               <v-list-item-title>vs.</v-list-item-title>
               <v-list-item-title
-                ><b>{{ game.team2 }}</b></v-list-item-title
+                ><b>{{ game.team2Title }}</b></v-list-item-title
               >
             </v-list-item-content>
             <v-list-item-content>

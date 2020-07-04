@@ -58,7 +58,9 @@ export default {
               pitch: obj[key].pitch,
               gameGender: obj[key].gameGender,
               team1: obj[key].team1,
+              team1Title: obj[key].team1Title,
               team2: obj[key].team2,
+              team2Title: obj[key].team2Title,
               scoreTeam1: obj[key].scoreTeam1,
               scoreTeam2: obj[key].scoreTeam2,
               //creatorId: obj[key].creatorId,
@@ -94,30 +96,68 @@ export default {
     },
 
     createGame(state, payload) {
-      console.log(payload.title);
-      const game = {
-        pitch: payload.pitch,
-        gameGender: payload.gameGender,
-        team1: payload.team1,
-        team2: payload.team2,
-        scoreTeam1: payload.scoreTeam1,
-        scoreTeam2: payload.scoreTeam2,
-        date: payload.date.toISOString(),
-        //creatorId: getters.user.id,
-      };
-      let key;
+      //Name des Team 1 in Payload Team1 aufgrund des Keys aus der Team-Node ziehen
       firebase
         .database()
-        .ref("games")
-        .push(game)
-        .then((data) => {
-          key = data.key;
-          return key;
-        })
+        .ref("teams/" + payload.team1)
+        .child("/title")
+        .once("value")
+        .then(function (snapshot) {
+          let titleTeam1 = snapshot.val();
+          console.log("Team 1:" + titleTeam1);
+          //Name des Teams 2 aus der Firebase ziehen
+          firebase
+            .database()
+            .ref("teams/" + payload.team2)
+            .child("/title")
+            .once("value")
+            .then(function (snapshot) {
+              let titleTeam2 = snapshot.val();
+              console.log("Team 2:" + titleTeam2);
 
-        .catch((error) => {
-          console.log(error);
+              //Daten aus der SpielplanVerwaltung.vue
+              //Und Title der Teams, die gerade aubgerufen wurden
+              const game = {
+                pitch: payload.pitch,
+                gameGender: payload.gameGender,
+                team1: payload.team1,
+                team1Title: titleTeam1,
+                team2Title: titleTeam2,
+                team2: payload.team2,
+                scoreTeam1: payload.scoreTeam1,
+                scoreTeam2: payload.scoreTeam2,
+                date: payload.date.toISOString(),
+                //creatorId: getters.user.id,
+              };
+              let key;
+              firebase
+                .database()
+                .ref("games")
+                .push(game)
+                .then((data) => {
+                  key = data.key;
+                  return key;
+                })
+
+                .catch((error) => {
+                  console.log(error);
+                });
+            });
         });
+
+      /*
+        .on("value", function (snapshot) {
+          const teamName = [];
+          const obj = snapshot.val();
+          //Daten aus firebase in Array überführen
+          for (let key in obj) {
+            teamName.push({
+              id: key,
+              teamTitle: obj[key].title,
+            });
+          }
+          console.log("team title:" + teamName);
+        });*/
     },
     updateGamesData({ commit }, payload) {
       commit("setLoading", true);

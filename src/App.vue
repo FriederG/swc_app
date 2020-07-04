@@ -100,7 +100,7 @@ export default {
           },
           {
             icon: "mdi-table",
-            title: "Spielplan verwalten",
+            title: "Spiele anlegen",
             link: "/admin/spielplan",
           },
           {
