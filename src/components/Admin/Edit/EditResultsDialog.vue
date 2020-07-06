@@ -16,9 +16,12 @@
         <v-layout row wrap>
           <v-flex xs12>
             <v-card-text>
+              {{ team1Title }}
+              <br />
+              Alter Score zum TEST: {{ team1OldGameScore }}
               <v-text-field
                 name="scoreTeam1"
-                label="Team 1"
+                label="Punkte eingeben"
                 id="scoreTeam1"
                 multi-line
                 v-model="modelScoreTeam1"
@@ -28,9 +31,12 @@
             </v-card-text>
 
             <v-card-text>
+              {{ team2Title }}
+              <br />
+              Alter Score zum TEST: {{ team2OldGameScore }}
               <v-text-field
                 name="scoreTeam1"
-                label="Team 2"
+                label="Punkte eingeben"
                 id="scoreTeam2"
                 multi-line
                 v-model="modelScoreTeam2"
@@ -50,7 +56,17 @@
                 @click="editDialog = false"
                 >Close</v-btn
               >
-              <v-btn text class="blue--text darken-1" @click="onSaveChanges"
+              <v-btn
+                text
+                class="blue--text darken-1"
+                @click="
+                  onSaveChanges(
+                    team1.id,
+                    team1.totalScore,
+                    team2.id,
+                    team2.totalScore
+                  )
+                "
                 >Save</v-btn
               >
             </v-card-actions>
@@ -63,7 +79,15 @@
 <script>
 export default {
   //prop aus der ErgebnisseBearbeiten.vue
-  props: ["game", "team1", "team2"],
+  props: [
+    "game",
+    "team1",
+    "team1Title",
+    "team1OldGameScore",
+    "team2",
+    "team2Title",
+    "team2OldGameScore",
+  ],
   data() {
     return {
       editDialog: false,
@@ -88,8 +112,12 @@ export default {
       this.editDialog = false;
       this.$store.dispatch("updateGamesData", {
         id: this.game.id,
+        team1: this.team1,
+        team2: this.team2,
+        team1OldGameScore: this.team1OldGameScore,
         scoreTeam1: this.modelScoreTeam1,
         scoreTeam2: this.modelScoreTeam2,
+        team2OldGameScore: this.team2OldGameScore,
       });
       /*
       this.$store.dispatch("updateTeamsData1", {

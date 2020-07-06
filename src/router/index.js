@@ -18,11 +18,13 @@ import GruppenVerwaltung from "@/components/Admin/GruppenVerwaltung";
 import Musikwunsch from "@/components/Musikwunsch";
 import MusikVerwaltung from "@/components/Admin/MusikBearbeiten";
 import Karte from "@/components/Karte";
+import Kalender from "@/components/Kalender";
 
 import AuthGuard from "./auth-guard";
 
 Vue.use(VueRouter);
 
+//Routen zu den jeweiligen Komponenten im Vue-Router festlegen
 const routes = [
   {
     path: "/",
@@ -73,6 +75,11 @@ const routes = [
     path: "/map",
     name: "Karte",
     component: Karte,
+  },
+  {
+    path: "/calendar",
+    name: "Kalender",
+    component: Kalender,
   },
   {
     path: "/admin/login",

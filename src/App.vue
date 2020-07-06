@@ -10,7 +10,7 @@
         <v-toolbar-title
           ><router-link to="/" tag="span" style="cursor: pointer;"
             ><img
-              src="./assets/swc_schrift.png"
+              src="./assets/Logo_mobile.png"
               height="70px"
               style="padding-top: 10px;" /></router-link
         ></v-toolbar-title>
@@ -70,15 +70,16 @@ export default {
         { icon: "mdi-newspaper", title: "News", link: "/news" },
         {
           icon: "mdi-table",
-          title: "Spielpläne",
+          title: "Spielpläne/Ergebnisse",
           link: "/spielplan",
         },
-        { icon: "mdi-trophy", title: "Ergebnisse", link: "/results" },
+        { icon: "mdi-trophy", title: "Gruppen", link: "/results" },
         { icon: "mdi-help", title: "FAQ", link: "/faq" },
         { icon: "mdi-beer", title: "Pegelstand", link: "/pegelstand" },
         { icon: "mdi-instagram", title: "Insta-Feed", link: "/instafeed" },
         { icon: "mdi-music", title: "Musikwünsche", link: "/musik" },
         { icon: "mdi-map", title: "Karte", link: "/map" },
+        { icon: "mdi-calendar", title: "Kalendertürchen", link: "/calendar" },
       ];
       if (this.userIsAuthenticated) {
         menuItems = [
@@ -99,7 +100,7 @@ export default {
           },
           {
             icon: "mdi-table",
-            title: "Spielplan verwalten",
+            title: "Spiele anlegen",
             link: "/admin/spielplan",
           },
           {
