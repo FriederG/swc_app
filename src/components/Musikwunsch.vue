@@ -1,10 +1,19 @@
 <template>
   <v-container>
     <!-- Test Area: Löschen falls nicht mehr benötigt -->
-    <p>{{ timestamp_a }}</p>
-    <p>{{ timestamp_b }}</p>
-    <p>{{ time_dif_music }}</p>
-    <p>{{ countdown }}s</p>
+
+    <v-alert color="green" icon="mdi-clock-time-ten-outline" v-if="(countdown)">
+      Noch {{ countdown }}s bis du wieder einen Musikwunsch eintragen kannst.
+    </v-alert>
+
+    <v-alert
+      color="green"
+      icon="mdi-clock-time-ten-outline"
+      v-if="(vote_cooldown)"
+    >
+      Noch {{ countdown_2 }}s bis du wieder voten kannst.
+    </v-alert>
+
     <!-- Test Area: Löschen falls nicht mehr benötigt -->
 
     <v-layout row>
@@ -44,6 +53,10 @@
     </v-layout>
 
     <v-card-text v-if="wunschGemacht > 2">WUnsch gemacht</v-card-text>
+    <br />
+    <h5 v-if="votes <= 4">
+      Du kannst noch {{ 5 - votes }} Mal voten (danach 30s Wartezeit).
+    </h5>
 
     <v-container> </v-container>
     <!-- Anzeige und Bearbeitung -->
@@ -57,6 +70,7 @@
             <v-card-text> Rating: {{ song.rating }}</v-card-text>
             <!-- Rating Button -->
             <v-btn
+              v-if="votes <= 4"
               style="margin: 10px;"
               outlined
               @click="onUpvote(song.id, song.rating)"
@@ -65,6 +79,7 @@
             </v-btn>
 
             <v-btn
+              v-if="votes <= 4"
               style="margin: 10px;"
               outlined
               @click="onDownVote(song.id, song.rating)"
@@ -88,24 +103,43 @@ export default {
       time: new Date(),
 
       wunschGemacht: localStorage.getItem("Wunsch"),
+      votes: localStorage.getItem("votes"),
 
       counter: null,
+      counter_2: null,
       timestamp_a: null,
       timestamp_b: null,
+      timestamp_c: null,
+      timestamp_d: null,
       time_dif_music: null,
-      countdown: 60,
-
-      test: null,
+      time_dif_vote: null,
+      vote_cooldown: false,
+      countdown: null,
+      countdown_2: null,
     };
   },
 
   mounted() {
+    if (localStorage.getItem("vote_cooldown") === "true") {
+      this.vote_cooldown = true;
+      this.timestamp_d = localStorage.getItem("timestamp_c");
+      this.timer_2();
+    } else {
+      this.vote_cooldown = false;
+    }
+
     this.wunschGemacht = localStorage.getItem("Wunsch");
+    this.votes = localStorage.getItem("votes");
     this.timestamp_a = new Date();
     this.timestamp_b = new Date(localStorage.getItem("timestamp_a"));
+    this.timestamp_c = new Date();
+    this.timestamp_d = new Date(localStorage.getItem("timestamp_c"));
 
     if (parseInt(localStorage.getItem("Wunsch")) === 3) {
       this.timer();
+    }
+    if (parseInt(localStorage.getItem("votes")) === 10) {
+      this.timer_2();
     }
   },
 
@@ -158,21 +192,70 @@ export default {
     },
 
     onUpvote(songId, songRating) {
-      console.log("Upvote");
-      const SongData = {
-        id: songId,
-        rating: songRating,
-      };
+      if (localStorage.getItem("votes")) {
+        console.log("Upvote");
+        const SongData = {
+          id: songId,
+          rating: songRating,
+        };
 
-      this.$store.dispatch("UpVoteSong", SongData);
+        this.$store.dispatch("UpVoteSong", SongData);
+
+        localStorage.setItem(
+          "votes",
+          parseInt(localStorage.getItem("votes")) + 1
+        );
+
+        if (parseInt(localStorage.getItem("votes")) === 4) {
+          this.timestamp_c = new Date();
+          localStorage.setItem("timestamp_c", this.timestamp_c);
+          this.timestamp_d = new Date(localStorage.getItem("timestamp_c"));
+          this.timer_2();
+        }
+      } else {
+        console.log("Upvote");
+        const SongData = {
+          id: songId,
+          rating: songRating,
+        };
+
+        this.$store.dispatch("UpVoteSong", SongData);
+        localStorage.setItem("votes", 1);
+      }
+
+      this.votes = localStorage.getItem("votes");
     },
     onDownVote(songId, songRating) {
-      console.log("Downvote");
-      const SongData = {
-        id: songId,
-        rating: songRating,
-      };
-      this.$store.dispatch("DownVoteSong", SongData);
+      if (localStorage.getItem("votes")) {
+        console.log("Upvote");
+        const SongData = {
+          id: songId,
+          rating: songRating,
+        };
+
+        this.$store.dispatch("UpVoteSong", SongData);
+        localStorage.setItem(
+          "votes",
+          parseInt(localStorage.getItem("votes")) + 1
+        );
+        if (parseInt(localStorage.getItem("votes")) === 4) {
+          this.timestamp_c = new Date();
+          localStorage.setItem("timestamp_c", this.timestamp_c);
+          this.timestamp_d = new Date(localStorage.getItem("timestamp_c"));
+          this.timer_2();
+        }
+      } else {
+        localStorage.setItem("votes", 1);
+        console.log("Upvote");
+        const SongData = {
+          id: songId,
+          rating: songRating,
+        };
+
+        this.$store.dispatch("UpVoteSong", SongData);
+      }
+
+      this.votes = localStorage.getItem("votes");
     },
 
     timer() {
@@ -189,6 +272,27 @@ export default {
           this.wunschGemacht = localStorage.getItem("Wunsch");
           this.countdown = null;
           clearInterval(this.counter);
+        }
+      }, 1000);
+    },
+
+    timer_2() {
+      this.counter_2 = setInterval(() => {
+        this.timestamp_c = new Date();
+        this.vote_cooldown = true;
+        localStorage.setItem("vote_cooldown", "true");
+
+        this.time_dif_vote =
+          Math.floor(Math.abs(this.timestamp_d - this.timestamp_c) / 1000) % 60;
+
+        this.countdown_2 = 30 - this.time_dif_vote;
+
+        if (this.time_dif_vote === 30) {
+          localStorage.removeItem("votes");
+          this.votes = localStorage.getItem("votes");
+          this.vote_cooldown = false;
+          localStorage.setItem("vote_cooldown", "false");
+          clearInterval(this.counter_2);
         }
       }, 1000);
     },
