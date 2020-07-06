@@ -159,8 +159,10 @@ export default {
           console.log("team title:" + teamName);
         });*/
     },
+
     updateGamesData({ commit }, payload) {
       console.log(payload.team1OldGameScore);
+      console.log("team2OldGameScore:" + payload.team2OldGameScore);
 
       commit("setLoading", true);
       //leeres Objekt, Dinge, die geupdated werden werden zugefügt
@@ -190,28 +192,145 @@ export default {
           console.log(error);
           commit("setLoading", false);
         });
-      //Statistiken updaten für die Teams -----------------------------------------------------
+
+      if (payload.team1OldGameScore === "") {
+        payload.team1OldGameScore = 0;
+        var keinScore1 = true;
+      }
+      if (payload.team2OldGameScore === "") {
+        payload.team2OldGameScore = 0;
+        var keinScore2 = true;
+      }
+      //Statistiken updaten für die Teams ------------------------------------------------------------
       //Team 1
-      //Bisherigen totalScore abrufen
+      //Bisherige Daten abrufen
       firebase
         .database()
-        .ref("teams/" + payload.team1)
-        .child("/totalScore")
+        .ref("teams/")
+        .child(payload.team1)
         .once("value")
         .then(function (snapshot) {
-          let oldTotalScore1 = snapshot.val();
+          //Alle Daten des Teams
+          let OldTeam1Data = snapshot.val();
+
+          let oldTotalScore1 = OldTeam1Data.totalScore;
+          let oldOpponentScore1 = OldTeam1Data.opponentScore;
+          let oldWins1 = OldTeam1Data.wins;
+          let oldLosses1 = OldTeam1Data.losses;
+          let oldDraws1 = OldTeam1Data.draw;
+
           console.log("Alter Total Score Team 1:" + oldTotalScore1);
+          console.log("Alter Opponent Score Team 1:" + oldOpponentScore1);
+          console.log("Alte Wins Team 1:" + oldWins1);
+          console.log("Alter Niederlagen Team 1:" + oldLosses1);
 
           //Neue Scores eintragen
           console.log("Team 1: " + payload.team1);
           console.log("Score Team 1: " + payload.scoreTeam1);
 
           const updateObjStat1 = {};
-          if (payload.scoreTeam1) {
+          if (payload.scoreTeam1 || payload.scoreTeam2) {
+            //Total Score --------------------------------------------------------------------------
+            //Wenn noch keine Einträge da sind, auf Null setzen, damit keine Fehler
+            if (oldTotalScore1 === "") {
+              oldTotalScore1 = 0;
+            }
+
             updateObjStat1.totalScore =
               parseInt(oldTotalScore1) +
               parseInt(payload.scoreTeam1) -
               parseInt(payload.team1OldGameScore);
+            //Opponent Score -----------------------------------------------------------------------
+            if (oldOpponentScore1 === "") {
+              oldOpponentScore1 = 0;
+            }
+
+            if (payload.scoreTeam2 === "") {
+              payload.scoreTeam2 = 0;
+            }
+            updateObjStat1.opponentScore =
+              parseInt(oldOpponentScore1) +
+              parseInt(payload.scoreTeam2) -
+              parseInt(payload.team2OldGameScore);
+            //Wins ---------------------------------------------------------------------------------
+            //Wenn ein Sieg eingetragen wurde
+            console.log("Payload Score Team 1:" + payload.scoreTeam2);
+            console.log("Payload Score Team 2:" + payload.scoreTeam1);
+            if (parseInt(payload.scoreTeam1) > parseInt(payload.scoreTeam2)) {
+              //Wenn vorher eine Niederlage eingetragen ist
+              if (payload.team1OldGameScore < payload.team2OldGameScore) {
+                updateObjStat1.wins = oldWins1 + 1;
+                console.log("Sieg erhöht");
+                updateObjStat1.losses = oldLosses1 - 1;
+              }
+              //Wenn vorher ein Unentschieden eingetragen ist
+              if (payload.team1OldGameScore === payload.team2OldGameScore) {
+                //Wenn vorher gar kein Score eingetragen war
+                if (keinScore1 === true && keinScore2 === true) {
+                  updateObjStat1.wins = oldWins1 + 1;
+                  console.log("Unentschieden ohne Abzug");
+                } else {
+                  updateObjStat1.wins = oldWins1 + 1;
+                  updateObjStat1.draw = oldDraws1 - 1;
+                }
+              }
+            }
+            //Losses -------------------------------------------------------------------------------
+            if (parseInt(payload.scoreTeam1) < parseInt(payload.scoreTeam2)) {
+              console.log("Niederlage");
+              //Wenn bisher ein Siege eingetragen ist
+              if (
+                parseInt(payload.team1OldGameScore) >
+                parseInt(payload.team2OldGameScore)
+              ) {
+                updateObjStat1.wins = oldWins1 - 1;
+                console.log("Niederlage erhöht");
+                updateObjStat1.losses = oldLosses1 + 1;
+              }
+              //Wenn bisher ein Unentschieden eingetragen ist
+              if (payload.team1OldGameScore === payload.team2OldGameScore) {
+                //Wenn vorher gar kein Score eingetragen war
+                if (keinScore1 === true && keinScore2 === true) {
+                  updateObjStat1.losses = oldLosses1 + 1;
+                  console.log("Unentschieden ohne Abzug");
+                } else {
+                  updateObjStat1.losses = oldLosses1 + 1;
+                  updateObjStat1.draw = oldDraws1 - 1;
+                }
+              }
+            }
+            //Draw ----------------------------------------------------------------------------------
+            if (parseInt(payload.scoreTeam1) === parseInt(payload.scoreTeam2)) {
+              console.log("Unentschieden");
+              //Wenn vorher ein Sieg eingetragen war
+              if (
+                parseInt(payload.team1OldGameScore) >
+                parseInt(payload.team2OldGameScore)
+              ) {
+                updateObjStat1.draw = oldDraws1 + 1;
+                updateObjStat1.wins = oldWins1 - 1;
+                console.log("Sieg abgezogen");
+              }
+              //Wenn vorher eine Niederlage eingetragen war
+              if (
+                parseInt(payload.team1OldGameScore) <
+                parseInt(payload.team2OldGameScore)
+              ) {
+                updateObjStat1.losses = oldLosses1 - 1;
+                console.log("Niederlage abgezogen");
+                updateObjStat1.draw = oldDraws1 + 1;
+              }
+              //Wenn vorher ein Unentschieden eingetragen war
+              if (
+                parseInt(payload.team1OldGameScore) ===
+                  parseInt(payload.team2OldGameScore) &&
+                keinScore1 === true &&
+                keinScore2 === true
+              ) {
+                updateObjStat1.draw = oldDraws1 + 1;
+                console.log("Sieg abgezogen");
+              }
+            }
           }
           firebase
             .database()
@@ -228,23 +347,148 @@ export default {
             });
         });
 
-      /* const updateObjStat = {};
-      if (payload.scoreTeam1 > payload.scoreTeam2) {
-        updateObj.wins = 1;
-      }
+      //Für Team 2 -----------------------------------------------------------------------------------
+      //----------------------------------------------------------------------------------------------
+      //Bisherige Daten abrufen
+
       firebase
         .database()
-        .ref("teams")
-        .child(payload.id)
-        .update(updateObjStat)
-        .then(() => {
-          commit("setLoading", false);
-          //  commit("updateTeams", payload);
-        })
-        .catch((error) => {
-          console.log(error);
-          commit("setLoading", false);
-        }); */
+        .ref("teams/")
+        .child(payload.team2)
+        .once("value")
+        .then(function (snapshot) {
+          //Alle Daten des Teams
+          let OldTeam2Data = snapshot.val();
+
+          let oldTotalScore2 = OldTeam2Data.totalScore;
+          let oldOpponentScore2 = OldTeam2Data.opponentScore;
+          let oldWins2 = OldTeam2Data.wins;
+          let oldLosses2 = OldTeam2Data.losses;
+          let oldDraws2 = OldTeam2Data.draw;
+
+          //Neue Scores eintragen
+          const updateObjStat2 = {};
+          if (payload.scoreTeam2 || payload.scoreTeam1) {
+            //Total Score --------------------------------------------------------------------------
+            //Wenn noch keine Einträge da sind, auf Null setzen, damit keine Fehler
+            if (oldTotalScore2 === "") {
+              oldTotalScore2 = 0;
+            }
+            if (payload.team2OldGameScore === "") {
+              payload.team2OldGameScore = 0;
+              //var keinScore2 = true;
+            }
+            updateObjStat2.totalScore =
+              parseInt(oldTotalScore2) +
+              parseInt(payload.scoreTeam2) -
+              parseInt(payload.team2OldGameScore);
+            //Opponent Score -----------------------------------------------------------------------
+            if (oldOpponentScore2 === "") {
+              oldOpponentScore2 = 0;
+            }
+            if (payload.team1OldGameScore === "") {
+              payload.team2OldGameScore = 0;
+              //var keinScore1 = true;
+            }
+            if (payload.scoreTeam1 === "") {
+              payload.scoreTeam1 = 0;
+            }
+            updateObjStat2.opponentScore =
+              parseInt(oldOpponentScore2) +
+              parseInt(payload.scoreTeam1) -
+              parseInt(payload.team1OldGameScore);
+            //Wins ---------------------------------------------------------------------------------
+            //Wenn ein Sieg eingetragen wurde
+            console.log("Payload Score Team 1:" + payload.scoreTeam2);
+            console.log("Payload Score Team 2:" + payload.scoreTeam1);
+            if (parseInt(payload.scoreTeam2) > parseInt(payload.scoreTeam1)) {
+              //Wenn vorher eine Niederlage eingetragen ist
+              if (payload.team2OldGameScore < payload.team1OldGameScore) {
+                updateObjStat2.wins = oldWins2 + 1;
+                console.log("Sieg erhöht");
+                updateObjStat2.losses = oldLosses2 - 1;
+              }
+              //Wenn vorher ein Unentschieden eingetragen ist
+              if (payload.team2OldGameScore === payload.team1OldGameScore) {
+                //Wenn vorher gar kein Score eingetragen war
+                if (keinScore1 === true && keinScore2 === true) {
+                  updateObjStat2.wins = oldWins2 + 1;
+                  console.log("Unentschieden ohne Abzug");
+                } else {
+                  updateObjStat2.wins = oldWins2 + 1;
+                  updateObjStat2.draw = oldDraws2 - 1;
+                }
+              }
+            }
+            //Losses -------------------------------------------------------------------------------
+            if (parseInt(payload.scoreTeam2) < parseInt(payload.scoreTeam1)) {
+              console.log("Niederlage Team 2");
+              //Wenn bisher ein Siege eingetragen ist
+              if (
+                parseInt(payload.team2OldGameScore) >
+                parseInt(payload.team1OldGameScore)
+              ) {
+                updateObjStat2.wins = oldWins2 - 1;
+                console.log("Niederlage erhöht");
+                updateObjStat2.losses = oldLosses2 + 1;
+              }
+              //Wenn bisher ein Unentschieden eingetragen ist
+              if (payload.team2OldGameScore === payload.team1OldGameScore) {
+                //Wenn vorher gar kein Score eingetragen war
+                if (keinScore1 === true && keinScore2 === true) {
+                  updateObjStat2.losses = oldLosses2 + 1;
+                } else {
+                  updateObjStat2.losses = oldLosses2 + 1;
+                  updateObjStat2.draw = oldDraws2 - 1;
+                }
+              }
+            }
+            //Draw ----------------------------------------------------------------------------------
+            if (parseInt(payload.scoreTeam1) === parseInt(payload.scoreTeam2)) {
+              console.log("Unentschieden");
+              //Wenn vorher ein Sieg eingetragen war
+              if (
+                parseInt(payload.team2OldGameScore) >
+                parseInt(payload.team1OldGameScore)
+              ) {
+                updateObjStat2.draw = oldDraws2 + 1;
+                updateObjStat2.wins = oldWins2 - 1;
+              }
+              //Wenn vorher eine Niederlage eingetragen war
+              if (
+                parseInt(payload.team2OldGameScore) <
+                parseInt(payload.team1OldGameScore)
+              ) {
+                updateObjStat2.losses = oldLosses2 - 1;
+                console.log("Niederlage abgezogen");
+                updateObjStat2.draw = oldDraws2 + 1;
+              }
+              //Wenn vorher ein Unentschieden eingetragen war
+              if (
+                parseInt(payload.team1OldGameScore) ===
+                  parseInt(payload.team2OldGameScore) &&
+                keinScore1 === true &&
+                keinScore2 === true
+              ) {
+                updateObjStat2.draw = oldDraws2 + 1;
+              }
+            }
+          }
+          //Daten übertragen
+          firebase
+            .database()
+            .ref("teams")
+            .child(payload.team2)
+            .update(updateObjStat2)
+            .then(() => {
+              commit("setLoading", false);
+              //  commit("updateTeams", payload);
+            })
+            .catch((error) => {
+              console.log(error);
+              commit("setLoading", false);
+            });
+        });
     },
 
     deleteGameData({ commit }, payload) {

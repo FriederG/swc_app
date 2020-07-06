@@ -113,9 +113,11 @@ export default {
       this.$store.dispatch("updateGamesData", {
         id: this.game.id,
         team1: this.team1,
+        team2: this.team2,
         team1OldGameScore: this.team1OldGameScore,
         scoreTeam1: this.modelScoreTeam1,
         scoreTeam2: this.modelScoreTeam2,
+        team2OldGameScore: this.team2OldGameScore,
       });
       /*
       this.$store.dispatch("updateTeamsData1", {
