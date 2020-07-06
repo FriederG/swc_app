@@ -9,6 +9,7 @@
       <v-container>
         <v-layout row wrap>
           <v-flex xs12>
+            <v-card-text>{{ team1Title }} vs. {{ team2Title }}</v-card-text>
             <v-card-title>Spiel wirklich löschen?</v-card-title>
           </v-flex>
         </v-layout>
@@ -34,10 +35,20 @@
 <script>
 export default {
   //prop aus der News.vue
-  props: ["game"],
+  props: [
+    "game",
+    "team1",
+    "team1Title",
+    "team1OldGameScore",
+    "team2",
+    "team2Title",
+    "team2OldGameScore",
+  ],
   data() {
     return {
       editDialog: false,
+      modelScoreTeam1: this.game.scoreTeam1,
+      modelScoreTeam2: this.game.scoreTeam2,
     };
   },
   methods: {
@@ -46,6 +57,10 @@ export default {
 
       this.$store.dispatch("deleteGameData", {
         id: this.game.id,
+        team1: this.team1,
+        team2: this.team2,
+        team1OldGameScore: this.team1OldGameScore,
+        team2OldGameScore: this.team2OldGameScore,
       });
     },
   },

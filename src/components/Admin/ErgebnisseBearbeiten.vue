@@ -89,7 +89,15 @@
               :team2OldGameScore="game.scoreTeam2"
             ></edit-results-dialog>
           </v-list-item>
-          <delete-game-dialog :game="game"></delete-game-dialog> </v-card
+          <delete-game-dialog
+            :game="game"
+            :team1="game.team1"
+            :team1Title="game.team1Title"
+            :team1OldGameScore="game.scoreTeam1"
+            :team2="game.team2"
+            :team2Title="game.team2Title"
+            :team2OldGameScore="game.scoreTeam2"
+          ></delete-game-dialog> </v-card
         ><br />
       </div>
     </v-container></div
