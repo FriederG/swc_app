@@ -119,30 +119,6 @@ export default {
         scoreTeam2: this.modelScoreTeam2,
         team2OldGameScore: this.team2OldGameScore,
       });
-      /*
-      this.$store.dispatch("updateTeamsData1", {
-        id: this.team1,
-        selfScore: this.modelScoreTeam1,
-        oldSelfScore: this.teams[0].selfScore,
-        otherScore: this.modelScoreTeam2,
-      });
-
-      this.$store.dispatch("updateTeamsData2", {
-        id: this.team2,
-        selfScore: this.modelScoreTeam2,
-        oldSelfScore: this.game.scoreTeam2,
-        otherScore: this.modelScoreTeam1,
-      });
-      this.$store.dispatch("registerTeam1ForGame", {
-        id: this.team1,
-        selfScore: this.modelScoreTeam1,
-        otherScore: this.modelScoreTeam2,
-      });
-      this.$store.dispatch("registerTeam2ForGame", {
-        id: this.team2,
-        selfScore: this.modelScoreTeam2,
-        otherScore: this.modelScoreTeam1,
-      });*/
     },
   },
 };

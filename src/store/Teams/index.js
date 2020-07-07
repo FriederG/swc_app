@@ -62,19 +62,16 @@ export default {
             teams.push({
               id: key,
               title: obj[key].title,
+              group: obj[key].group,
               gender: obj[key].gender,
               date: obj[key].date,
-              selfScore: obj[key].selfScore,
-              games: obj[key].games,
-
-              //creatorId: obj[key].creatorId,
+              totalScore: obj[key].totalScore,
+              opponentScore: obj[key].opponentScore,
+              wins: obj[key].wins,
+              losses: obj[key].losses,
+              draw: obj[key].draw,
             });
           }
-          console.log(teams);
-          // console.log(teams[0].games["-MAk9QEWgf1kStR57bQi"].selfScore);
-
-          // console.log(teams[0].games);
-
           commit("setLoadedTeams", teams);
           commit("setLoading", false);
         });
@@ -90,6 +87,7 @@ export default {
         wins: payload.wins,
         losses: payload.losses,
         draw: payload.draw,
+        group: payload.group,
         date: payload.date.toISOString(),
         //creatorId: getters.user.id,
       };
@@ -116,6 +114,9 @@ export default {
       }
       if (payload.gender) {
         updateObj.gender = payload.gender;
+      }
+      if (payload.group) {
+        updateObj.group = payload.group;
       }
       if (payload.date) {
         updateObj.date = payload.date;
