@@ -1,31 +1,5 @@
 <template>
   <v-container>
-    <!--Dialog zur Bestätigung
-    <v-dialog width="350px" persistent v-model="submitTeamDialog">
-      <v-card>
-        <v-container>
-          <v-layout row wrap>
-            <v-flex xs12>
-              <v-card-title>Team {{ this.title }} angelegt</v-card-title>
-            </v-flex>
-          </v-layout>
-
-          <v-layout row wrap>
-            <v-flex xs12>
-              <v-card-actions>
-                <v-btn
-                  text
-                  class="blue--text darken-1"
-                  @click="submitTeamDialog = false"
-                  >Okay</v-btn
-                >
-              </v-card-actions>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-card>
-    </v-dialog>-->
-
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
         <h2>Neues Team</h2>
@@ -48,7 +22,7 @@
               ></v-text-field>
             </v-flex>
           </v-layout>
-          {{ title }}
+
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <h4>Gruppe</h4>
@@ -93,9 +67,35 @@
 
     <v-container> </v-container>
 
+    <v-container v-for="group in groupedTeamsByGroup" :key="group.id">
+      <h3>Gruppe: {{ group.groupTitle }}</h3>
+
+      <div id="list-complete-demo">
+        <transition-group name="list-complete" tag="p">
+          <div
+            v-for="team in group.characters"
+            :key="team.id"
+            class="list-complete-item"
+          >
+            <v-card class="mx-auto" max-width="400">
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>{{ team.title }}</v-list-item-title>
+                  <v-card-text>
+                    <edit-team-dialog :team="team"></edit-team-dialog>
+                    <delete-team-dialog :team="team"></delete-team-dialog
+                  ></v-card-text>
+                </v-list-item-content>
+              </v-list-item> </v-card
+            ><br />
+          </div>
+        </transition-group>
+      </div>
+    </v-container>
+
+    <!--
     <div id="list-demo">
       <transition-group name="list" tag="p">
-        <!-- Anzeige und Bearbeitung -->
         <v-container v-for="team in teams" :key="team.id">
           <v-card class="mx-auto" max-width="400px"
             ><v-card-text
@@ -109,11 +109,14 @@
         </v-container>
       </transition-group>
     </div>
+    -->
   </v-container>
 </template>
 
 <script>
 //import _ from "lodash";
+
+import _ from "lodash";
 
 export default {
   data() {
@@ -149,6 +152,17 @@ export default {
     },
     teams() {
       return this.$store.getters.loadedTeams;
+    },
+
+    groupedTeamsByGroup() {
+      return (
+        _.chain(this.teams)
+          .groupBy((character) => character.group)
+          .map((characters, groupTitle) => ({ groupTitle, characters }))
+          //Für die Anordnung wird nur noch die Uhrzeit ohne Doppelpunkt genutzt, um die korrekte Reihenfolge zu bekommen
+          .orderBy((group) => Number(group.group), ["asc"])
+          .value()
+      );
     },
   },
   methods: {
@@ -198,5 +212,19 @@ export default {
 .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
   opacity: 0;
   transform: translateY(-30px);
+}
+
+.list-complete-item {
+  transition: all 1s;
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-complete-enter, .list-complete-leave-to
+  /* .list-complete-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+.list-complete-leave-active {
+  position: absolute;
 }
 </style>

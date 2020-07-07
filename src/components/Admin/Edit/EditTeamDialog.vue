@@ -27,6 +27,20 @@
           </v-flex>
         </v-layout>
 
+        <v-layout row wrap>
+          <v-flex xs12>
+            <v-card-text>
+              <v-text-field
+                name="group"
+                label="Gruppe"
+                id="EditGroup"
+                v-model="editedGroup"
+                required
+              ></v-text-field>
+            </v-card-text>
+          </v-flex>
+        </v-layout>
+
         <v-layout row>
           <v-card-text>Turnierzweig</v-card-text>
           <v-flex xs12 sm6 offset-sm3>
@@ -74,6 +88,7 @@ export default {
       editDialog: false,
       gender: this.team.gender,
       editedTitle: this.team.title,
+      editedGroup: this.team.group,
     };
   },
   methods: {
@@ -86,6 +101,7 @@ export default {
         id: this.team.id,
         title: this.editedTitle,
         gender: this.gender,
+        group: this.editedGroup,
       });
     },
   },

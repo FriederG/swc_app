@@ -69,6 +69,7 @@ export default {
               opponentScore: obj[key].opponentScore,
               wins: obj[key].wins,
               losses: obj[key].losses,
+              points: obj[key].points,
               draw: obj[key].draw,
             });
           }
@@ -88,6 +89,7 @@ export default {
         losses: payload.losses,
         draw: payload.draw,
         group: payload.group,
+        points: 0,
         date: payload.date.toISOString(),
         //creatorId: getters.user.id,
       };
@@ -127,7 +129,6 @@ export default {
       if (payload.otherScore) {
         updateObj.opponentScore = payload.otherScore;
       }
-
       if (payload.losses) {
         updateObj.losses = payload.losses;
       }
