@@ -243,7 +243,10 @@ export default {
             console.log("Payload Score Team 2:" + payload.scoreTeam1);
             if (parseInt(payload.scoreTeam1) > parseInt(payload.scoreTeam2)) {
               //Wenn vorher eine Niederlage eingetragen ist
-              if (payload.team1OldGameScore < payload.team2OldGameScore) {
+              if (
+                parseInt(payload.team1OldGameScore) <
+                parseInt(payload.team2OldGameScore)
+              ) {
                 updateObjStat1.wins = oldWins1 + 1;
                 console.log("Sieg erhöht");
                 updateObjStat1.losses = oldLosses1 - 1;
@@ -388,7 +391,10 @@ export default {
             console.log("Payload Score Team 2:" + payload.scoreTeam1);
             if (parseInt(payload.scoreTeam2) > parseInt(payload.scoreTeam1)) {
               //Wenn vorher eine Niederlage eingetragen ist
-              if (payload.team2OldGameScore < payload.team1OldGameScore) {
+              if (
+                parseInt(payload.team2OldGameScore) <
+                parseInt(payload.team1OldGameScore)
+              ) {
                 updateObjStat2.wins = oldWins2 + 1;
                 console.log("Sieg erhöht");
                 updateObjStat2.losses = oldLosses2 - 1;
