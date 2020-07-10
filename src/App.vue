@@ -5,6 +5,7 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
     <!--App Bar oben -->
+
     <v-card color="grey lighten-4" flattile dark style="margin-bottom: 80px;">
       <v-app-bar height="90px" fixed>
         <v-toolbar-title
