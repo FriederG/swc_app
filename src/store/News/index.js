@@ -5,19 +5,12 @@ export default {
     loadedNews: [
       {
         imageUrl:
-          "https://www.sueddeutsche.de/image/sz.1.4648823/1200x675?v=1571647880",
+          "https://miro.medium.com/max/978/1*pUEZd8z__1p-7ICIO1NZFA.png",
         id: "1",
-        title: "Event Nummer 1",
+        title: "Fehler beim Laden der Daten",
         date: new Date(),
-        description: "Das Erste Meeting",
-      },
-      {
-        imageUrl:
-          "https://media1.faz.net/ppmedia/aktuell/sport/3942937322/1.6396371/mmobject-still_full/der-haka-zieht-immer.jpg",
-        id: "2",
-        title: "Zweites Meetup",
-        date: new Date(),
-        description: "Das Zweite Meeting",
+        description:
+          "Leider können wir keine Verbindung zur Datenbank herstellen. Das Laden der Echtzeitdaten (Spielergebnissse, News etc.) ist im privaten Fenster nicht möglich.",
       },
     ],
   },

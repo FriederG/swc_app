@@ -15,7 +15,7 @@
         </v-img>
 
         <v-card-text class="text--primary">
-          <div>{{ singleNews.date }}</div>
+          <div>{{ singleNews.date | day }}</div>
         </v-card-text>
 
         <v-expansion-panel-header

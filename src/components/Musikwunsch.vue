@@ -227,13 +227,13 @@ export default {
     },
     onDownVote(songId, songRating) {
       if (localStorage.getItem("votes")) {
-        console.log("Upvote");
+        console.log("Downvote");
         const SongData = {
           id: songId,
           rating: songRating,
         };
 
-        this.$store.dispatch("UpVoteSong", SongData);
+        this.$store.dispatch("DownVoteSong", SongData);
         localStorage.setItem(
           "votes",
           parseInt(localStorage.getItem("votes")) + 1
@@ -246,13 +246,13 @@ export default {
         }
       } else {
         localStorage.setItem("votes", 1);
-        console.log("Upvote");
+        console.log("DownVote");
         const SongData = {
           id: songId,
           rating: songRating,
         };
 
-        this.$store.dispatch("UpVoteSong", SongData);
+        this.$store.dispatch("DownVoteSong", SongData);
       }
 
       this.votes = localStorage.getItem("votes");

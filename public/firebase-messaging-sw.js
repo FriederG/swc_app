@@ -24,6 +24,7 @@ firebase.initializeApp(config);
 
 const messaging = firebase.messaging();
 
+/*
 messaging.onMessage((payload) => console.log("Message received", payload));
 
 messaging.setBackgroundMessageHandler(function (payload) {
@@ -43,3 +44,4 @@ messaging.setBackgroundMessageHandler(function (payload) {
     notificationOptions
   );
 });
+*/
