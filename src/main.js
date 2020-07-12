@@ -72,7 +72,22 @@ new Vue({
       storageBucket: "gs://schietwettercup.appspot.com",
       messagingSenderId: "977017215304",
       appId: "1:977017215304:web:44bd817cb04fa998a27b7d",
+      measurementId: "G-KZXXTCM4N5",
     });
+
+    firebase
+      .messaging()
+      .requestPermission()
+      .then(() => firebase.messaging().getToken())
+      .then((token) => console.log(token))
+      .catch((err) => console.log(err));
+
+    //Zum Überprüfen in der Konsole, ob die Message angekommen ist
+    /*
+    navigator.serviceWorker.addEventListener("message", (event) => {
+      console.log("Push Notification Recieved" + event); // refresh code goes here
+    });*/
+
     //checken, ob der admin im local Store eingeloggt ist
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {

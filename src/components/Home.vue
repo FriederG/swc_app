@@ -13,7 +13,12 @@
         <div><h2>Schietwettercup 2021</h2></div>
         <br />
         <!--News Sektion -->
+
+        <!--Subscribe Push Nachricht Test
         <v-btn @click="subscribe">Subscribe</v-btn>
+        -->
+
+        <!--Subscribe Push Nachricht Test -->
         <v-layout row wrap v-if="!loading">
           <v-expansion-panels>
             <v-expansion-panel
@@ -97,11 +102,15 @@
 ></template>
 
 <script>
-import * as firebase from "firebase";
+//import * as firebase from "firebase";
 export default {
-  //Methode, bei der die News aus dem vuex store geladen werden
+  data() {
+    return {};
+  },
+
   computed: {
     news() {
+      //Methode, bei der die News aus dem vuex store geladen werden
       return this.$store.getters.featuredNews;
     },
     loading() {
@@ -109,6 +118,7 @@ export default {
     },
   },
   methods: {
+    /*
     subscribe() {
       firebase
         .messaging()
@@ -116,7 +126,7 @@ export default {
         .then(() => firebase.messaging().getToken())
         .then((token) => console.log(token))
         .catch((err) => console.log(err));
-    },
+    },*/
   },
 };
 </script>
