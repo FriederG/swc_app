@@ -61,14 +61,6 @@
         Dein Pegel: {{ alc_calc_female.toFixed(2) }} Promille
       </p>
       <v-btn v-on:click="clear">Reset</v-btn>
-
-      <!-- Test -->
-      <p>{{ timestamp_1 }}</p>
-      <p>{{ timestamp_2 }}</p>
-      <p>{{ time_difference_h }} : {{ time_difference_m }}</p>
-      <p>{{ this.counter }}</p>
-      <p>{{ this.bac }}</p>
-      <p>{{ this.pegel_f }}</p>
     </v-simple-table>
 
     <div v-if="(entered === 'false')">
@@ -118,6 +110,8 @@ export default {
       timestamp_2: null,
       time_difference_h: null,
       time_difference_m: null,
+
+      check: null,
     };
   },
   mounted() {
@@ -155,6 +149,9 @@ export default {
   methods: {
     more_beer() {
       if (this.bac === false) {
+        this.timestamp_1 = new Date();
+        localStorage.setItem("timestamp_1", this.timestamp_1);
+        this.timestamp_2 = new Date(localStorage.getItem("timestamp_1"));
         this.bac = true;
         localStorage.setItem("bac", "true");
         this.timedifference();
@@ -165,6 +162,9 @@ export default {
     },
     more_wine() {
       if (this.bac === false) {
+        this.timestamp_1 = new Date();
+        localStorage.setItem("timestamp_1", this.timestamp_1);
+        this.timestamp_2 = new Date(localStorage.getItem("timestamp_1"));
         this.bac = true;
         localStorage.setItem("bac", "true");
         this.timedifference();
@@ -175,6 +175,9 @@ export default {
     },
     more_shots() {
       if (this.bac === false) {
+        this.timestamp_1 = new Date();
+        localStorage.setItem("timestamp_1", this.timestamp_1);
+        this.timestamp_2 = new Date(localStorage.getItem("timestamp_1"));
         this.bac = true;
         localStorage.setItem("bac", "true");
         this.timedifference();
@@ -185,6 +188,9 @@ export default {
     },
     more_drinks() {
       if (this.bac === false) {
+        this.timestamp_1 = new Date();
+        localStorage.setItem("timestamp_1", this.timestamp_1);
+        this.timestamp_2 = new Date(localStorage.getItem("timestamp_1"));
         this.bac = true;
         localStorage.setItem("bac", "true");
         this.timedifference();
@@ -297,6 +303,7 @@ export default {
     timedifference() {
       if (this.bac === true) {
         this.counter = setInterval(() => {
+          this.bac_check();
           this.timestamp_1 = new Date();
           //Berechnung der Stundenanzahl seit Beginn des Alkoholkonsums
           this.time_difference_h =
@@ -311,6 +318,62 @@ export default {
         }, 1000);
       } else if (this.bac === false) {
         clearInterval(this.counter);
+      }
+    },
+
+    bac_check() {
+      if (this.gender === "female") {
+        this.check =
+          (this.beer_count * 12 +
+            this.wine_count * 15 +
+            this.shot_count * 7 +
+            this.drink_count * 12) /
+            (this.weight * 0.55) -
+          this.time_difference_h * 0.15 -
+          this.time_difference_m * 0.0025;
+
+        if (this.check <= 0) {
+          this.bac = false;
+          localStorage.setItem("bac", "false");
+          clearInterval(this.counter);
+          this.timestamp_1 = new Date();
+          localStorage.setItem("timestamp_1", this.timestamp_1);
+          this.timestamp_2 = new Date(localStorage.getItem("timestamp_1"));
+          this.beer_count = 0;
+          localStorage.setItem("beer_count", this.beer_count);
+          this.wine_count = 0;
+          localStorage.setItem("wine_count", this.wine_count);
+          this.shot_count = 0;
+          localStorage.setItem("shot_count", this.shot_count);
+          this.drink_count = 0;
+          localStorage.setItem("drink_count", this.drink_count);
+        }
+      } else if (this.gender === "male") {
+        this.check =
+          (this.beer_count * 12 +
+            this.wine_count * 15 +
+            this.shot_count * 7 +
+            this.drink_count * 12) /
+            (this.weight * 0.68) -
+          this.time_difference_h * 0.15 -
+          this.time_difference_m * 0.0025;
+
+        if (this.check <= 0) {
+          this.bac = false;
+          localStorage.setItem("bac", "false");
+          clearInterval(this.counter);
+          this.timestamp_1 = new Date();
+          localStorage.setItem("timestamp_1", this.timestamp_1);
+          this.timestamp_2 = new Date(localStorage.getItem("timestamp_1"));
+          this.beer_count = 0;
+          localStorage.setItem("beer_count", this.beer_count);
+          this.wine_count = 0;
+          localStorage.setItem("wine_count", this.wine_count);
+          this.shot_count = 0;
+          localStorage.setItem("shot_count", this.shot_count);
+          this.drink_count = 0;
+          localStorage.setItem("drink_count", this.drink_count);
+        }
       }
     },
   },
