@@ -57,7 +57,9 @@
                       ><b>Punkte: {{ team.points }} </b><br /><br />Siege:
                       {{ team.wins }}<br />
                       Unentschieden: {{ team.draw }}<br />Niederlagen:
-                      {{ team.losses }}
+                      {{ team.losses }}<br />
+                      Tordifferenz: {{ team.totalScore }} -
+                      {{ team.opponentScore }} : {{ team.scoreDifference }}
                     </v-card-text>
                   </v-list-item-content>
                 </v-list-item> </v-card
@@ -168,19 +170,22 @@ export default {
       return this.$store.getters.loadedGames;
     },
 
-    /*
-    groups() {
-      return this.$store.getters.loadedGroups;
-    },*/
-
+    //Alle Teams mit Infos aus der DB abrufen
     dbTeams() {
       return this.$store.getters.loadedTeams;
     },
 
+    //dbTeams nach Punkten aufsteigend sortieren
+    //Bei glaichen Punkten entscheidet die Tordifferenz
     teamsByWins: function () {
-      return _.orderBy(this.dbTeams, "points", "desc");
+      return _.orderBy(
+        this.dbTeams,
+        ["points", "scoreDifference"],
+        ["desc", "desc"]
+      );
     },
 
+    //Nach Punkten sortierte Teams anhand iherer Gruppe ordnen und ausgeben
     groupedByGroup() {
       return (
         _.chain(this.teamsByWins)

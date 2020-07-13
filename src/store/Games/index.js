@@ -341,9 +341,15 @@ export default {
                   let newWins1 = newTeam1Data.wins;
                   let newDraws1 = newTeam1Data.draw;
 
+                  let newSelfScore1 = newTeam1Data.totalScore;
+                  let newOpponentScore1 = newTeam1Data.opponentScore;
+
                   //Hier werden die Punkte berechnet. Zur Zeit 2 Punkte für Sieg, einer für Unentschieden
                   pointsData.points =
                     parseInt(newWins1) * 2 + parseInt(newDraws1);
+
+                  pointsData.scoreDifference =
+                    parseInt(newSelfScore1) - parseInt(newOpponentScore1);
 
                   firebase
                     .database()
@@ -521,9 +527,15 @@ export default {
                   let newWins2 = newTeam2Data.wins;
                   let newDraws2 = newTeam2Data.draw;
 
+                  let newSelfScore2 = newTeam2Data.totalScore;
+                  let newOpponentScore2 = newTeam2Data.opponentScore;
+
                   //Hier werden die Punkte berechnet. Zur Zeit 2 Punkte für Sieg, einer für Unentschieden
                   pointsData2.points =
                     parseInt(newWins2) * 2 + parseInt(newDraws2);
+
+                  pointsData2.scoreDifference =
+                    parseInt(newSelfScore2) - parseInt(newOpponentScore2);
 
                   console.log("punkte 2" + pointsData2.points);
 
