@@ -1,117 +1,132 @@
 <template>
   <div>
     <h1>Punkte</h1>
-    <h4>Deine Gruppe:</h4>
-    <v-layout row>
-      <v-flex xs12 sm6 offset-sm3>
-        <v-select
-          name="day"
-          label="Gruppe"
-          id="day"
-          v-model="modelGroup"
-          required
-          :items="singleGroups"
-          item-text="group"
-          return-object
-          solo
-          ><template slot="selection" slot-scope="{ item }">
-            {{ item.group }}
-          </template>
-          <template slot="item" slot-scope="{ item }">
-            {{ item.group }}
-          </template></v-select
-        >
-      </v-flex>
-    </v-layout>
+    <v-layout v-if="loading"
+      ><v-flex xs12 class="text-center" style="padding: 30px;"
+        ><v-progress-circular
+          indeterminate
+          color="green"
+          style="padding: 30px;"
+        ></v-progress-circular
+        ><v-card-text
+          >Lädt Daten<br />Bitte Internet-Verbindung herstellen</v-card-text
+        ></v-flex
+      ></v-layout
+    >
 
-    <v-container v-for="group in selectedGroups" :key="group.id">
-      <h1>Gruppe: {{ group.groupTitle }} {{ modelGroup.group }}</h1>
-
-      <div id="list-complete-demo">
-        <transition-group name="list-complete" tag="p">
-          <div
-            v-for="team in group.characters"
-            :key="team.id"
-            class="list-complete-item"
+    <div v-if="!loading">
+      <h4>Deine Gruppe:</h4>
+      <v-layout row>
+        <v-flex xs12 sm6 offset-sm3>
+          <v-select
+            name="day"
+            label="Gruppe"
+            id="day"
+            v-model="modelGroup"
+            required
+            :items="singleGroups"
+            item-text="group"
+            return-object
+            solo
+            ><template slot="selection" slot-scope="{ item }">
+              {{ item.group }}
+            </template>
+            <template slot="item" slot-scope="{ item }">
+              {{ item.group }}
+            </template></v-select
           >
-            <v-card class="mx-auto" max-width="400">
-              <v-list-item>
-                <v-list-item-content
-                  ><v-card-title>{{ team.title }}</v-card-title>
+        </v-flex>
+      </v-layout>
 
-                  <v-card-text
-                    ><b>Punkte: {{ team.points }} </b><br /><br />Siege:
-                    {{ team.wins }}<br />
-                    Unentschieden: {{ team.draw }}<br />Niederlagen:
-                    {{ team.losses }}
-                  </v-card-text>
-                </v-list-item-content>
-              </v-list-item> </v-card
-            ><br />
-          </div>
-        </transition-group>
-      </div>
-    </v-container>
+      <v-container v-for="group in selectedGroups" :key="group.groupTitle">
+        <h1>Gruppe: {{ group.groupTitle }} {{ modelGroup.group }}</h1>
 
-    <v-container fluid>
-      <h2>Viertelfinale</h2>
-      <v-row align="center">
-        <v-col>
-          <v-card width="400px" color="green">
-            <v-card-title>Viertelfinale 1</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card width="400px" color="green">
-            <v-card-title>Viertelfinale 1</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card width="400px" color="green">
-            <v-card-title>Viertelfinale 1</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card width="400px" color="green">
-            <v-card-title>Viertelfinale 1</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+        <div id="list-complete-demo">
+          <transition-group name="list-complete" tag="p">
+            <div
+              v-for="team in group.characters"
+              :key="team.title"
+              class="list-complete-item"
+            >
+              <v-card class="mx-auto" max-width="400">
+                <v-list-item>
+                  <v-list-item-content
+                    ><v-card-title>{{ team.title }}</v-card-title>
 
-    <v-container fluid>
-      <h2>Halbfinale</h2>
-      <v-row align="center" justify="center">
-        <v-col>
-          <v-card width="400px" color="blue">
-            <v-card-title>Halbfinale 1</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card width="400px" color="blue">
-            <v-card-title>Halbfinale 2</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+                    <v-card-text
+                      ><b>Punkte: {{ team.points }} </b><br /><br />Siege:
+                      {{ team.wins }}<br />
+                      Unentschieden: {{ team.draw }}<br />Niederlagen:
+                      {{ team.losses }}
+                    </v-card-text>
+                  </v-list-item-content>
+                </v-list-item> </v-card
+              ><br />
+            </div>
+          </transition-group>
+        </div>
+      </v-container>
 
-    <v-container fluid>
-      <h2>Finale</h2>
-      <v-row align="center" justify="center">
-        <v-col>
-          <v-card width="400px" color="red">
-            <v-card-title>Finale</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+      <v-container fluid>
+        <h2>Viertelfinale</h2>
+        <v-row align="center">
+          <v-col>
+            <v-card width="400px" color="green">
+              <v-card-title>Viertelfinale 1</v-card-title>
+              <v-card-text>Team 1 - Team 2</v-card-text>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card width="400px" color="green">
+              <v-card-title>Viertelfinale 1</v-card-title>
+              <v-card-text>Team 1 - Team 2</v-card-text>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card width="400px" color="green">
+              <v-card-title>Viertelfinale 1</v-card-title>
+              <v-card-text>Team 1 - Team 2</v-card-text>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card width="400px" color="green">
+              <v-card-title>Viertelfinale 1</v-card-title>
+              <v-card-text>Team 1 - Team 2</v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+
+      <v-container fluid>
+        <h2>Halbfinale</h2>
+        <v-row align="center" justify="center">
+          <v-col>
+            <v-card width="400px" color="blue">
+              <v-card-title>Halbfinale 1</v-card-title>
+              <v-card-text>Team 1 - Team 2</v-card-text>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card width="400px" color="blue">
+              <v-card-title>Halbfinale 2</v-card-title>
+              <v-card-text>Team 1 - Team 2</v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+
+      <v-container fluid>
+        <h2>Finale</h2>
+        <v-row align="center" justify="center">
+          <v-col>
+            <v-card width="400px" color="red">
+              <v-card-title>Finale</v-card-title>
+              <v-card-text>Team 1 - Team 2</v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
   </div>
 </template>
 
@@ -146,6 +161,9 @@ export default {
     };
   },
   computed: {
+    loading() {
+      return this.$store.getters.loading;
+    },
     games() {
       return this.$store.getters.loadedGames;
     },

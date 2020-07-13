@@ -2,86 +2,104 @@
   ><div>
     <h1>Spielplan</h1>
     <br />
-    <h4>Tag wählen:</h4>
-    <v-layout row>
-      <v-flex xs12 sm6 offset-sm3>
-        <v-select
-          name="day"
-          label="Tag"
-          id="day"
-          v-model="day"
-          required
-          :items="singleDays"
-          item-text="time"
-          return-object
-          solo
-          ><template slot="selection" slot-scope="{ item }">
-            {{ item.time | day }}
-          </template>
-          <template slot="item" slot-scope="{ item }">
-            {{ item.time | day }}
-          </template></v-select
-        >
-      </v-flex>
-    </v-layout>
-
-    <h4>Dein Team:</h4>
-    <v-layout row>
-      <v-flex xs12 sm6 offset-sm3>
-        <v-select
-          name="team1"
-          label="Team wählen"
-          id="team1"
-          v-model="selectedTeam"
-          required
-          :items="teams"
-          item-text="title"
-          solo
-          ><option>Fe</option></v-select
-        >
-      </v-flex>
-    </v-layout>
-
-    <v-container v-for="group in selectedGamesByDate" :key="group.id">
-      <h1>{{ group.time | date }}</h1>
-      <div v-for="game in group.characters" :key="game.id">
-        <v-card
-          class="mx-auto"
-          max-width="400"
-          v-bind:outlined="game.gameGender === 'female'"
-        >
-          <v-list-item
-            three-line
-            v-bind:class="[
-              game.team1Title === selectedTeam ||
-              game.team2Title === selectedTeam
-                ? { selectedTeam: true }
-                : { selectedTeam: false },
-            ]"
+    <v-layout v-if="loading"
+      ><v-flex xs12 class="text-center" style="padding: 30px;"
+        ><v-progress-circular
+          indeterminate
+          color="green"
+          style="padding: 30px;"
+        ></v-progress-circular
+        ><v-card-text
+          >Lädt Daten<br />Bitte Internet-Verbindung herstellen</v-card-text
+        ></v-flex
+      ></v-layout
+    >
+    <div v-if="!loading">
+      <h4>Tag wählen:</h4>
+      <v-layout row>
+        <v-flex xs12 sm6 offset-sm3>
+          <v-select
+            name="day"
+            label="Tag"
+            id="day"
+            v-model="day"
+            required
+            :items="singleDays"
+            item-text="time"
+            return-object
+            solo
+            ><template slot="selection" slot-scope="{ item }">
+              {{ item.time | day }}
+            </template>
+            <template slot="item" slot-scope="{ item }">
+              {{ item.time | day }}
+            </template></v-select
           >
-            <v-list-item-content>
-              <v-list-item-subtitle
-                >Platz: {{ game.pitch }}</v-list-item-subtitle
-              >
-              <v-list-item-title
-                ><b>{{ game.team1Title }}</b></v-list-item-title
-              >
-              <v-list-item-title>vs.</v-list-item-title>
-              <v-list-item-title
-                ><b>{{ game.team2Title }}</b></v-list-item-title
-              >
-            </v-list-item-content>
-            <v-list-item-content>
-              <v-list-item-subtitle>Ergebnis</v-list-item-subtitle>
-              <v-list-item-title
-                >{{ game.scoreTeam1 }} :
-                {{ game.scoreTeam2 }}</v-list-item-title
-              ></v-list-item-content
+        </v-flex>
+      </v-layout>
+    </div>
+
+    <div v-if="!loading">
+      <h4>Dein Team:</h4>
+      <v-layout row>
+        <v-flex xs12 sm6 offset-sm3>
+          <v-select
+            name="team1"
+            label="Team wählen"
+            id="team1"
+            v-model="selectedTeam"
+            required
+            :items="teams"
+            item-text="title"
+            solo
+            ><option>Fe</option></v-select
+          >
+        </v-flex>
+      </v-layout>
+    </div>
+
+    <div v-if="!loading">
+      <v-container v-for="group in selectedGamesByDate" :key="group.id">
+        <h1>{{ group.time | date }}</h1>
+        <div v-for="game in group.characters" :key="game.id">
+          <v-card
+            class="mx-auto"
+            max-width="400"
+            v-bind:outlined="game.gameGender === 'female'"
+          >
+            <v-list-item
+              three-line
+              v-bind:class="[
+                game.team1Title === selectedTeam ||
+                game.team2Title === selectedTeam
+                  ? { selectedTeam: true }
+                  : { selectedTeam: false },
+              ]"
             >
-          </v-list-item> </v-card
-        ><br />
-      </div>
-    </v-container></div
+              <v-list-item-content>
+                <v-list-item-subtitle
+                  >Platz: {{ game.pitch }}</v-list-item-subtitle
+                >
+                <v-list-item-title
+                  ><b>{{ game.team1Title }}</b></v-list-item-title
+                >
+                <v-list-item-title>vs.</v-list-item-title>
+                <v-list-item-title
+                  ><b>{{ game.team2Title }}</b></v-list-item-title
+                >
+              </v-list-item-content>
+              <v-list-item-content>
+                <v-list-item-subtitle>Ergebnis</v-list-item-subtitle>
+                <v-list-item-title
+                  >{{ game.scoreTeam1 }} :
+                  {{ game.scoreTeam2 }}</v-list-item-title
+                ></v-list-item-content
+              >
+            </v-list-item> </v-card
+          ><br />
+        </div>
+      </v-container>
+    </div></div
 ></template>
 
 <script>
@@ -98,6 +116,9 @@ export default {
     };
   },
   computed: {
+    loading() {
+      return this.$store.getters.loading;
+    },
     games() {
       return this.$store.getters.loadedGames;
     },

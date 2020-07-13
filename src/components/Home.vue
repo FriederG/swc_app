@@ -1,19 +1,22 @@
 <template>
   <v-container>
-    <v-layout v-if="loading"
-      ><v-flex xs12 class="text-center" style="padding: 30px;"
-        ><v-progress-circular
-          indeterminate
-          color="green"
-          style="padding: 30px;"
-        ></v-progress-circular></v-flex
-    ></v-layout>
-    <div v-if="!loading">
+    <div>
       <div>
         <div><h2>Schietwettercup 2021</h2></div>
         <br />
         <!--News Sektion -->
-
+        <v-layout v-if="loading"
+          ><v-flex xs12 class="text-center" style="padding: 30px;"
+            ><v-progress-circular
+              indeterminate
+              color="green"
+              style="padding: 30px;"
+            ></v-progress-circular
+            ><v-card-text
+              >Lädt Daten<br />Bitte Internet-Verbindung herstellen</v-card-text
+            ></v-flex
+          ></v-layout
+        >
         <!--Subscribe Push Nachricht Test
         <v-btn @click="subscribe">Subscribe</v-btn>
         -->

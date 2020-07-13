@@ -22,73 +22,87 @@
         <br />
       </v-flex>
     </v-layout>
-    <v-layout row v-if="wunschGemacht <= 2">
-      <v-flex xs12>
-        <!--Prevent verhindert http-request-->
-        <form @submit.prevent="onCreateSong">
-          <v-layout row>
-            <v-flex xs12 sm6 offset-sm3>
-              <h4>Liedwunsch eingeben</h4>
-              <h5>Du hast noch {{ 3 - wunschGemacht }} Musikwünsche</h5>
-              <v-text-field
-                name="title"
-                label="Name des Lieds"
-                id="title"
-                v-model="title"
-                required
-              ></v-text-field>
-            </v-flex>
-          </v-layout>
+    <v-layout v-if="loading"
+      ><v-flex xs12 class="text-center" style="padding: 30px;"
+        ><v-progress-circular
+          indeterminate
+          color="green"
+          style="padding: 30px;"
+        ></v-progress-circular
+        ><v-card-text
+          >Lädt Daten<br />Bitte Internet-Verbindung herstellen</v-card-text
+        ></v-flex
+      ></v-layout
+    >
 
-          <v-layout row>
-            <v-flex xs12 sm6 offset-sm3>
-              <v-btn class="primary" :disabled="!formIsValid" type="submit"
-                >Lied hinzufügen</v-btn
+    <div v-if="!loading">
+      <v-layout row v-if="wunschGemacht <= 2">
+        <v-flex xs12>
+          <!--Prevent verhindert http-request-->
+          <form @submit.prevent="onCreateSong">
+            <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <h4>Liedwunsch eingeben</h4>
+                <h5>Du hast noch {{ 3 - wunschGemacht }} Musikwünsche</h5>
+                <v-text-field
+                  name="title"
+                  label="Name des Lieds"
+                  id="title"
+                  v-model="title"
+                  required
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
+
+            <v-layout row>
+              <v-flex xs12 sm6 offset-sm3>
+                <v-btn class="primary" :disabled="!formIsValid" type="submit"
+                  >Lied hinzufügen</v-btn
+                >
+                <!--      {{ submittableDateTime }} -->
+              </v-flex>
+            </v-layout>
+          </form>
+        </v-flex>
+      </v-layout>
+
+      <v-card-text v-if="wunschGemacht > 2">WUnsch gemacht</v-card-text>
+      <br />
+      <h5 v-if="votes <= 4">
+        Du kannst noch {{ 5 - votes }} Mal voten (danach 30s Wartezeit).
+      </h5>
+
+      <!-- Anzeige und Bearbeitung -->
+      <div id="flip-list-demo" class="demo">
+        <transition-group name="flip-list" tag="ul">
+          <v-container v-for="song in songsByRating" :key="song.id">
+            <v-card class="mx-auto" max-width="400px"
+              ><v-card-text v-bind:songTitle="song.title">{{
+                song.title
+              }}</v-card-text>
+              <v-card-text> Rating: {{ song.rating }}</v-card-text>
+              <!-- Rating Button -->
+              <v-btn
+                v-if="votes <= 4"
+                style="margin: 10px;"
+                outlined
+                @click="onUpvote(song.id, song.rating)"
               >
-              <!--      {{ submittableDateTime }} -->
-            </v-flex>
-          </v-layout>
-        </form>
-      </v-flex>
-    </v-layout>
+                <v-icon>mdi-menu-up</v-icon>
+              </v-btn>
 
-    <v-card-text v-if="wunschGemacht > 2">WUnsch gemacht</v-card-text>
-    <br />
-    <h5 v-if="votes <= 4">
-      Du kannst noch {{ 5 - votes }} Mal voten (danach 30s Wartezeit).
-    </h5>
-
-    <v-container> </v-container>
-    <!-- Anzeige und Bearbeitung -->
-    <div id="flip-list-demo" class="demo">
-      <transition-group name="flip-list" tag="ul">
-        <v-container v-for="song in songsByRating" :key="song.id">
-          <v-card class="mx-auto" max-width="400px"
-            ><v-card-text v-bind:songTitle="song.title">{{
-              song.title
-            }}</v-card-text>
-            <v-card-text> Rating: {{ song.rating }}</v-card-text>
-            <!-- Rating Button -->
-            <v-btn
-              v-if="votes <= 4"
-              style="margin: 10px;"
-              outlined
-              @click="onUpvote(song.id, song.rating)"
-            >
-              <v-icon>mdi-menu-up</v-icon>
-            </v-btn>
-
-            <v-btn
-              v-if="votes <= 4"
-              style="margin: 10px;"
-              outlined
-              @click="onDownVote(song.id, song.rating)"
-            >
-              <v-icon>mdi-menu-down</v-icon>
-            </v-btn>
-          </v-card>
-        </v-container>
-      </transition-group>
+              <v-btn
+                v-if="votes <= 4"
+                style="margin: 10px;"
+                outlined
+                @click="onDownVote(song.id, song.rating)"
+              >
+                <v-icon>mdi-menu-down</v-icon>
+              </v-btn>
+            </v-card>
+          </v-container>
+        </transition-group>
+      </div>
     </div>
   </v-container>
 </template>
@@ -144,6 +158,9 @@ export default {
   },
 
   computed: {
+    loading() {
+      return this.$store.getters.loading;
+    },
     formIsValid() {
       return this.title.length > 2;
     },
