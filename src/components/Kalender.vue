@@ -25,7 +25,14 @@
             2
           </div>
           <div v-if="current_date >= 2 && open_2 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div v-if="current_date < 2 && open_2 === 'false'" class="ball_shape">
             <v-icon size="x-large">mdi-lock</v-icon>
