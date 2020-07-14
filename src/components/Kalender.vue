@@ -1,17 +1,32 @@
 <template>
   <v-container>
     <div v-if="current_month === 6">
-      <div v-if="entered === 'false'">
-        <button @click="enter">enter</button>
+      <h3>Der Kiel Rugby Adventskalender</h3>
+      <div v-if="entered_k === 'false'">
+        <div class="day_card" @click="enter">
+          <img
+            height="140px"
+            alt="present"
+            src="../assets/Calendar_Present.png"
+          />
+        </div>
       </div>
-      <div v-if="entered === 'true'">
+      <div v-if="entered_k === 'true'">
         <!-- Tag 1 -->
         <div class="day_card">
           <div v-if="open_1 === 'false'" class="ball_shape" @click="open_a">
             1
           </div>
+
           <div v-if="open_1 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
         </div>
 
@@ -48,7 +63,14 @@
             3
           </div>
           <div v-if="current_date >= 3 && open_3 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div v-if="current_date < 3 && open_3 === 'false'" class="ball_shape">
             <v-icon size="x-large">mdi-lock</v-icon>
@@ -64,7 +86,14 @@
             4
           </div>
           <div v-if="current_date >= 4 && open_4 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div v-if="current_date < 4 && open_4 === 'false'" class="ball_shape">
             <v-icon size="x-large">mdi-lock</v-icon>
@@ -80,7 +109,14 @@
             5
           </div>
           <div v-if="current_date >= 5 && open_5 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div v-if="current_date < 5 && open_5 === 'false'" class="ball_shape">
             <v-icon size="x-large">mdi-lock</v-icon>
@@ -96,7 +132,14 @@
             6
           </div>
           <div v-if="current_date >= 6 && open_6 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div v-if="current_date < 6 && open_6 === 'false'" class="ball_shape">
             <v-icon size="x-large">mdi-lock</v-icon>
@@ -112,7 +155,14 @@
             7
           </div>
           <div v-if="current_date >= 7 && open_7 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div v-if="current_date < 7 && open_7 === 'false'" class="ball_shape">
             <v-icon size="x-large">mdi-lock</v-icon>
@@ -128,7 +178,14 @@
             8
           </div>
           <div v-if="current_date >= 8 && open_8 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div v-if="current_date < 8 && open_8 === 'false'" class="ball_shape">
             <v-icon size="x-large">mdi-lock</v-icon>
@@ -144,7 +201,14 @@
             9
           </div>
           <div v-if="current_date >= 9 && open_9 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div v-if="current_date < 9 && open_9 === 'false'" class="ball_shape">
             <v-icon size="x-large">mdi-lock</v-icon>
@@ -160,7 +224,14 @@
             10
           </div>
           <div v-if="current_date >= 10 && open_10 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 10 && open_10 === 'false'"
@@ -179,7 +250,14 @@
             11
           </div>
           <div v-if="current_date >= 11 && open_11 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 11 && open_11 === 'false'"
@@ -198,7 +276,14 @@
             12
           </div>
           <div v-if="current_date >= 12 && open_12 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 12 && open_12 === 'false'"
@@ -217,7 +302,14 @@
             13
           </div>
           <div v-if="current_date >= 13 && open_13 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 13 && open_13 === 'false'"
@@ -236,7 +328,14 @@
             14
           </div>
           <div v-if="current_date >= 14 && open_14 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 14 && open_14 === 'false'"
@@ -255,7 +354,14 @@
             15
           </div>
           <div v-if="current_date >= 15 && open_15 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 15 && open_15 === 'false'"
@@ -274,7 +380,14 @@
             16
           </div>
           <div v-if="current_date >= 16 && open_16 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 16 && open_16 === 'false'"
@@ -293,7 +406,14 @@
             17
           </div>
           <div v-if="current_date >= 17 && open_17 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 17 && open_17 === 'false'"
@@ -312,7 +432,14 @@
             18
           </div>
           <div v-if="current_date >= 18 && open_18 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 18 && open_18 === 'false'"
@@ -331,7 +458,14 @@
             19
           </div>
           <div v-if="current_date >= 19 && open_19 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 19 && open_19 === 'false'"
@@ -350,7 +484,14 @@
             20
           </div>
           <div v-if="current_date >= 20 && open_20 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 20 && open_20 === 'false'"
@@ -369,7 +510,14 @@
             21
           </div>
           <div v-if="current_date >= 21 && open_21 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 21 && open_21 === 'false'"
@@ -388,7 +536,14 @@
             22
           </div>
           <div v-if="current_date >= 22 && open_22 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 22 && open_22 === 'false'"
@@ -407,7 +562,14 @@
             23
           </div>
           <div v-if="current_date >= 23 && open_23 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 23 && open_23 === 'false'"
@@ -426,7 +588,14 @@
             24
           </div>
           <div v-if="current_date >= 24 && open_24 === 'true'">
-            <iframe src="https://codepen.io/dazulu/pen/ByoWee"></iframe>
+            <iframe
+              src="https://player.vimeo.com/video/344488270"
+              width="250"
+              height="360"
+              frameborder="0"
+              allow="autoplay;"
+              allowfullscreen
+            ></iframe>
           </div>
           <div
             v-if="current_date < 24 && open_24 === 'false'"
@@ -449,7 +618,7 @@ export default {
       current_date: new Date().getDate(),
       current_month: new Date().getMonth(),
 
-      entered: "false",
+      entered_k: "false",
 
       open_1: "false",
       open_2: "false",
@@ -479,8 +648,8 @@ export default {
   },
 
   mounted() {
-    if (localStorage.getItem("entered") === "true") {
-      this.entered = "true";
+    if (localStorage.getItem("entered_k") === "true") {
+      this.entered_k = "true";
       this.open_1 = localStorage.getItem("open_1");
       this.open_2 = localStorage.getItem("open_2");
       this.open_3 = localStorage.getItem("open_3");
@@ -506,7 +675,7 @@ export default {
       this.open_23 = localStorage.getItem("open_23");
       this.open_24 = localStorage.getItem("open_24");
     } else {
-      this.entered = "false";
+      this.entered_k = "false";
       localStorage.setItem("open_1", "false");
       localStorage.setItem("open_2", "false");
       localStorage.setItem("open_3", "false");
@@ -536,8 +705,8 @@ export default {
 
   methods: {
     enter() {
-      this.entered = "true";
-      localStorage.setItem("entered", "true");
+      this.entered_k = "true";
+      localStorage.setItem("entered_k", "true");
     },
 
     open_a() {
