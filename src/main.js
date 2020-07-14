@@ -140,11 +140,13 @@ new Vue({
       return self.registration.showNotification(title, option);
     });*/
 
+    //Zum Start Daten laden
     this.$store.dispatch("loadNews");
     this.$store.dispatch("loadTeams");
     this.$store.dispatch("loadGames");
+    this.$store.dispatch("loadFinalGames");
     this.$store.dispatch("loadGroups");
-    this.$store.dispatch("loadTeamGames");
+    //this.$store.dispatch("loadTeamGames");
     this.$store.dispatch("loadSongs");
   },
 }).$mount("#app");

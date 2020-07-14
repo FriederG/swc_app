@@ -2,6 +2,7 @@
   ><div>
     <h1>Spielplan</h1>
     <br />
+    <!--Loading Bereich --------------------------------------------------------------------->
     <v-layout v-if="loading"
       ><v-flex xs12 class="text-center" style="padding: 30px;"
         ><v-progress-circular
@@ -14,6 +15,8 @@
         ></v-flex
       ></v-layout
     >
+    <!--Ende Loading -->
+
     <div v-if="!loading">
       <h4>Tag wählen:</h4>
       <v-layout row>

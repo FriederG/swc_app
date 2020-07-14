@@ -80,6 +80,7 @@
 export default {
   //prop aus der ErgebnisseBearbeiten.vue
   props: [
+    "gameType",
     "game",
     "team1",
     "team1Title",
@@ -106,19 +107,33 @@ export default {
   },
   methods: {
     onSaveChanges() {
+      console.log(this.gameType);
       if (this.modelScoreTeam1 === "" || this.modelScoreTeam2 === "") {
         return;
       }
       this.editDialog = false;
-      this.$store.dispatch("updateGamesData", {
-        id: this.game.id,
-        team1: this.team1,
-        team2: this.team2,
-        team1OldGameScore: this.team1OldGameScore,
-        scoreTeam1: this.modelScoreTeam1,
-        scoreTeam2: this.modelScoreTeam2,
-        team2OldGameScore: this.team2OldGameScore,
-      });
+      //Wenn es sich um ein Gruppenspiel handelt
+      if (this.gameType === "Gruppenspiele") {
+        this.$store.dispatch("updateGamesData", {
+          id: this.game.id,
+          team1: this.team1,
+          team2: this.team2,
+          team1OldGameScore: this.team1OldGameScore,
+          scoreTeam1: this.modelScoreTeam1,
+          scoreTeam2: this.modelScoreTeam2,
+          team2OldGameScore: this.team2OldGameScore,
+        });
+      } else {
+        this.$store.dispatch("updateFinalGamesData", {
+          id: this.game.id,
+          team1: this.team1,
+          team2: this.team2,
+          team1OldGameScore: this.team1OldGameScore,
+          scoreTeam1: this.modelScoreTeam1,
+          scoreTeam2: this.modelScoreTeam2,
+          team2OldGameScore: this.team2OldGameScore,
+        });
+      }
     },
   },
 };

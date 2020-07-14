@@ -37,6 +37,7 @@ export default {
   //prop aus der News.vue
   props: [
     "game",
+    "gameType",
     "team1",
     "team1Title",
     "team1OldGameScore",
@@ -54,14 +55,23 @@ export default {
   methods: {
     onSaveDeleteGame() {
       this.editDialog = false;
-
-      this.$store.dispatch("deleteGameData", {
-        id: this.game.id,
-        team1: this.team1,
-        team2: this.team2,
-        team1OldGameScore: this.team1OldGameScore,
-        team2OldGameScore: this.team2OldGameScore,
-      });
+      if (this.gameType === "Gruppenspiele") {
+        this.$store.dispatch("deleteGameData", {
+          id: this.game.id,
+          team1: this.team1,
+          team2: this.team2,
+          team1OldGameScore: this.team1OldGameScore,
+          team2OldGameScore: this.team2OldGameScore,
+        });
+      } else {
+        this.$store.dispatch("deleteFinalGame", {
+          id: this.game.id,
+          team1: this.team1,
+          team2: this.team2,
+          team1OldGameScore: this.team1OldGameScore,
+          team2OldGameScore: this.team2OldGameScore,
+        });
+      }
     },
   },
 };

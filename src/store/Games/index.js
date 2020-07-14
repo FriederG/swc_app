@@ -8,7 +8,7 @@ export default {
         time: "19999999999",
       },
     ],
-    loadedTeamGames: [
+    loadedFinalGames: [
       {
         title: "Kiel",
         time: "19999999999",
@@ -18,6 +18,10 @@ export default {
   mutations: {
     setLoadedGames(state, payload) {
       state.loadedGames = payload;
+    },
+
+    setLoadedFinalGames(state, payload) {
+      state.loadedFinalGames = payload;
     },
 
     setLoadedTeamGames(state, payload) {
@@ -71,7 +75,40 @@ export default {
         });
     },
 
+    //load news jetzt mit live update
+    loadFinalGames({ commit }) {
+      commit("setLoading", true);
+      firebase
+        .database()
+        .ref("finalGames")
+        //sobald sich etwas in der Firebase ändert
+        .on("value", function (snapshot) {
+          const games = [];
+          const obj = snapshot.val();
+          //Daten aus firebase in Array überführen
+          for (let key in obj) {
+            games.push({
+              id: key,
+              time: obj[key].date,
+              gameType: obj[key].gameType,
+              pitch: obj[key].pitch,
+              gameGender: obj[key].gameGender,
+              team1: obj[key].team1,
+              team1Title: obj[key].team1Title,
+              team2: obj[key].team2,
+              team2Title: obj[key].team2Title,
+              scoreTeam1: obj[key].scoreTeam1,
+              scoreTeam2: obj[key].scoreTeam2,
+              //creatorId: obj[key].creatorId,
+            });
+          }
+          commit("setLoadedFinalGames", games);
+          commit("setLoading", false);
+        });
+    },
+
     //TEst ---------------------------------------------------------------------
+    /*
     loadTeamGames({ commit }) {
       commit("setLoading", true);
       firebase
@@ -93,7 +130,7 @@ export default {
           commit("setLoadedTeamGames", teamGames);
           commit("setLoading", false);
         });
-    },
+    },*/
 
     createGame(state, payload) {
       //Name des Team 1 in Payload Team1 aufgrund des Keys aus der Team-Node ziehen
@@ -143,6 +180,91 @@ export default {
                   console.log(error);
                 });
             });
+        });
+    },
+
+    createFinalGame(state, payload) {
+      //Name des Team 1 in Payload Team1 aufgrund des Keys aus der Team-Node ziehen
+      firebase
+        .database()
+        .ref("teams/" + payload.team1)
+        .child("/title")
+        .once("value")
+        .then(function (snapshot) {
+          let titleTeam1 = snapshot.val();
+          console.log("Team 1:" + titleTeam1);
+          //Name des Teams 2 aus der Firebase ziehen
+          firebase
+            .database()
+            .ref("teams/" + payload.team2)
+            .child("/title")
+            .once("value")
+            .then(function (snapshot) {
+              let titleTeam2 = snapshot.val();
+              console.log("Team 2:" + titleTeam2);
+
+              //Daten aus der SpielplanVerwaltung.vue
+              //Und Title der Teams, die gerade aubgerufen wurden
+              const game = {
+                gameType: payload.gameType,
+                pitch: payload.pitch,
+                gameGender: payload.gameGender,
+                team1: payload.team1,
+                team1Title: titleTeam1,
+                team2Title: titleTeam2,
+                team2: payload.team2,
+                scoreTeam1: payload.scoreTeam1,
+                scoreTeam2: payload.scoreTeam2,
+                date: payload.date.toISOString(),
+                //creatorId: getters.user.id,
+              };
+              let key;
+              firebase
+                .database()
+                .ref("finalGames")
+                .push(game)
+                .then((data) => {
+                  key = data.key;
+                  return key;
+                })
+
+                .catch((error) => {
+                  console.log(error);
+                });
+            });
+        });
+    },
+
+    updateFinalGamesData({ commit }, payload) {
+      console.log(payload.team1OldGameScore);
+      console.log("team2OldGameScore:" + payload.team2OldGameScore);
+      commit("setLoading", true);
+      //leeres Objekt, Dinge, die geupdated werden werden zugefügt
+      const updateObj = {};
+      if (payload.title) {
+        updateObj.title = payload.title;
+      }
+      if (payload.date) {
+        updateObj.date = payload.date;
+      }
+      if (payload.scoreTeam1) {
+        updateObj.scoreTeam1 = payload.scoreTeam1;
+      }
+      if (payload.scoreTeam2) {
+        updateObj.scoreTeam2 = payload.scoreTeam2;
+      }
+      firebase
+        .database()
+        .ref("finalGames")
+        .child(payload.id)
+        .update(updateObj)
+        .then(() => {
+          commit("setLoading", false);
+          //  commit("updateTeams", payload);
+        })
+        .catch((error) => {
+          console.log(error);
+          commit("setLoading", false);
         });
     },
 
@@ -564,6 +686,24 @@ export default {
         });
     },
 
+    deleteFinalGame({ commit }, payload) {
+      //Löschen durchführen
+      commit("setLoading", true);
+      firebase
+        .database()
+        .ref("finalGames")
+        .child(payload.id)
+        .remove()
+        .then(() => {
+          commit("setLoading", false);
+          commit("updateGames", payload);
+        })
+        .catch((error) => {
+          console.log(error);
+          commit("setLoading", false);
+        });
+    },
+
     //Spiele löschen ---------------------------------------------------------------------------------------------------
     //Muss auch Spielstände und Statistiken abziehen, um die Integrität der Daten einzuhalten
     deleteGameData({ commit }, payload) {
@@ -822,6 +962,10 @@ export default {
       //      state.loadedGames.sort(function (a, b) {
       //      return new Date(b.time) - new Date(a.time);
       //  });
+    },
+
+    loadedFinalGames(state) {
+      return state.loadedFinalGames;
     },
 
     loadedTeamGames(state) {
