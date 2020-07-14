@@ -11,6 +11,44 @@
       <v-flex xs12>
         <!--Prevent verhindert http-request-->
         <form @submit.prevent="onCreateGame()">
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3><h4>Datum und Uhrzeit</h4></v-flex>
+          </v-layout>
+
+          <v-layout row class="mb-2">
+            <v-flex xs12 sm6 offset-sm3
+              ><v-date-picker v-model="picker"></v-date-picker>
+              <p>{{ picker }}</p></v-flex
+            >
+          </v-layout>
+          <v-layout row class="mb-4">
+            <v-flex xs12 sm6 offset-sm3
+              ><v-time-picker v-model="time" format="24hr"></v-time-picker
+              ><br /><br />
+              <h4>Turnierbaum: {{ modelGender }}</h4>
+              <h4>Uhrzeit: {{ time }}</h4>
+            </v-flex>
+          </v-layout>
+          <v-layout><!-- Uhrzeit Kontrolle --> </v-layout>
+          <!--Geschlecht ----------------------------------------------------------->
+          <v-layout row>
+            <h4>Turnierbaum</h4>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-radio-group v-model="modelGender" row>
+                <v-radio
+                  style="margin-left: 20px;"
+                  label="Damen"
+                  value="female"
+                ></v-radio>
+                <v-radio
+                  style="margin-left: 20px;"
+                  label="Herren"
+                  value="male"
+                ></v-radio>
+              </v-radio-group>
+            </v-flex>
+          </v-layout>
+
           <!-- Platz --------------------------------------------------------------->
           <v-layout row>
             <h4>Platz:</h4>
@@ -33,41 +71,6 @@
                 ></v-radio>
               </v-radio-group>
             </v-flex>
-          </v-layout>
-          <!--Geschlecht ----------------------------------------------------------->
-          <v-layout row>
-            <h4>Turnierbaum</h4>
-            <v-flex xs12 sm6 offset-sm3>
-              <v-radio-group v-model="modelGender" row>
-                <v-radio
-                  style="margin-left: 20px;"
-                  label="Damen"
-                  value="female"
-                ></v-radio>
-                <v-radio
-                  style="margin-left: 20px;"
-                  label="Herren"
-                  value="male"
-                ></v-radio>
-              </v-radio-group>
-            </v-flex>
-          </v-layout>
-
-          <v-layout row>
-            <v-flex xs12 sm6 offset-sm3><h4>Datum und Uhrzeit</h4></v-flex>
-          </v-layout>
-
-          <v-layout row class="mb-2">
-            <v-flex xs12 sm6 offset-sm3
-              ><v-date-picker v-model="picker"></v-date-picker>
-              <p>{{ picker }}</p></v-flex
-            >
-          </v-layout>
-          <v-layout row class="mb-4">
-            <v-flex xs12 sm6 offset-sm3
-              ><v-time-picker v-model="time" format="24hr"></v-time-picker>
-              <p>{{ time }}</p></v-flex
-            >
           </v-layout>
           <!--Teamauswahl ---------------------------------------------------------------->
           <!--männlicher Baum-->

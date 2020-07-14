@@ -243,7 +243,10 @@ export default {
             console.log("Payload Score Team 2:" + payload.scoreTeam1);
             if (parseInt(payload.scoreTeam1) > parseInt(payload.scoreTeam2)) {
               //Wenn vorher eine Niederlage eingetragen ist
-              if (payload.team1OldGameScore < payload.team2OldGameScore) {
+              if (
+                parseInt(payload.team1OldGameScore) <
+                parseInt(payload.team2OldGameScore)
+              ) {
                 updateObjStat1.wins = oldWins1 + 1;
                 console.log("Sieg erhöht");
                 updateObjStat1.losses = oldLosses1 - 1;
@@ -323,6 +326,46 @@ export default {
             .child(payload.team1)
             .update(updateObjStat1)
             .then(() => {
+              //Punkte neu berechnen ---------------------------------------------------------------------------
+              firebase
+                .database()
+                .ref("teams/")
+                .child(payload.team1)
+                .once("value")
+                .then(function (snapshot) {
+                  //Alle Daten des Teams
+                  let newTeam1Data = snapshot.val();
+
+                  let pointsData = {};
+
+                  let newWins1 = newTeam1Data.wins;
+                  let newDraws1 = newTeam1Data.draw;
+
+                  let newSelfScore1 = newTeam1Data.totalScore;
+                  let newOpponentScore1 = newTeam1Data.opponentScore;
+
+                  //Hier werden die Punkte berechnet. Zur Zeit 2 Punkte für Sieg, einer für Unentschieden
+                  pointsData.points =
+                    parseInt(newWins1) * 2 + parseInt(newDraws1);
+
+                  pointsData.scoreDifference =
+                    parseInt(newSelfScore1) - parseInt(newOpponentScore1);
+
+                  firebase
+                    .database()
+                    .ref("teams/")
+                    .child(payload.team1)
+                    .update(pointsData)
+                    .then(() => {
+                      commit("setLoading", false);
+                      //  commit("updateTeams", payload);
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                      commit("setLoading", false);
+                    });
+                });
+              //Ende Punkte 1 Berechnen ---------------------------------------------------------------------
               commit("setLoading", false);
               //  commit("updateTeams", payload);
             })
@@ -388,7 +431,10 @@ export default {
             console.log("Payload Score Team 2:" + payload.scoreTeam1);
             if (parseInt(payload.scoreTeam2) > parseInt(payload.scoreTeam1)) {
               //Wenn vorher eine Niederlage eingetragen ist
-              if (payload.team2OldGameScore < payload.team1OldGameScore) {
+              if (
+                parseInt(payload.team2OldGameScore) <
+                parseInt(payload.team1OldGameScore)
+              ) {
                 updateObjStat2.wins = oldWins2 + 1;
                 console.log("Sieg erhöht");
                 updateObjStat2.losses = oldLosses2 - 1;
@@ -466,6 +512,48 @@ export default {
             .child(payload.team2)
             .update(updateObjStat2)
             .then(() => {
+              //Punkte neu berechnen ---------------------------------------------------------------------------
+              firebase
+                .database()
+                .ref("teams/")
+                .child(payload.team2)
+                .once("value")
+                .then(function (snapshot) {
+                  //Alle Daten des Teams
+                  let newTeam2Data = snapshot.val();
+
+                  let pointsData2 = {};
+
+                  let newWins2 = newTeam2Data.wins;
+                  let newDraws2 = newTeam2Data.draw;
+
+                  let newSelfScore2 = newTeam2Data.totalScore;
+                  let newOpponentScore2 = newTeam2Data.opponentScore;
+
+                  //Hier werden die Punkte berechnet. Zur Zeit 2 Punkte für Sieg, einer für Unentschieden
+                  pointsData2.points =
+                    parseInt(newWins2) * 2 + parseInt(newDraws2);
+
+                  pointsData2.scoreDifference =
+                    parseInt(newSelfScore2) - parseInt(newOpponentScore2);
+
+                  console.log("punkte 2" + pointsData2.points);
+
+                  firebase
+                    .database()
+                    .ref("teams/")
+                    .child(payload.team2)
+                    .update(pointsData2)
+                    .then(() => {
+                      commit("setLoading", false);
+                      //  commit("updateTeams", payload);
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                      commit("setLoading", false);
+                    });
+                });
+              //Ende Punkte 1 Berechnen ---------------------------------------------------------------------
               commit("setLoading", false);
               //  commit("updateTeams", payload);
             })
@@ -559,6 +647,42 @@ export default {
             .child(payload.team1)
             .update(updateObjStat1)
             .then(() => {
+              //Punkte neu berechnen ---------------------------------------------------------------------------
+              firebase
+                .database()
+                .ref("teams/")
+                .child(payload.team1)
+                .once("value")
+                .then(function (snapshot) {
+                  //Alle Daten des Teams
+                  let newTeam1Data = snapshot.val();
+
+                  let pointsData1 = {};
+
+                  let newWins1 = newTeam1Data.wins;
+                  let newDraws1 = newTeam1Data.draw;
+
+                  //Hier werden die Punkte berechnet. Zur Zeit 2 Punkte für Sieg, einer für Unentschieden
+                  pointsData1.points =
+                    parseInt(newWins1) * 2 + parseInt(newDraws1);
+
+                  console.log("punkte 2" + pointsData1.points);
+
+                  firebase
+                    .database()
+                    .ref("teams/")
+                    .child(payload.team1)
+                    .update(pointsData1)
+                    .then(() => {
+                      commit("setLoading", false);
+                      //  commit("updateTeams", payload);
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                      commit("setLoading", false);
+                    });
+                });
+              //Ende Punkte 2 Berechnen ---------------------------------------------------------------------
               commit("setLoading", false);
               //  commit("updateTeams", payload);
             })
@@ -628,6 +752,42 @@ export default {
             .child(payload.team2)
             .update(updateObjStat2)
             .then(() => {
+              //Punkte neu berechnen ---------------------------------------------------------------------------
+              firebase
+                .database()
+                .ref("teams/")
+                .child(payload.team2)
+                .once("value")
+                .then(function (snapshot) {
+                  //Alle Daten des Teams
+                  let newTeam2Data = snapshot.val();
+
+                  let pointsData2 = {};
+
+                  let newWins2 = newTeam2Data.wins;
+                  let newDraws2 = newTeam2Data.draw;
+
+                  //Hier werden die Punkte berechnet. Zur Zeit 2 Punkte für Sieg, einer für Unentschieden
+                  pointsData2.points =
+                    parseInt(newWins2) * 2 + parseInt(newDraws2);
+
+                  console.log("punkte 2" + pointsData2.points);
+
+                  firebase
+                    .database()
+                    .ref("teams/")
+                    .child(payload.team2)
+                    .update(pointsData2)
+                    .then(() => {
+                      commit("setLoading", false);
+                      //  commit("updateTeams", payload);
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                      commit("setLoading", false);
+                    });
+                });
+              //Ende Punkte 2 Berechnen ---------------------------------------------------------------------
               commit("setLoading", false);
               //  commit("updateTeams", payload);
             })

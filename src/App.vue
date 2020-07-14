@@ -5,6 +5,7 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
     <!--App Bar oben -->
+
     <v-card color="grey lighten-4" flattile dark style="margin-bottom: 80px;">
       <v-app-bar height="90px" fixed>
         <v-toolbar-title
@@ -22,7 +23,7 @@
       </v-app-bar>
     </v-card>
     <!--Header mobile, der sich von unten hochfährt-->
-    <v-navigation-drawer v-model="sideNav" fixed app temporary>
+    <v-navigation-drawer v-model="sideNav" fixed app temporary right>
       <v-list shaped>
         <v-subheader>Menu</v-subheader>
         <v-list-item-group color="primary">
@@ -103,11 +104,12 @@ export default {
             title: "Spiele anlegen",
             link: "/admin/spielplan",
           },
+          /*
           {
             icon: "mdi-group",
             title: "Gruppen verwalten",
             link: "/admin/gruppen",
-          },
+          }, */
           {
             icon: "mdi-reply",
             title: "Ergebnisse bearbeiten",

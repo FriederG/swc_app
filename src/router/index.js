@@ -30,6 +30,7 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: { title: "Home" },
   },
   {
     path: "/about",

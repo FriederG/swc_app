@@ -1,125 +1,134 @@
 <template>
   <div>
-    <br /><br />
-
     <h1>Punkte</h1>
-    <br />
-    <!--
-    <h4>Gesamtes Turnier</h4>
-    <v-container>
-      <v-card v-for="team in teamsByWins" v-bind:key="team.id"
-        >{{ team.title }} - {{ team.totalScore }}</v-card>
-    </v-container>
-    -->
+    <v-layout v-if="loading"
+      ><v-flex xs12 class="text-center" style="padding: 30px;"
+        ><v-progress-circular
+          indeterminate
+          color="green"
+          style="padding: 30px;"
+        ></v-progress-circular
+        ><v-card-text
+          >Lädt Daten<br />Bitte Internet-Verbindung herstellen</v-card-text
+        ></v-flex
+      ></v-layout
+    >
 
-    <v-container v-for="group in groupedByGroup" :key="group.id">
-      <h1>Gruppe: {{ group.groupTitle }}</h1>
-      <div v-for="team in group.characters" :key="team.id">
-        <v-card class="mx-auto" max-width="400">
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-subtitle
-                >Team: {{ team.title }}</v-list-item-subtitle
-              >
-              <v-card-text>{{ team.wins }}</v-card-text>
-            </v-list-item-content>
-          </v-list-item> </v-card
-        ><br />
-      </div>
-    </v-container>
+    <div v-if="!loading">
+      <h4>Deine Gruppe:</h4>
+      <v-layout row>
+        <v-flex xs12 sm6 offset-sm3>
+          <v-select
+            name="day"
+            label="Gruppe"
+            id="day"
+            v-model="modelGroup"
+            required
+            :items="singleGroups"
+            item-text="group"
+            return-object
+            solo
+            ><template slot="selection" slot-scope="{ item }">
+              {{ item.group }}
+            </template>
+            <template slot="item" slot-scope="{ item }">
+              {{ item.group }}
+            </template></v-select
+          >
+        </v-flex>
+      </v-layout>
 
-    <h2>Gruppenphase</h2>
-    <!--Duch die Gruppen loopen
-    <v-container fluid v-for="group in groups" :key="group.id">
-      <v-row align="center">
-        <v-col>
-          <v-card width="400px">
-            <v-card-title>Gruppe: {{ group.groupName }} </v-card-title>
-            <v-card-text>{{ group.groupTeam1 }} </v-card-text>
-            <v-card-text>{{ group.groupTeam2 }}</v-card-text>
-            <v-card-text v-if="group.groupTeam3">{{
-              group.groupTeam3
-            }}</v-card-text>
-            <v-card-text v-if="group.groupTeam4">{{
-              group.groupTeam4
-            }}</v-card-text>
-            <v-card-text v-if="group.groupTeam5">{{
-              group.groupTeam5
-            }}</v-card-text>
-            <v-card-text v-if="group.groupTeam6">{{
-              group.groupTeam6
-            }}</v-card-text>
-            <v-card-text v-if="group.groupTeam7">{{
-              group.groupTeam7
-            }}</v-card-text>
-            <v-card-text v-if="group.groupTeam8">{{
-              group.groupTeam8
-            }}</v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-    -->
+      <v-container v-for="group in selectedGroups" :key="group.groupTitle">
+        <h1>Gruppe: {{ group.groupTitle }} {{ modelGroup.group }}</h1>
 
-    <v-container fluid>
-      <h2>Viertelfinale</h2>
-      <v-row align="center">
-        <v-col>
-          <v-card width="400px" color="green">
-            <v-card-title>Viertelfinale 1</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card width="400px" color="green">
-            <v-card-title>Viertelfinale 1</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card width="400px" color="green">
-            <v-card-title>Viertelfinale 1</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card width="400px" color="green">
-            <v-card-title>Viertelfinale 1</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+        <div id="list-complete-demo">
+          <transition-group name="list-complete" tag="p">
+            <div
+              v-for="team in group.characters"
+              :key="team.title"
+              class="list-complete-item"
+            >
+              <v-card class="mx-auto" max-width="400">
+                <v-list-item>
+                  <v-list-item-content
+                    ><v-card-title>{{ team.title }}</v-card-title>
 
-    <v-container fluid>
-      <h2>Halbfinale</h2>
-      <v-row align="center" justify="center">
-        <v-col>
-          <v-card width="400px" color="blue">
-            <v-card-title>Halbfinale 1</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-        <v-col>
-          <v-card width="400px" color="blue">
-            <v-card-title>Halbfinale 2</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+                    <v-card-text
+                      ><b>Punkte: {{ team.points }} </b><br /><br />Siege:
+                      {{ team.wins }}<br />
+                      Unentschieden: {{ team.draw }}<br />Niederlagen:
+                      {{ team.losses }}<br />
+                      Tordifferenz: {{ team.totalScore }} -
+                      {{ team.opponentScore }} : {{ team.scoreDifference }}
+                    </v-card-text>
+                  </v-list-item-content>
+                </v-list-item> </v-card
+              ><br />
+            </div>
+          </transition-group>
+        </div>
+      </v-container>
 
-    <v-container fluid>
-      <h2>Finale</h2>
-      <v-row align="center" justify="center">
-        <v-col>
-          <v-card width="400px" color="red">
-            <v-card-title>Finale</v-card-title>
-            <v-card-text>Team 1 - Team 2</v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+      <v-container fluid>
+        <h2>Viertelfinale</h2>
+        <v-row align="center">
+          <v-col>
+            <v-card width="400px" color="green">
+              <v-card-title>Viertelfinale 1</v-card-title>
+              <v-card-text>Team 1 - Team 2</v-card-text>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card width="400px" color="green">
+              <v-card-title>Viertelfinale 1</v-card-title>
+              <v-card-text>Team 1 - Team 2</v-card-text>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card width="400px" color="green">
+              <v-card-title>Viertelfinale 1</v-card-title>
+              <v-card-text>Team 1 - Team 2</v-card-text>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card width="400px" color="green">
+              <v-card-title>Viertelfinale 1</v-card-title>
+              <v-card-text>Team 1 - Team 2</v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+
+      <v-container fluid>
+        <h2>Halbfinale</h2>
+        <v-row align="center" justify="center">
+          <v-col>
+            <v-card width="400px" color="blue">
+              <v-card-title>Halbfinale 1</v-card-title>
+              <v-card-text>Team 1 - Team 2</v-card-text>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card width="400px" color="blue">
+              <v-card-title>Halbfinale 2</v-card-title>
+              <v-card-text>Team 1 - Team 2</v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+
+      <v-container fluid>
+        <h2>Finale</h2>
+        <v-row align="center" justify="center">
+          <v-col>
+            <v-card width="400px" color="red">
+              <v-card-title>Finale</v-card-title>
+              <v-card-text>Team 1 - Team 2</v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
   </div>
 </template>
 
@@ -150,26 +159,33 @@ export default {
       time: new Date(),
       selectdTeam: "",
       point: 1,
+      modelGroup: "",
     };
   },
   computed: {
+    loading() {
+      return this.$store.getters.loading;
+    },
     games() {
       return this.$store.getters.loadedGames;
     },
 
-    /*
-    groups() {
-      return this.$store.getters.loadedGroups;
-    },*/
-
+    //Alle Teams mit Infos aus der DB abrufen
     dbTeams() {
       return this.$store.getters.loadedTeams;
     },
 
+    //dbTeams nach Punkten aufsteigend sortieren
+    //Bei glaichen Punkten entscheidet die Tordifferenz
     teamsByWins: function () {
-      return _.orderBy(this.dbTeams, "wins", "desc");
+      return _.orderBy(
+        this.dbTeams,
+        ["points", "scoreDifference"],
+        ["desc", "desc"]
+      );
     },
 
+    //Nach Punkten sortierte Teams anhand iherer Gruppe ordnen und ausgeben
     groupedByGroup() {
       return (
         _.chain(this.teamsByWins)
@@ -180,24 +196,37 @@ export default {
           .value()
       );
     },
-  },
-  methods: {
-    totalOrders: function (games) {
-      return games.reduce((acc, val) => {
-        return acc + parseInt(val.selfScore);
-      }, 0);
+
+    singleGroups() {
+      return _.chain(this.teamsByWins)
+        .groupBy((character) => character.group)
+        .map((characters, group) => ({ group, characters }))
+        .orderBy((group) => Number(group.group), ["asc"])
+        .value();
     },
 
-    totalSelfPoints: function (games) {
-      return games.reduce((acc, val) => {
-        return acc + parseInt(val.selfScore);
-      }, 0);
-    },
-    totalRevenue: function (games) {
-      return games.reduce((acc, val) => {
-        return acc + parseInt(val.otherScore);
-      }, 0);
+    selectedGroups() {
+      const searchGroupSel = this.modelGroup.group;
+
+      if (!searchGroupSel) return this.groupedByGroup;
+      //Filtern nach
+      return this.singleGroups.filter((c) => c.group === searchGroupSel);
     },
   },
 };
 </script>
+<style scoped>
+.list-complete-item {
+  transition: all 1s;
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-complete-enter, .list-complete-leave-to
+    /* .list-complete-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.list-complete-leave-active {
+  position: absolute;
+}
+</style>

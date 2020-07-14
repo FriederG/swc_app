@@ -70,13 +70,76 @@ new Vue({
       databaseURL: "https://schietwettercup.firebaseio.com",
       projectId: "schietwettercup",
       storageBucket: "gs://schietwettercup.appspot.com",
+      messagingSenderId: "977017215304",
+      appId: "1:977017215304:web:44bd817cb04fa998a27b7d",
+      measurementId: "G-KZXXTCM4N5",
     });
+
+    firebase
+      .messaging()
+      .requestPermission()
+      .then(() => firebase.messaging().getToken())
+      .then((token) => console.log(token))
+      .catch((err) => console.log(err));
+
+    //Zum Überprüfen in der Konsole, ob die Message angekommen ist
+    /*
+    navigator.serviceWorker.addEventListener("message", (event) => {
+      console.log("Push Notification Recieved" + event); // refresh code goes here
+    });*/
+
     //checken, ob der admin im local Store eingeloggt ist
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.$store.dispatch("autoSignIn", user);
       }
     });
+
+    //Messaging ausprobieren
+    /*
+    const messaging = firebase.messaging();
+
+    //firebase.messaging().useServiceWorker();
+
+    messaging.usePublicVapidKey(
+      "BCjoFLgQZcka1d--yY8dHjiZYWCIXPSSuGjEXZkyCSO4P858wTw0rw_6jchO1jEKLhMktf8vOlf6KOFSs8ydvX4"
+    );
+
+    // Request Permission of Notifications
+    messaging
+      .requestPermission()
+      .then(() => {
+        console.log("Notification permission granted.");
+
+        // Get Token
+        messaging.getToken().then((token) => {
+          console.log(token);
+        });
+      })
+      .catch((err) => {
+        console.log("Unable to get permission to notify.", err);
+      });
+    const messaging = firebase.messaging();
+    messaging
+      .requestPermission()
+      .then(function () {
+        console.log("GRANTED");
+        console.log(messaging.getToken());
+        return messaging.getToken();
+      })
+      .then(function (token) {
+        console.log(token);
+      })
+      .catch(function (err) {
+        console.log("Error Occurred." + err);
+      });
+
+    messaging.setBackgroundMessageHandler(function (payload) {
+      const title = "Hello World";
+      const option = { body: payload.data.status };
+      return self.registration.showNotification(title, option);
+    });*/
+
     this.$store.dispatch("loadNews");
     this.$store.dispatch("loadTeams");
     this.$store.dispatch("loadGames");
