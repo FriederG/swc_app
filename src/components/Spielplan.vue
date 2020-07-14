@@ -63,7 +63,7 @@
 
     <div v-if="!loading">
       <v-container v-for="group in selectedGamesByDate" :key="group.id">
-        <h1>{{ group.time | date }}</h1>
+        <h4>{{ group.time | date }}</h4>
         <div v-for="game in group.characters" :key="game.id">
           <v-card
             class="mx-auto"
@@ -102,6 +102,63 @@
           ><br />
         </div>
       </v-container>
+    </div>
+
+    <!--Finalspiele ----------------------------------------------------------------------------------->
+
+    <div>
+      <h3>Finalspiele</h3>
+      <v-container v-for="group in finalsGroupedByDate" :key="group.id">
+        <h4>{{ group.time | date }}</h4>
+        <div v-for="game in group.characters" :key="game.id">
+          <v-card
+            class="mx-auto"
+            max-width="400"
+            v-bind:outlined="game.gameGender === 'female'"
+          >
+            <v-list-item
+              three-line
+              v-bind:class="[
+                game.team1Title === selectedTeam ||
+                game.team2Title === selectedTeam
+                  ? { selectedTeam: true }
+                  : { selectedTeam: false },
+              ]"
+            >
+              <v-list-item-content>
+                <v-list-item-subtitle v-if="game.gameGender === 'male'"
+                  >Herren</v-list-item-subtitle
+                >
+                <v-list-item-subtitle v-if="game.gameGender === 'female'"
+                  >Damen</v-list-item-subtitle
+                >
+                <v-list-item-title
+                  ><b>{{ game.gameType }}</b></v-list-item-title
+                >
+                <v-list-item-subtitle
+                  >Platz: {{ game.pitch }}</v-list-item-subtitle
+                >
+
+                <v-list-item-title
+                  ><b>{{ game.team1Title }}</b></v-list-item-title
+                >
+                <v-list-item-title>vs.</v-list-item-title>
+                <v-list-item-title
+                  ><b>{{ game.team2Title }}</b></v-list-item-title
+                >
+              </v-list-item-content>
+              <v-list-item-content>
+                <v-list-item-subtitle>Ergebnis</v-list-item-subtitle>
+                <v-list-item-title
+                  >{{ game.scoreTeam1 }} :
+                  {{ game.scoreTeam2 }}</v-list-item-title
+                ></v-list-item-content
+              >
+              <!--Alter Score wird als Prop übergeben, damit er abgezogen werden kann, um bei Änderung nicht den total Score zu verfälschen -->
+            </v-list-item> </v-card
+          ><br />
+        </div>
+      </v-container>
     </div></div
 ></template>
 
@@ -118,6 +175,16 @@ export default {
       message: "",
     };
   },
+  mounted() {
+    if (localStorage.selectedTeam) {
+      this.selectedTeam = localStorage.selectedTeam;
+    }
+  },
+  watch: {
+    selectedTeam(newTeam) {
+      localStorage.selectedTeam = newTeam;
+    },
+  },
   computed: {
     loading() {
       return this.$store.getters.loading;
@@ -125,6 +192,10 @@ export default {
     games() {
       return this.$store.getters.loadedGames;
     },
+    finalGames() {
+      return this.$store.getters.loadedFinalGames;
+    },
+
     teams() {
       return this.$store.getters.loadedTeams;
     },
@@ -146,6 +217,19 @@ export default {
             ["asc"]
           )
 
+          .value()
+      );
+    },
+    finalsGroupedByDate() {
+      return (
+        _.chain(this.finalGames)
+          .groupBy((character) => character.time)
+          .map((characters, time) => ({ time, characters }))
+          //Für die Anordnung wird nur noch die Uhrzeit ohne Doppelpunkt genutzt, um die korrekte Reihenfolge zu bekommen
+          .orderBy(
+            (group) => Number(group.time.slice(11, 16).replace(":", "")),
+            ["asc"]
+          )
           .value()
       );
     },
