@@ -28,6 +28,14 @@
             >
             </v-img>
             <v-card-title>{{ singleNews.title }}</v-card-title>
+            <!-- Mail mit vordefiniertem Betreff zur Fundsache -->
+            <v-card-text
+              ><a
+                :href="`mailto:${mailAdress}?subject=Fundsache: ${singleNews.title}&body=${mailText1} ${singleNews.title} ${mailText2}`"
+              >
+                Kontaktmail zur Fundsache schicken
+              </a></v-card-text
+            >
             <v-expansion-panel-header><b>Infos...</b></v-expansion-panel-header>
 
             <v-expansion-panel-content class="text--primary">
@@ -42,6 +50,14 @@
 
 <script>
 export default {
+  data() {
+    return {
+      mailAdress: "frieder@griem-online.de",
+      mailText1: "Moin, ich habe beim Schietwetercup ",
+      mailText2:
+        "vergessen. Es wäre super, wenn wir besprechen können, wie ich es wieder bekomme. Viele Grüße NAME EINTRAGEN",
+    };
+  },
   computed: {
     loading() {
       return this.$store.getters.loading;
