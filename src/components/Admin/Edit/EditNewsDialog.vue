@@ -57,7 +57,7 @@
 <script>
 export default {
   //prop aus der News.vue
-  props: ["news"],
+  props: ["news", "editType"],
   data() {
     return {
       editDialog: false,
@@ -74,11 +74,20 @@ export default {
         return;
       }
       this.editDialog = false;
-      this.$store.dispatch("updateNewsData", {
-        id: this.news.id,
-        title: this.editedTitle,
-        description: this.editedDescription,
-      });
+      if (this.editType === "Fundsachen") {
+        console.log("Fundsache");
+        this.$store.dispatch("updateLostItemsData", {
+          id: this.news.id,
+          title: this.editedTitle,
+          description: this.editedDescription,
+        });
+      } else {
+        this.$store.dispatch("updateNewsData", {
+          id: this.news.id,
+          title: this.editedTitle,
+          description: this.editedDescription,
+        });
+      }
     },
   },
 };

@@ -148,5 +148,6 @@ new Vue({
     this.$store.dispatch("loadGroups");
     //this.$store.dispatch("loadTeamGames");
     this.$store.dispatch("loadSongs");
+    this.$store.dispatch("loadLostItems");
   },
 }).$mount("#app");

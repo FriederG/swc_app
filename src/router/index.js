@@ -10,6 +10,8 @@ import Pegelstand from "../components/Pegelstand";
 import AdminLogin from "../components/Admin/AdminLogin";
 import NewsErstellen from "../components/Admin/NewsErstellen";
 import NewsBearbeiten from "../components/Admin/NewsBearbeiten";
+import FundsachenErstellen from "@/components/Admin/FundsachenErstellen";
+import FundsachenBearbeiten from "@/components/Admin/FundsachenBearbeiten";
 import InstaFeed from "../components/InstaFeed";
 import TeamsVerwalten from "../components/Admin/TeamVerwaltung";
 import SpielplanVerwaltung from "@/components/Admin/SpielplanVerwaltung";
@@ -19,6 +21,8 @@ import Musikwunsch from "@/components/Musikwunsch";
 import MusikVerwaltung from "@/components/Admin/MusikBearbeiten";
 import Karte from "@/components/Karte";
 import Kalender from "@/components/Kalender";
+import Fundsachen from "@/components/Fundsachen";
+import Feedback from "@/components/Feedback";
 
 import AuthGuard from "./auth-guard";
 
@@ -83,6 +87,16 @@ const routes = [
     component: Kalender,
   },
   {
+    path: "/fundsachen",
+    name: "Fundsachen",
+    component: Fundsachen,
+  },
+  {
+    path: "/feedback",
+    name: "Feedback",
+    component: Feedback,
+  },
+  {
     path: "/admin/login",
     name: "AdminLogin",
     component: AdminLogin,
@@ -97,6 +111,19 @@ const routes = [
     path: "/admin/news/edit",
     name: "NewsBearbeiten",
     component: NewsBearbeiten,
+    beforeEnter: AuthGuard,
+  },
+  {
+    path: "/admin/fundsachen/new",
+    name: "FundsachenErstellen",
+    component: FundsachenErstellen,
+    beforeEnter: AuthGuard,
+  },
+
+  {
+    path: "/admin/fundsachen/edit",
+    name: "FundsachenBearbeiten",
+    component: FundsachenBearbeiten,
     beforeEnter: AuthGuard,
   },
   {

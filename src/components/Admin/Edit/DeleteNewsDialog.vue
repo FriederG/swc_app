@@ -34,7 +34,7 @@
 <script>
 export default {
   //prop aus der News.vue
-  props: ["news"],
+  props: ["news", "deleteType"],
   data() {
     return {
       editDialog: false,
@@ -44,9 +44,16 @@ export default {
     onSaveDelete() {
       this.editDialog = false;
 
-      this.$store.dispatch("deleteNewsData", {
-        id: this.news.id,
-      });
+      if (this.deleteType === "Fundsachen") {
+        console.log("Fund");
+        this.$store.dispatch("deleteLostItemsData", {
+          id: this.news.id,
+        });
+      } else {
+        this.$store.dispatch("deleteNewsData", {
+          id: this.news.id,
+        });
+      }
     },
   },
 };
