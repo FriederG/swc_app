@@ -69,64 +69,54 @@
         </div>
       </v-container>
 
-      <v-container fluid>
-        <h2>Viertelfinale</h2>
-        <v-row align="center">
-          <v-col>
-            <v-card width="400px" color="green">
-              <v-card-title>Viertelfinale 1</v-card-title>
-              <v-card-text>Team 1 - Team 2</v-card-text>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card width="400px" color="green">
-              <v-card-title>Viertelfinale 1</v-card-title>
-              <v-card-text>Team 1 - Team 2</v-card-text>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card width="400px" color="green">
-              <v-card-title>Viertelfinale 1</v-card-title>
-              <v-card-text>Team 1 - Team 2</v-card-text>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card width="400px" color="green">
-              <v-card-title>Viertelfinale 1</v-card-title>
-              <v-card-text>Team 1 - Team 2</v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-
-      <v-container fluid>
-        <h2>Halbfinale</h2>
-        <v-row align="center" justify="center">
-          <v-col>
-            <v-card width="400px" color="blue">
-              <v-card-title>Halbfinale 1</v-card-title>
-              <v-card-text>Team 1 - Team 2</v-card-text>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card width="400px" color="blue">
-              <v-card-title>Halbfinale 2</v-card-title>
-              <v-card-text>Team 1 - Team 2</v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-
-      <v-container fluid>
-        <h2>Finale</h2>
-        <v-row align="center" justify="center">
-          <v-col>
-            <v-card width="400px" color="red">
-              <v-card-title>Finale</v-card-title>
-              <v-card-text>Team 1 - Team 2</v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
+      <!-- Finalspiele anzeigen ------------------------------------------------------------>
+      <v-container v-for="finalGame in groupedByFinal" :key="finalGame.id">
+        <h1>{{ finalGame.gameType }}</h1>
+        <div v-for="game in finalGame.characters" :key="game.id">
+          <v-card
+            class="mx-auto"
+            max-width="400"
+            v-bind:outlined="game.gameGender === 'female'"
+            color="green"
+          >
+            <v-list-item
+              three-line
+              v-bind:class="[
+                game.team1Title === selectedTeam ||
+                game.team2Title === selectedTeam
+                  ? { selectedTeam: true }
+                  : { selectedTeam: false },
+              ]"
+            >
+              <v-list-item-content>
+                <v-list-item-subtitle v-if="game.gameGender === 'male'"
+                  >Herren</v-list-item-subtitle
+                >
+                <v-list-item-subtitle v-if="game.gameGender === 'female'"
+                  >Damen</v-list-item-subtitle
+                >
+                <v-list-item-subtitle
+                  >Platz: {{ game.pitch }},
+                  {{ game.time | date }}</v-list-item-subtitle
+                >
+                <v-list-item-title
+                  ><b>{{ game.team1Title }}</b></v-list-item-title
+                >
+                <v-list-item-title>vs.</v-list-item-title>
+                <v-list-item-title
+                  ><b>{{ game.team2Title }}</b></v-list-item-title
+                >
+              </v-list-item-content>
+              <v-list-item-content>
+                <v-list-item-subtitle>Ergebnis</v-list-item-subtitle>
+                <v-list-item-title
+                  >{{ game.scoreTeam1 }} :
+                  {{ game.scoreTeam2 }}</v-list-item-title
+                ></v-list-item-content
+              >
+            </v-list-item> </v-card
+          ><br />
+        </div>
       </v-container>
     </div>
   </div>
@@ -157,9 +147,9 @@ export default {
       title: "",
       gender: "",
       time: new Date(),
-      selectdTeam: "",
       point: 1,
       modelGroup: "",
+      selectedTeam: "",
     };
   },
   computed: {
@@ -211,6 +201,22 @@ export default {
       if (!searchGroupSel) return this.groupedByGroup;
       //Filtern nach
       return this.singleGroups.filter((c) => c.group === searchGroupSel);
+    },
+
+    //Finalspiele
+    finalGames() {
+      return this.$store.getters.loadedFinalGames;
+    },
+
+    groupedByFinal() {
+      return (
+        _.chain(this.finalGames)
+          .groupBy((character) => character.gameType)
+          .map((characters, gameType) => ({ gameType, characters }))
+          //Für die Anordnung wird nur noch die Uhrzeit ohne Doppelpunkt genutzt, um die korrekte Reihenfolge zu bekommen
+          //.orderBy((group) => Number(group.gameType), ["desc"])
+          .value()
+      );
     },
   },
 };

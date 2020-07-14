@@ -135,6 +135,7 @@
                   label="Team 1"
                   id="team1"
                   v-model="team1"
+                  item-value="id"
                   required
                   :items="femaleTeams"
                   item-text="title"
@@ -150,6 +151,7 @@
                   label="Team 2"
                   id="team2"
                   v-model="team2"
+                  item-value="id"
                   required
                   :items="femaleTeams"
                   item-text="title"
@@ -283,11 +285,11 @@
                   label="Team 1"
                   id="team1"
                   v-model="team1"
+                  item-value="id"
                   required
                   :items="femaleTeams"
                   item-text="title"
-                  ><option>Fe</option></v-select
-                >
+                ></v-select>
               </v-flex>
             </v-layout>
             <v-card-text>vs.</v-card-text>
@@ -298,11 +300,11 @@
                   label="Team 2"
                   id="team2"
                   v-model="team2"
+                  item-value="id"
                   required
                   :items="femaleTeams"
                   item-text="title"
-                  ><option>Fe</option></v-select
-                >
+                ></v-select>
               </v-flex>
             </v-layout>
           </div>
@@ -324,7 +326,13 @@
 export default {
   data() {
     return {
-      gameTypes: ["Gruppenspiel", "Achtelfinale", "Halbfinale", "Finale"],
+      gameTypes: [
+        "Gruppenspiel",
+        "Achtelfinale",
+        "Viertelfinale",
+        "Halbfinale",
+        "Finale",
+      ],
       pitches: ["A", "B", "C"],
       team1: "",
       team2: "",

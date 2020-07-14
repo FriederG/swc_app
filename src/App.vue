@@ -74,7 +74,11 @@ export default {
           title: "Spielpläne/Ergebnisse",
           link: "/spielplan",
         },
-        { icon: "mdi-trophy", title: "Gruppen", link: "/results" },
+        {
+          icon: "mdi-arrow-expand-vertical",
+          title: "Gruppentabelle",
+          link: "/results",
+        },
         { icon: "mdi-help", title: "FAQ", link: "/faq" },
         { icon: "mdi-beer", title: "Pegelstand", link: "/pegelstand" },
         { icon: "mdi-instagram", title: "Insta-Feed", link: "/instafeed" },
