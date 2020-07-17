@@ -5,10 +5,22 @@
     <v-simple-table v-if="(entered === 'true')">
       <table>
         <tr>
-          <td><b>Bier</b></td>
+          <td><b>Bier(0,3l)</b></td>
           <td>{{ beer_count }}</td>
           <td>
             <v-btn v-on:click="more_beer"><v-icon>mdi-beer</v-icon></v-btn>
+          </td>
+          <td>
+            <v-btn color="red" v-on:click="less_beer"
+              ><v-icon>mdi-minus</v-icon></v-btn
+            >
+          </td>
+        </tr>
+        <tr>
+          <td><b>Bier (0,5l)</b></td>
+          <td>{{ l_beer_count }}</td>
+          <td>
+            <v-btn v-on:click="more_l_beer"><v-icon>mdi-beer</v-icon></v-btn>
           </td>
           <td>
             <v-btn color="red" v-on:click="less_beer"
@@ -93,6 +105,7 @@ export default {
   data() {
     return {
       beer_count: 0,
+      l_beer_count: 0,
       wine_count: 0,
       shot_count: 0,
       drink_count: 0,
@@ -120,6 +133,7 @@ export default {
       this.gender = localStorage.getItem("gender");
       this.weight = parseInt(localStorage.getItem("weight"));
       this.beer_count = parseInt(localStorage.getItem("beer_count"));
+      this.l_beer_count = parseInt(localStorage.getItem("l_beer_count"));
       this.wine_count = parseInt(localStorage.getItem("wine_count"));
       this.shot_count = parseInt(localStorage.getItem("shot_count"));
       this.drink_count = parseInt(localStorage.getItem("drink_count"));
@@ -135,6 +149,8 @@ export default {
       localStorage.setItem("shot_count", this.shot_count);
       this.drink_count = 0;
       localStorage.setItem("drink_count", this.drink_count);
+      this.l_beer_count = 0;
+      localStorage.setItem("l_beer_count", this.l_beer_count);
     }
     if (localStorage.getItem("bac") === "true") {
       this.bac = true;
@@ -160,6 +176,20 @@ export default {
       this.beer_count = this.beer_count + 1;
       localStorage.setItem("beer_count", this.beer_count);
     },
+    more_l_beer() {
+      if (this.bac === false) {
+        this.timestamp_1 = new Date();
+        localStorage.setItem("timestamp_1", this.timestamp_1);
+        this.timestamp_2 = new Date(localStorage.getItem("timestamp_1"));
+        this.bac = true;
+        localStorage.setItem("bac", "true");
+        this.timedifference();
+      }
+
+      this.l_beer_count = this.l_beer_count + 1;
+      localStorage.setItem("beer_count", this.l_beer_count);
+    },
+
     more_wine() {
       if (this.bac === false) {
         this.timestamp_1 = new Date();
@@ -202,6 +232,7 @@ export default {
     less_beer() {
       if (
         this.beer_count === 1 &&
+        this.l_beer_count === 0 &&
         this.shot_count === 0 &&
         this.drink_count === 0 &&
         this.wine_count === 0
@@ -216,11 +247,30 @@ export default {
         localStorage.setItem("beer_count", this.beer_count);
       }
     },
+    less_l_beer() {
+      if (
+        this.l_beer_count === 1 &&
+        this.beer_count === 0 &&
+        this.shot_count === 0 &&
+        this.drink_count === 0 &&
+        this.wine_count === 0
+      ) {
+        this.l_beer_count = this.l_beer_count - 1;
+        localStorage.setItem("l_beer_count", this.l_beer_count);
+        this.bac = false;
+        localStorage.setItem("bac", "false");
+        clearInterval(this.counter);
+      } else if (this.beer_count > 0) {
+        this.l_beer_count = this.l_beer_count - 1;
+        localStorage.setItem("l_beer_count", this.l_beer_count);
+      }
+    },
     less_wine() {
       if (
         this.beer_count === 0 &&
         this.shot_count === 0 &&
         this.drink_count === 0 &&
+        this.l_beer_count === 0 &&
         this.wine_count === 1
       ) {
         this.wine_count = this.wine_count - 1;
@@ -238,6 +288,7 @@ export default {
         this.beer_count === 0 &&
         this.shot_count === 1 &&
         this.drink_count === 0 &&
+        this.l_beer_count === 0 &&
         this.wine_count === 0
       ) {
         this.shot_count = this.shot_count - 1;
@@ -255,6 +306,7 @@ export default {
         this.beer_count === 0 &&
         this.shot_count === 0 &&
         this.drink_count === 1 &&
+        this.l_beer_count === 0 &&
         this.wine_count === 0
       ) {
         this.drink_count = this.drink_count - 1;
@@ -289,11 +341,13 @@ export default {
       this.wine_count = 0;
       this.shot_count = 0;
       this.drink_count = 0;
+      this.l_beer_count = 0;
 
       localStorage.setItem("beer_count", this.beer_count);
       localStorage.setItem("wine_count", this.wine_count);
       localStorage.setItem("shot_count", this.shot_count);
       localStorage.setItem("drink_count", this.drink_count);
+      localStorage.setItem("l_beer_count", this.l_beer_count);
       localStorage.setItem("entered", "false");
       localStorage.setItem("weight", 70);
       localStorage.setItem("gender", "female");
@@ -325,6 +379,7 @@ export default {
       if (this.gender === "female") {
         this.check =
           (this.beer_count * 12 +
+            this.l_beer_count * 20 +
             this.wine_count * 15 +
             this.shot_count * 7 +
             this.drink_count * 12) /
@@ -347,10 +402,13 @@ export default {
           localStorage.setItem("shot_count", this.shot_count);
           this.drink_count = 0;
           localStorage.setItem("drink_count", this.drink_count);
+          this.l_beer_count = 0;
+          localStorage.setItem("l_beer_count", this.l_beer_count);
         }
       } else if (this.gender === "male") {
         this.check =
           (this.beer_count * 12 +
+            this.l_beer_count * 20 +
             this.wine_count * 15 +
             this.shot_count * 7 +
             this.drink_count * 12) /
@@ -373,6 +431,8 @@ export default {
           localStorage.setItem("shot_count", this.shot_count);
           this.drink_count = 0;
           localStorage.setItem("drink_count", this.drink_count);
+          this.l_beer_count = 0;
+          localStorage.setItem("l_beer_count", this.l_beer_count);
         }
       }
     },
@@ -383,6 +443,7 @@ export default {
         this.beer_count === 0 &&
         this.wine_count === 0 &&
         this.drink_count === 0 &&
+        this.l_beer_count === 0 &&
         this.shot_count === 0
       ) {
         return 0;
@@ -390,6 +451,7 @@ export default {
         return Math.max(
           0,
           (this.beer_count * 12 +
+            this.l_beer_count * 20 +
             this.wine_count * 15 +
             this.shot_count * 7 +
             this.drink_count * 12) /
@@ -402,6 +464,7 @@ export default {
     alc_calc_female() {
       if (
         this.beer_count === 0 &&
+        this.l_beer_count === 0 &&
         this.wine_count === 0 &&
         this.drink_count === 0 &&
         this.shot_count === 0
@@ -411,6 +474,7 @@ export default {
         return Math.max(
           0,
           (this.beer_count * 12 +
+            this.l_beer_count * 20 +
             this.wine_count * 15 +
             this.shot_count * 7 +
             this.drink_count * 12) /
