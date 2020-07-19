@@ -71,11 +71,11 @@
             <v-expansion-panel class="mb-2" style="margin-top: 10px;"
               ><router-link style="text-decoration: none;" to="/pegelstand">
                 <v-card class="mx-auto" max-width="400"
-                  ><h3 style="padding: 20px;">Pegelstand</h3>
+                  ><h3 style="padding: 20px;">Pegelstand messen</h3>
                   <v-img
                     class="white--text align-end"
                     height="200px"
-                    src="../assets/bier_low.jpg"
+                    src="../assets/bier_klein.jpg"
                   >
                   </v-img>
 

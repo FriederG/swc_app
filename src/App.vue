@@ -91,6 +91,11 @@ export default {
         { icon: "mdi-map", title: "Karte", link: "/map" },
         { icon: "mdi-calendar", title: "Adventskalender", link: "/calendar" },
         {
+          icon: "mdi-camera",
+          title: "Fotos",
+          link: "/fotos",
+        },
+        {
           icon: "mdi-football-australian",
           title: "Turnierinformationen",
           link: "/about",
