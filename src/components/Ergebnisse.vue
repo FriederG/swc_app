@@ -46,7 +46,7 @@
             <div
               v-for="team in group.characters"
               :key="team.title"
-              class="list-complete-item"
+              class="list-complete-item group_display"
             >
               <v-card class="mx-auto" max-width="400">
                 <v-list-item>
@@ -234,5 +234,11 @@ export default {
 }
 .list-complete-leave-active {
   position: absolute;
+}
+.group_display {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  justify-content: center;
 }
 </style>

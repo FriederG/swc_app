@@ -93,7 +93,14 @@
       ></v-slider>
       <p>Gewicht: {{ weight }} kg</p>
       <br />
-      <v-btn v-on:click="enter">Bestätigen</v-btn>
+      <v-btn v-on:click="enter" color="primary">Bestätigen</v-btn>
+      <br />
+      <br />
+      <v-alert style="font-size: small;" color="primary">
+        Die hier berechneten Werte sind ohne Gewähr und dienen ausschließlich
+        der Unterhaltung. Auf keinen Fall sollte dieser Rechner dazu verwendet
+        werden Fahrtauglichkeit zu bewerten. Trinkt verantwortlich!
+      </v-alert>
     </div>
   </div>
 </template>
