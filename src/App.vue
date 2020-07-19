@@ -23,7 +23,14 @@
       </v-app-bar>
     </v-card>
     <!--Header mobile, der sich von unten hochfährt-->
-    <v-navigation-drawer v-model="sideNav" fixed app temporary right>
+    <v-navigation-drawer
+      style="z-index: 999;"
+      v-model="sideNav"
+      fixed
+      app
+      temporary
+      right
+    >
       <v-list shaped>
         <v-subheader>Menu</v-subheader>
         <v-list-item-group color="primary">
