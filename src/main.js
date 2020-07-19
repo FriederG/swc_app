@@ -75,12 +75,16 @@ new Vue({
       measurementId: "G-KZXXTCM4N5",
     });
 
-    firebase
-      .messaging()
-      .requestPermission()
-      .then(() => firebase.messaging().getToken())
-      .then((token) => console.log(token))
-      .catch((err) => console.log(err));
+    //Bedingung zum Checken, ob der Browser Cloud Messaging unterstützt
+    //Ansonsten lädt er gar keine Daten aus der Firebase
+    if (firebase.messaging.isSupported()) {
+      firebase
+        .messaging()
+        .requestPermission()
+        .then(() => firebase.messaging().getToken())
+        .then((token) => console.log(token))
+        .catch((err) => console.log(err));
+    }
 
     //Zum Überprüfen in der Konsole, ob die Message angekommen ist
     /*

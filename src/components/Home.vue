@@ -3,6 +3,7 @@
     <div>
       <div>
         <div><h2>Schietwettercup 2021</h2></div>
+        <div><h4>Open Beta</h4></div>
         <br />
         <!--News Sektion -->
         <v-layout v-if="loading"
