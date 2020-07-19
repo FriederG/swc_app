@@ -143,6 +143,11 @@ export default {
             link: "/admin/music",
           },
           {
+            icon: "mdi-camera",
+            title: "Fotos verwalten",
+            link: "/admin/fotos",
+          },
+          {
             icon: "mdi-plus",
             title: "Fundsachen erstellen",
             link: "/admin/fundsachen/new",

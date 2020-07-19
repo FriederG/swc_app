@@ -25,6 +25,7 @@ import Fundsachen from "@/components/Fundsachen";
 import Feedback from "@/components/Feedback";
 import Impressum from "@/components/Impressum";
 import Fotos from "@/components/Fotos";
+import FotosVerwalten from "@/components/Admin/FotosVerwalten";
 
 import AuthGuard from "./auth-guard";
 
@@ -136,6 +137,12 @@ const routes = [
     path: "/admin/fundsachen/edit",
     name: "FundsachenBearbeiten",
     component: FundsachenBearbeiten,
+    beforeEnter: AuthGuard,
+  },
+  {
+    path: "/admin/fotos",
+    name: "FotosVerwalten",
+    component: FotosVerwalten,
     beforeEnter: AuthGuard,
   },
   {
