@@ -3,6 +3,11 @@
     <div v-if="current_month === 6">
       <h3>Der Kiel Rugby Adventskalender</h3>
       <div v-if="entered_k === 'false'">
+        <br />
+        Dieses Jahr haben wir uns etwas ganz Besonderes ausgedacht um euch die
+        Adventszeit zu versüßen: Der offizielle Kiel-Rugby Adventskalender 2020.
+        Jeden Tag gibt es ein Video aus der Weihnachtssschmiede der FT Adler.
+        <br /><br />
         <div class="day_card" @click="enter">
           <img
             height="140px"
