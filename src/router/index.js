@@ -23,6 +23,8 @@ import Karte from "@/components/Karte";
 import Kalender from "@/components/Kalender";
 import Fundsachen from "@/components/Fundsachen";
 import Feedback from "@/components/Feedback";
+import Impressum from "@/components/Impressum";
+import Fotos from "@/components/Fotos";
 
 import AuthGuard from "./auth-guard";
 
@@ -95,6 +97,16 @@ const routes = [
     path: "/feedback",
     name: "Feedback",
     component: Feedback,
+  },
+  {
+    path: "/impressum",
+    name: "Impressum",
+    component: Impressum,
+  },
+  {
+    path: "/fotos",
+    name: "Fotos",
+    component: Fotos,
   },
   {
     path: "/admin/login",

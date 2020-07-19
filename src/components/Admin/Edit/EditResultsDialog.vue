@@ -18,7 +18,7 @@
             <v-card-text>
               {{ team1Title }}
               <br />
-              Alter Score zum TEST: {{ team1OldGameScore }}
+
               <v-text-field
                 name="scoreTeam1"
                 label="Punkte eingeben"
@@ -33,7 +33,7 @@
             <v-card-text>
               {{ team2Title }}
               <br />
-              Alter Score zum TEST: {{ team2OldGameScore }}
+
               <v-text-field
                 name="scoreTeam1"
                 label="Punkte eingeben"

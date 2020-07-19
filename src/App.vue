@@ -74,11 +74,6 @@ export default {
   computed: {
     menuItems() {
       let menuItems = [
-        {
-          icon: "mdi-football-australian",
-          title: "Turnierinformationen",
-          link: "/about",
-        },
         { icon: "mdi-newspaper", title: "News", link: "/news" },
         {
           icon: "mdi-table",
@@ -91,12 +86,22 @@ export default {
           link: "/results",
         },
         { icon: "mdi-beer", title: "Pegelstand", link: "/pegelstand" },
-        { icon: "mdi-instagram", title: "Insta-Feed", link: "/instafeed" },
+        //{ icon: "mdi-instagram", title: "Insta-Feed", link: "/instafeed" },
         { icon: "mdi-music", title: "Musikwünsche", link: "/musik" },
         { icon: "mdi-map", title: "Karte", link: "/map" },
-        { icon: "mdi-calendar", title: "Kalendertürchen", link: "/calendar" },
+        { icon: "mdi-calendar", title: "Adventskalender", link: "/calendar" },
+        {
+          icon: "mdi-camera",
+          title: "Fotos",
+          link: "/fotos",
+        },
+        {
+          icon: "mdi-football-australian",
+          title: "Turnierinformationen",
+          link: "/about",
+        },
         { icon: "mdi-help", title: "FAQ", link: "/faq" },
-        { icon: "mdi-hanger", title: "Lost and Found", link: "/fundsachen" },
+        { icon: "mdi-hanger", title: "Fundsachen", link: "/fundsachen" },
         { icon: "mdi-chat-outline", title: "Feedback", link: "/feedback" },
       ];
       if (this.userIsAuthenticated) {
