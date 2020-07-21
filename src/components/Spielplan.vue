@@ -30,7 +30,7 @@
             :items="singleDays"
             item-text="time"
             return-object
-            solo
+            outlined
             ><template slot="selection" slot-scope="{ item }">
               {{ item.time | day }}
             </template>
@@ -54,13 +54,84 @@
             required
             :items="teams"
             item-text="title"
-            solo
+            outlined
             ><option>Fe</option></v-autocomplete
           >
         </v-flex>
       </v-layout>
     </div>
+    <!--
+    <v-data-table
+      mobile-breakpoint="200px"
+      :headers="headers"
+      :items="games"
+      :items-per-page="100"
+      item-key="name"
+      group-by="time"
+      class="elevation-1"
+    ></v-data-table>
+-->
+    <div v-if="day === ''">
+      <v-alert type="info">Bitte Turniertag auswählen</v-alert>
+    </div>
 
+    <div v-if="!loading && day != ''">
+      <v-simple-table v-for="group in selectedGamesByDate" :key="group.id">
+        <thead>
+          <tr>
+            <h4>{{ group.time | date }}</h4>
+          </tr>
+          <tr>
+            <th class="text-left">Feld</th>
+            <th class="text-left">Team 1</th>
+            <th class="text-left">Team 2</th>
+            <th>Ergebnis</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            v-for="game in group.characters"
+            :key="game.id"
+            v-bind:class="[
+              game.team1Title === selectedTeam ||
+              game.team2Title === selectedTeam
+                ? { selectedTeam: true }
+                : { selectedTeam: false },
+            ]"
+          >
+            <!--
+            <v-list-item
+              three-line
+              v-bind:class="[
+                game.team1Title === selectedTeam ||
+                game.team2Title === selectedTeam
+                  ? { selectedTeam: true }
+                  : { selectedTeam: false },
+              ]"
+            >-->
+            <td>{{ game.pitch }}</td>
+            <td>
+              <b>{{ game.team1Title }}</b>
+            </td>
+            <td>
+              <b>{{ game.team2Title }}</b>
+            </td>
+
+            <td>
+              <v-list-item-title
+                >{{ game.scoreTeam1 }} :
+                {{ game.scoreTeam2 }}</v-list-item-title
+              >
+            </td>
+            <!--
+            </v-list-item>--><br />
+          </tr>
+        </tbody>
+      </v-simple-table>
+    </div>
+
+    <!--
     <div v-if="!loading">
       <v-container v-for="group in selectedGamesByDate" :key="group.id">
         <h4>{{ group.time | date }}</h4>
@@ -103,11 +174,12 @@
         </div>
       </v-container>
     </div>
-
+-->
     <!--Finalspiele ----------------------------------------------------------------------------------->
 
-    <div>
-      <h3>Finalspiele</h3>
+    <br /><br />
+    <div v-if="!loading && day != ''">
+      <h2>Finalspiele</h2>
       <v-container v-for="group in finalsGroupedByDate" :key="group.id">
         <h4>{{ group.time | date }}</h4>
         <div v-for="game in group.characters" :key="game.id">
@@ -169,10 +241,21 @@ export default {
     return {
       isActive: true,
       title: "",
-      day: "2020-06-29T13:46:00.000Z",
+      day: "",
       time: new Date(),
       selectedTeam: "",
       message: "",
+      headers: [
+        {
+          text: "Team 1",
+          align: "start",
+          sortable: false,
+          value: "team1Title",
+        },
+        { text: "Team 2", value: "team2Title", sortable: false },
+        { text: "Score", value: "scoreTeam1", sortable: false },
+        { text: "Score", value: "scoreTeam2", sortable: false },
+      ],
     };
   },
   mounted() {
@@ -260,8 +343,8 @@ export default {
 
 <style>
 .selectedTeam {
-  color: white;
-  background-color: lightgreen;
+  color: black;
+  background-color: green;
 }
 .damenTeam {
   background-color: lightgray;

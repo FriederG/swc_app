@@ -33,10 +33,10 @@ export default {
         data: [
           {
             Message:
-              "Hier gibt es das legendäre Schietwettercup-Buffet. Los gehts morgens um 8:00 Uhr.",
+              "Hier im Vereinsheim gibt es das legendäre Schietwettercup-Buffet. Los gehts morgens um 8:00 Uhr.",
             Title: "Frühstück",
-            x: 30,
-            y: 6,
+            x: 22,
+            y: 20,
           },
           {
             Message: "Hier könnt ihr eure Zelte aufschlagen.",

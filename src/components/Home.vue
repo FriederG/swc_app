@@ -24,12 +24,9 @@
 
         <!--Subscribe Push Nachricht Test -->
         <v-layout row wrap v-if="!loading">
-          <v-expansion-panels>
-            <v-expansion-panel
-              v-for="singleNews in news"
-              :key="singleNews.id"
-              class="mb-2"
-              ><router-link style="text-decoration: none;" to="/news">
+          <v-container>
+            <div v-for="singleNews in news" :key="singleNews.id" class="mb-2">
+              <router-link style="text-decoration: none;" to="/news">
                 <v-card class="mx-auto" max-width="400"
                   ><h3 style="padding: 20px;">News</h3>
                   <v-img
@@ -39,13 +36,9 @@
                   >
                     <v-card-title>{{ singleNews.title }}</v-card-title>
                   </v-img>
-
-                  <v-expansion-panel-content class="text--primary">
-                    <div>{{ singleNews.description }}</div>
-                  </v-expansion-panel-content>
                 </v-card></router-link
               >
-            </v-expansion-panel>
+            </div>
             <!--Score -->
             <v-container fluid>
               <v-col cols="12"
@@ -68,38 +61,29 @@
               </v-col></v-container
             >
 
-            <v-expansion-panel class="mb-2" style="margin-top: 10px;"
-              ><router-link style="text-decoration: none;" to="/pegelstand">
-                <v-card class="mx-auto" max-width="400"
-                  ><h3 style="padding: 20px;">Pegelstand messen</h3>
-                  <v-img
-                    class="white--text align-end"
-                    height="200px"
-                    src="../assets/bier_klein.jpg"
-                  >
-                  </v-img>
+            <router-link style="text-decoration: none;" to="/pegelstand">
+              <v-card class="mx-auto" max-width="400"
+                ><h3 style="padding: 20px;">Pegelstand messen</h3>
+                <v-img
+                  class="white--text align-end"
+                  height="200px"
+                  src="../assets/bier_klein.jpg"
+                >
+                </v-img> </v-card
+            ></router-link>
 
-                  <v-expansion-panel-content class="text--primary">
-                  </v-expansion-panel-content> </v-card
-              ></router-link>
-            </v-expansion-panel>
-
-            <v-expansion-panel class="mb-2" style="margin-top: 10px;"
-              ><router-link style="text-decoration: none;" to="/musik">
-                <v-card class="mx-auto" max-width="400"
-                  ><h3 style="padding: 20px;">Musikwünsche</h3>
-                  <v-img
-                    class="white--text align-end"
-                    height="200px"
-                    src="../assets/nach_links.jpg"
-                  >
-                  </v-img>
-
-                  <v-expansion-panel-content class="text--primary">
-                  </v-expansion-panel-content> </v-card
-              ></router-link>
-            </v-expansion-panel>
-          </v-expansion-panels>
+            <br />
+            <router-link style="text-decoration: none;" to="/musik">
+              <v-card class="mx-auto" max-width="400"
+                ><h3 style="padding: 20px;">Musikwünsche</h3>
+                <v-img
+                  class="white--text align-end"
+                  height="200px"
+                  src="../assets/nach_links.jpg"
+                >
+                </v-img> </v-card
+            ></router-link>
+          </v-container>
         </v-layout>
       </div>
       <app-footer></app-footer></div></v-container

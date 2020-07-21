@@ -75,7 +75,6 @@ export default {
     },
 
     dbMenuItems() {
-      console.log(this.$store.getters.loadedMenueItems);
       return this.$store.getters.loadedMenueItems;
     },
 

@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   data() {
     return {
@@ -168,6 +170,8 @@ export default {
   methods: {
     onLogout() {
       this.$store.dispatch("logout");
+
+      router.push("/admin/login");
     },
   },
 };

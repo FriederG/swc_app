@@ -13,36 +13,25 @@
         ></v-flex
       ></v-layout
     >
-    <v-layout v-if="!loading">
-      <v-expansion-panels>
-        <v-expansion-panel
-          v-for="singleNews in news"
-          :key="singleNews.id"
-          class="mb-2"
-        >
-          <v-card class="mx-auto" max-width="400">
-            <v-img
-              class="white--text align-end"
-              height="200px"
-              :src="singleNews.imageUrl"
-            >
-              <v-card-title>{{ singleNews.title }}</v-card-title>
-            </v-img>
 
-            <v-card-text class="text--primary">
-              <div>{{ singleNews.date | day }}</div>
-            </v-card-text>
+    <v-layout v-if="!loading" wrap>
+      <v-flex md4 v-for="singleNews in news" :key="singleNews.id">
+        <v-card class="mx-auto" max-width="400">
+          <v-img
+            class="white--text align-end"
+            height="200px"
+            :src="singleNews.imageUrl"
+          >
+            <v-card-title>{{ singleNews.title }}</v-card-title>
+          </v-img>
 
-            <v-expansion-panel-header
-              ><b>Beitrag lesen...</b></v-expansion-panel-header
-            >
-
-            <v-expansion-panel-content class="text--primary">
-              <div>{{ singleNews.description }}</div>
-            </v-expansion-panel-content>
-          </v-card>
-        </v-expansion-panel>
-      </v-expansion-panels>
+          <v-card-text class="text--primary">
+            <div>{{ singleNews.date | day }}</div>
+            <div>{{ singleNews.description }}</div>
+          </v-card-text>
+        </v-card>
+        <br />
+      </v-flex>
     </v-layout>
   </div>
 </template>

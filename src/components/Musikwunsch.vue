@@ -184,6 +184,8 @@ export default {
         rating: 0,
       };
       this.$store.dispatch("createSong", SongData);
+
+      this.title = "";
       //Wenn schon etwas im Wunsch-Store steht
       if (localStorage.getItem("Wunsch")) {
         localStorage.setItem(
