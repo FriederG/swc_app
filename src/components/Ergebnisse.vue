@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>Punkte</h1>
+    <h1>Gruppentabellen</h1>
+    <br /><br />
     <v-layout v-if="loading"
       ><v-flex xs12 class="text-center" style="padding: 30px;"
         ><v-progress-circular
@@ -15,6 +16,7 @@
     >
 
     <div v-if="!loading">
+      <!--
       <h4>Deine Gruppe:</h4>
       <v-layout row>
         <v-flex xs12 sm6 offset-sm3>
@@ -68,6 +70,17 @@
           </transition-group>
         </div>
       </v-container>
+-->
+
+      <v-data-table
+        mobile-breakpoint="200px"
+        :headers="headers"
+        :items="teamsByWins"
+        :items-per-page="100"
+        item-key="name"
+        group-by="group"
+        class="elevation-1"
+      ></v-data-table>
 
       <!-- Finalspiele anzeigen ------------------------------------------------------------>
       <v-container v-for="finalGame in groupedByFinal" :key="finalGame.id">
@@ -143,6 +156,19 @@ export default {
             { id: "Feb", selfScore: "53", otherScore: "50.00" },
           ],
         },
+      ],
+      headers: [
+        {
+          text: "Team",
+          align: "start",
+          sortable: false,
+          value: "title",
+        },
+        { text: "Pkt.", value: "points", sortable: false },
+        { text: "Diff", value: "scoreDifference", sortable: false },
+        { text: "S", value: "wins", sortable: false },
+        { text: "N", value: "losses", sortable: false },
+        { text: "U", value: "draw", sortable: false },
       ],
       title: "",
       gender: "",

@@ -52,16 +52,16 @@
                 ><v-row justify="space-between">
                   <router-link style="text-decoration: none;" to="/spielplan">
                     <v-card class="mx-auto" max-width="400"
-                      ><h3 style="padding: 20px;">
+                      ><h4 style="padding: 20px;">
                         <v-icon>mdi-calendar</v-icon> Spielplan
-                      </h3>
+                      </h4>
                     </v-card></router-link
                   >
                   <router-link style="text-decoration: none;" to="/results">
                     <v-card class="mx-auto" max-width="400"
-                      ><h3 style="padding: 20px;">
+                      ><h4 style="padding: 20px;">
                         <v-icon>mdi-account-multiple</v-icon> Gruppen
-                      </h3>
+                      </h4>
                     </v-card></router-link
                   >
                 </v-row>

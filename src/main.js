@@ -26,6 +26,7 @@ import DeleteGameDialog from "@/components/Admin/Edit/DeleteGameDialog";
 import DeleteSongDialog from "@/components/Admin/Edit/DeleteSongDialog";
 import EditSongDialog from "@/components/Admin/Edit/EditSongDialog";
 import DeletePhotoDialog from "@/components/Admin/Edit/DeletePhotoDialog";
+import EditMenuItemDialog from "@/components/Admin/Edit/EditMenuItemDialog";
 
 Vue.config.productionTip = false;
 
@@ -51,6 +52,7 @@ Vue.component("delete-game-dialog", DeleteGameDialog);
 Vue.component("delete-song-dialog", DeleteSongDialog);
 Vue.component("edit-song-dialog", EditSongDialog);
 Vue.component("delete-photo-dialog", DeletePhotoDialog);
+Vue.component("edit-menu-item-dialog", EditMenuItemDialog);
 
 export const i18n = new VueI18n({
   locale: "de",
@@ -156,5 +158,7 @@ new Vue({
     this.$store.dispatch("loadSongs");
     this.$store.dispatch("loadLostItems");
     this.$store.dispatch("loadPhotos");
+
+    this.$store.dispatch("loadMenueItems");
   },
 }).$mount("#app");

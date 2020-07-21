@@ -6,7 +6,12 @@
     />
     <!--App Bar oben -->
 
-    <v-card color="grey lighten-4" flattile dark style="margin-bottom: 80px;">
+    <v-card
+      color="grey lighten-4"
+      flattile
+      dark
+      style="margin-bottom: 80px; border-radius: 0;"
+    >
       <v-app-bar height="90px" fixed>
         <v-toolbar-title
           ><router-link to="/" tag="span" style="cursor: pointer;"
@@ -34,18 +39,17 @@
       <v-list shaped>
         <v-subheader>Menu</v-subheader>
         <v-list-item-group color="primary">
-          <v-list-item
-            v-for="item in menuItems"
-            :key="item.title"
-            :to="item.link"
-          >
-            <v-list-item-icon>
-              <v-icon v-text="item.icon"></v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title v-text="item.title"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+          <div v-for="item in menuItems" :key="item.title">
+            <!--Items aus der DB weren nur angezeigt, wenn sie aktiv gesetzt sind -->
+            <v-list-item v-if="item.isActive" :to="item.link">
+              <v-list-item-icon>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.title"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </div>
 
           <v-list-item @click="onLogout" v-if="userIsAuthenticated">
             <v-list-item-icon>
@@ -58,7 +62,6 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-
     <!--Header groß------------------------------------------------------------------------------------->
     <main style="margin: 30px;"><router-view></router-view></main>
   </v-app>
@@ -72,59 +75,38 @@ export default {
     };
   },
   computed: {
+    dbMenuItems() {
+      return this.$store.getters.loadedMenueItems;
+    },
+
     menuItems() {
-      let menuItems = [
-        { icon: "mdi-newspaper", title: "News", link: "/news" },
-        {
-          icon: "mdi-table",
-          title: "Spielpläne/Ergebnisse",
-          link: "/spielplan",
-        },
-        {
-          icon: "mdi-arrow-expand-vertical",
-          title: "Gruppentabelle",
-          link: "/results",
-        },
-        { icon: "mdi-beer", title: "Pegelstand", link: "/pegelstand" },
-        //{ icon: "mdi-instagram", title: "Insta-Feed", link: "/instafeed" },
-        { icon: "mdi-music", title: "Musikwünsche", link: "/musik" },
-        { icon: "mdi-map", title: "Karte", link: "/map" },
-        { icon: "mdi-calendar", title: "Adventskalender", link: "/calendar" },
-        {
-          icon: "mdi-camera",
-          title: "Fotos",
-          link: "/fotos",
-        },
-        {
-          icon: "mdi-football-australian",
-          title: "Turnierinformationen",
-          link: "/about",
-        },
-        { icon: "mdi-help", title: "FAQ", link: "/faq" },
-        { icon: "mdi-hanger", title: "Fundsachen", link: "/fundsachen" },
-        { icon: "mdi-chat-outline", title: "Feedback", link: "/feedback" },
-      ];
+      let menuItems = this.dbMenuItems;
+
       if (this.userIsAuthenticated) {
         menuItems = [
           {
             icon: "mdi-plus",
             title: "News erstellen",
             link: "/admin/news/new",
+            isActive: true,
           },
           {
             icon: "mdi-newspaper",
             title: "News bearbeiten",
             link: "/admin/news/edit",
+            isActive: true,
           },
           {
             icon: "mdi-human",
             title: "Teams verwalten",
             link: "/admin/teams",
+            isActive: true,
           },
           {
             icon: "mdi-table",
             title: "Spiele anlegen",
             link: "/admin/spielplan",
+            isActive: true,
           },
           /*
           {
@@ -136,26 +118,37 @@ export default {
             icon: "mdi-reply",
             title: "Ergebnisse bearbeiten",
             link: "/admin/ergebnisse",
+            isActive: true,
           },
           {
             icon: "mdi-music",
             title: "Musik bearbeiten",
             link: "/admin/music",
+            isActive: true,
           },
           {
             icon: "mdi-camera",
             title: "Fotos verwalten",
             link: "/admin/fotos",
+            isActive: true,
           },
           {
             icon: "mdi-plus",
             title: "Fundsachen erstellen",
             link: "/admin/fundsachen/new",
+            isActive: true,
           },
           {
             icon: "mdi-newspaper",
             title: "Fundsachen bearbeiten",
             link: "/admin/fundsachen/edit",
+            isActive: true,
+          },
+          {
+            icon: "mdi-animation-outline",
+            title: "Menü anpassen",
+            link: "/admin/menue",
+            isActive: true,
           },
         ];
       }

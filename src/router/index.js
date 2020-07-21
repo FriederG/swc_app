@@ -26,6 +26,7 @@ import Feedback from "@/components/Feedback";
 import Impressum from "@/components/Impressum";
 import Fotos from "@/components/Fotos";
 import FotosVerwalten from "@/components/Admin/FotosVerwalten";
+import MenueAnpassen from "@/components/Admin/MenueVerwaltung";
 
 import AuthGuard from "./auth-guard";
 
@@ -175,10 +176,20 @@ const routes = [
     component: MusikVerwaltung,
     beforeEnter: AuthGuard,
   },
+  {
+    path: "/admin/menue",
+    name: "MenueAnpassen",
+    component: MenueAnpassen,
+    beforeEnter: AuthGuard,
+  },
 ];
 
 const router = new VueRouter({
   routes,
+  //Setzt nach jeder Seitennavigation die Position an die Spitze zurück
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  },
 });
 
 export default router;

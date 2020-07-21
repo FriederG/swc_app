@@ -36,7 +36,7 @@ export default {
 
   data() {
     return {
-      mailAdress: "frieder@griem-online.de",
+      mailAdress: "swc@kiel-rugby.de",
       mailText1: "Moin, ich habe beim Schietwetercup ",
       mailText2:
         "vergessen. Es wäre super, wenn wir besprechen können, wie ich es wieder bekomme. Viele Grüße NAME EINTRAGEN",

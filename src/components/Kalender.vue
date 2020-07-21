@@ -5,8 +5,9 @@
       <div v-if="entered_k === 'false'">
         <br />
         Dieses Jahr haben wir uns etwas ganz Besonderes ausgedacht um euch die
-        Adventszeit zu versüßen: Der offizielle Kiel-Rugby Adventskalender 2020.
-        Jeden Tag gibt es ein Video aus der Weihnachtssschmiede der FT Adler.
+        Wartezeit auf den SWC zu versüßen: Der offizielle Kiel-Rugby
+        Sommer-Adventskalender 2021. Vom 1. bis 23. Juli gibt es jeden Tag ein
+        Video aus der Weihnachtssschmiede der FT Adler.
         <br /><br />
         <div class="day_card" @click="enter">
           <img

@@ -6,7 +6,7 @@
     <br />
     <v-expansion-panels>
       <v-expansion-panel>
-        <v-expansion-panel-header>Was ist 1+1?</v-expansion-panel-header>
+        <v-expansion-panel-header>Wann geht es los?</v-expansion-panel-header>
         <v-expansion-panel-content>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -16,7 +16,9 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header>Was meine Mutter?</v-expansion-panel-header>
+        <v-expansion-panel-header
+          >Was kostet die Anmeldung?</v-expansion-panel-header
+        >
         <v-expansion-panel-content>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -42,7 +44,7 @@
     <br />
     <v-expansion-panels>
       <v-expansion-panel>
-        <v-expansion-panel-header>Was ist 1+1?</v-expansion-panel-header>
+        <v-expansion-panel-header>Wo kann man campen?</v-expansion-panel-header>
         <v-expansion-panel-content>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -52,7 +54,9 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header>Was meine Mutter?</v-expansion-panel-header>
+        <v-expansion-panel-header
+          >Was sollte ich einpacken?</v-expansion-panel-header
+        >
         <v-expansion-panel-content>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -78,17 +82,9 @@
     <br />
     <v-expansion-panels>
       <v-expansion-panel>
-        <v-expansion-panel-header>Was ist 1+1?</v-expansion-panel-header>
-        <v-expansion-panel-content>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-
-      <v-expansion-panel>
-        <v-expansion-panel-header>Was meine Mutter?</v-expansion-panel-header>
+        <v-expansion-panel-header
+          >Wann gibt es Frühstück?</v-expansion-panel-header
+        >
         <v-expansion-panel-content>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -99,7 +95,20 @@
 
       <v-expansion-panel>
         <v-expansion-panel-header
-          >Was ist der Sinn des Lebens?</v-expansion-panel-header
+          >Wo kann ich mich zum Frühstück anmelden?</v-expansion-panel-header
+        >
+        <v-expansion-panel-content>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+      <v-expansion-panel>
+        <v-expansion-panel-header
+          >Ist das Buffet wirklich so gut, wie alle
+          behaupten?</v-expansion-panel-header
         >
         <v-expansion-panel-content>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

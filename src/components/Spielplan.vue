@@ -46,7 +46,7 @@
       <h4>Dein Team:</h4>
       <v-layout row>
         <v-flex xs12 sm6 offset-sm3>
-          <v-select
+          <v-autocomplete
             name="team1"
             label="Team wählen"
             id="team1"
@@ -55,7 +55,7 @@
             :items="teams"
             item-text="title"
             solo
-            ><option>Fe</option></v-select
+            ><option>Fe</option></v-autocomplete
           >
         </v-flex>
       </v-layout>
