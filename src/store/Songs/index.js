@@ -1,4 +1,6 @@
-import * as firebase from "firebase";
+//import * as firebase from "firebase";
+import firebase from "firebase";
+import "firebase/database";
 
 export default {
   state: {
@@ -44,7 +46,6 @@ export default {
     },
   },
   actions: {
-    //load news jetzt mit live update
     loadSongs({ commit }) {
       commit("setLoading", true);
       firebase
@@ -69,11 +70,9 @@ export default {
     },
 
     createSong(state, payload) {
-      //console.log(payload.title);
       const song = {
         title: payload.title,
         rating: 0,
-        //creatorId: getters.user.id,
       };
       let key;
       firebase
@@ -89,6 +88,7 @@ export default {
           console.log(error);
         });
     },
+
     UpVoteSong({ commit }, payload) {
       commit("setLoading", true);
       //leeres Objekt, Dinge, die geupdated werden werden zugefügt

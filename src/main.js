@@ -12,7 +12,12 @@ import VueInstagram from "vue-instagram";
 import VueHotspot from "vue-hotspot";
 
 //alles aus firebase package wird importiert. Es können auch einzelne Features
-import * as firebase from "firebase";
+//import * as firebase from "firebase";
+
+import firebase from "firebase";
+import "firebase/database";
+import "firebase/messaging";
+import "firebase/auth";
 
 import AlertCmp from "./components/Alert";
 

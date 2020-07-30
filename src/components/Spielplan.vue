@@ -43,12 +43,12 @@
     </div>
 
     <div v-if="!loading">
-      <h4>Dein Team:</h4>
+      <h4>Team markieren:</h4>
       <v-layout row>
         <v-flex xs12 sm6 offset-sm3>
           <v-autocomplete
             name="team1"
-            label="Team wählen"
+            label="Team"
             id="team1"
             v-model="selectedTeam"
             required
