@@ -90,16 +90,7 @@
         </thead>
 
         <tbody>
-          <tr
-            v-for="game in group.characters"
-            :key="game.id"
-            v-bind:class="[
-              game.team1Title === selectedTeam ||
-              game.team2Title === selectedTeam
-                ? { selectedTeam: true }
-                : { selectedTeam: false },
-            ]"
-          >
+          <tr v-for="game in group.characters" :key="game.id">
             <!--
             <v-list-item
               three-line
@@ -243,7 +234,7 @@ export default {
       title: "",
       day: "",
       time: new Date(),
-      selectedTeam: "",
+      selectedTeam: "Kiel 1",
       message: "",
       headers: [
         {
@@ -288,10 +279,23 @@ export default {
 
       return sortedGames;
     },
+    selectGamesByTeam() {
+      const searchTeam = this.selectedTeam;
+      if (searchTeam === "Alle Teams") {
+        return this.games;
+      }
+
+      if (!searchTeam) return this.selectedGamesByDate;
+      //filtern nach Inhalten, an denen das Team spielt
+      return this.games.filter(
+        (c) => c.team1Title === searchTeam || c.team2Title === searchTeam
+      );
+    },
+
     //https://jsfiddle.net/crswll/pb0t0xbs/106/
     groupedByDate() {
       return (
-        _.chain(this.games)
+        _.chain(this.selectGamesByTeam)
           .groupBy((character) => character.time)
           .map((characters, time) => ({ time, characters }))
           //Für die Anordnung wird nur noch die Uhrzeit ohne Doppelpunkt genutzt, um die korrekte Reihenfolge zu bekommen
@@ -316,6 +320,7 @@ export default {
           .value()
       );
     },
+
     selectedGamesByDate() {
       const searchDay = this.day.time;
 
@@ -323,13 +328,7 @@ export default {
       //filtern nach Inhalten, die am angegebenen Tag stattfinden
       return this.groupedByDate.filter((c) => c.time.indexOf(searchDay) > -1);
     },
-    selectGamesByTeam() {
-      const searchTeam = this.team1;
 
-      if (!searchTeam) return this.groupedByDate;
-      //filtern nach Inhalten, die am angegebenen Tag stattfinden
-      return this.games.filter((c) => c.team1.indexOf(searchTeam) > -1);
-    },
     singleDays() {
       return _.chain(this.games)
         .groupBy((character) => character.time.slice(0, 10))

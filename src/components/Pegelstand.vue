@@ -96,7 +96,7 @@
       <v-btn v-on:click="enter" color="primary">Bestätigen</v-btn>
       <br />
       <br />
-      <v-alert style="font-size: small;" color="primary">
+      <v-alert style="font-size: small;" type="info">
         Die hier berechneten Werte sind ohne Gewähr und dienen ausschließlich
         der Unterhaltung. Auf keinen Fall sollte dieser Rechner dazu verwendet
         werden Fahrtauglichkeit zu bewerten. Trinkt verantwortlich!

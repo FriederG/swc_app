@@ -57,7 +57,7 @@ export default {
         .ref("teams")
         //sobald sich etwas in der Firebase ändert
         .on("value", function (snapshot) {
-          const teams = [];
+          const teams = ["Alle Teams"];
           const obj = snapshot.val();
           //Daten aus firebase in Array überführen
           for (let key in obj) {
