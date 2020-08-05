@@ -6,12 +6,7 @@
     />
     <!--App Bar oben -->
 
-    <v-card
-      color="grey lighten-4"
-      flattile
-      dark
-      style="margin-bottom: 80px; border-radius: 0;"
-    >
+    <v-card flattile dark style="margin-bottom: 80px; border-radius: 0;">
       <v-app-bar height="90px" fixed>
         <v-toolbar-title
           ><router-link to="/" tag="span" style="cursor: pointer;"

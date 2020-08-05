@@ -10,6 +10,12 @@ export default {
         gender: "gender",
       },
     ],
+    loadedSelectTeams: [
+      {
+        title: "Kiel",
+        gender: "gender",
+      },
+    ],
   },
   mutations: {
     //Hier bin ich
@@ -28,6 +34,10 @@ export default {
 
     setLoadedTeams(state, payload) {
       state.loadedTeams = payload;
+    },
+
+    setLoadedSelectTeams(state, payload) {
+      state.loadedSelectTeams = payload;
     },
 
     // createTeam() {
@@ -57,7 +67,7 @@ export default {
         .ref("teams")
         //sobald sich etwas in der Firebase ändert
         .on("value", function (snapshot) {
-          const teams = ["Alle Teams"];
+          const teams = [];
           const obj = snapshot.val();
           //Daten aus firebase in Array überführen
           for (let key in obj) {
@@ -77,6 +87,37 @@ export default {
             });
           }
           commit("setLoadedTeams", teams);
+          commit("setLoading", false);
+        });
+    },
+
+    loadSelectTeams({ commit }) {
+      commit("setLoading", true);
+      firebase
+        .database()
+        .ref("teams")
+        //sobald sich etwas in der Firebase ändert
+        .on("value", function (snapshot) {
+          const teams = ["Alle Teams"];
+          const obj = snapshot.val();
+          //Daten aus firebase in Array überführen
+          for (let key in obj) {
+            teams.push({
+              id: key,
+              title: obj[key].title,
+              group: obj[key].group,
+              gender: obj[key].gender,
+              date: obj[key].date,
+              totalScore: obj[key].totalScore,
+              opponentScore: obj[key].opponentScore,
+              wins: obj[key].wins,
+              losses: obj[key].losses,
+              points: obj[key].points,
+              scoreDifference: obj[key].scoreDifference,
+              draw: obj[key].draw,
+            });
+          }
+          commit("setLoadedSelectTeams", teams);
           commit("setLoading", false);
         });
     },
@@ -257,6 +298,12 @@ export default {
   getters: {
     loadedTeams(state) {
       return state.loadedTeams.reverse((newsA, newsB) => {
+        return newsA.date > newsB.date;
+      });
+    },
+
+    loadedSelectTeams(state) {
+      return state.loadedSelectTeams.reverse((newsA, newsB) => {
         return newsA.date > newsB.date;
       });
     },

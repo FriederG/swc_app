@@ -43,19 +43,19 @@
     </div>
 
     <div v-if="!loading">
-      <h4>Team markieren:</h4>
+      <h4>Team auswählen:</h4>
       <v-layout row>
         <v-flex xs12 sm6 offset-sm3>
-          <v-autocomplete
+          <v-select
             name="team1"
             label="Team"
             id="team1"
             v-model="selectedTeam"
             required
-            :items="teams"
+            :items="selectTeams"
             item-text="title"
             outlined
-            ><option>Fe</option></v-autocomplete
+            ><option>Fe</option></v-select
           >
         </v-flex>
       </v-layout>
@@ -273,6 +273,11 @@ export default {
     teams() {
       return this.$store.getters.loadedTeams;
     },
+
+    selectTeams() {
+      return this.$store.getters.loadedSelectTeams;
+    },
+
     gamesByDate: function () {
       let sortedGames = _.groupBy(this.games, "time");
       //return _.orderBy(sortedGames, "time", "asc");

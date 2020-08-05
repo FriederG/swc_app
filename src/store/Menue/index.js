@@ -19,12 +19,7 @@ export default {
         link: "/results",
         isActive: true,
       },*/
-      {
-        icon: "mdi-beer",
-        title: "Pegelstand",
-        link: "/pegelstand",
-        isActive: true,
-      },
+
       //{ icon: "mdi-instagram", title: "Insta-Feed", link: "/instafeed" },
       /* {
         icon: "mdi-music",
@@ -40,25 +35,26 @@ export default {
         link: "/fotos",
         isActive: true,
       },*/
+      { icon: "mdi-help", title: "FAQ", link: "/faq", isActive: true },
+      {
+        icon: "mdi-beer",
+        title: "Pegelstand",
+        link: "/pegelstand",
+        isActive: true,
+      },
       {
         icon: "mdi-football-australian",
         title: "Turnierinformationen",
         link: "/about",
         isActive: true,
       },
-      { icon: "mdi-help", title: "FAQ", link: "/faq", isActive: true },
+
       /* {
         icon: "mdi-hanger",
         title: "Fundsachen",
         link: "/fundsachen",
         isActive: true,
       },*/
-      {
-        icon: "mdi-chat-outline",
-        title: "Feedback",
-        link: "/feedback",
-        isActive: true,
-      },
     ],
   },
   mutations: {
