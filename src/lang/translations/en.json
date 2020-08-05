@@ -12,5 +12,17 @@
   "menu_9": "General Information",
   "menu_10": "FAQ",
   "menu_11": "Lost and Found",
-  "menu_12": "Feedback"
+  "menu_12": "Feedback",
+
+  "how did you like the tournament": "How did you like the tournament? Do you have questions or suggestions? We are looking forward to your feedback.",
+  "What did you like about the SWC?": "What did you like about the SWC?",
+  "What did you not like about the SWC?": "What did you not like about the SWC?",
+  "Do you have any questions or suggestions?": "Do you have any questions or suggestions?",
+  "Your Answer": "Your Answer",
+  "Send E-Mail": "Send E-Mail",
+
+  "Lost and Found": "Lost and Found",
+  "Is this yours? Send us an E-Mail…": "Is this yours? Send us an E-Mail…",
+  "Information": "Information"
+
 }

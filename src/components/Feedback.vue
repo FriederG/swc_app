@@ -2,19 +2,27 @@
   <div>
     <h1>Feedback</h1>
     <h4>
-      Wie hat euch das Tunier gefallen? Habt ihr Fragen/Anregungen? Wir freuen
-      uns über euer Feedback.
+      {{ $t("how did you like the tournament") }}
     </h4>
     <br />
     <br />
-    <h4>Was hat dir am SWC gefallen?</h4>
-    <v-textarea v-model="answer_1" placeholder="Deine Antwort"></v-textarea>
+    <h4>{{ $t("What did you like about the SWC?") }}</h4>
+    <v-textarea
+      v-model="answer_1"
+      v-bind:placeholder="$t('Your Answer')"
+    ></v-textarea>
     <br />
-    <h4>Was hat dir am SWC <b>nicht</b> gefallen?</h4>
-    <v-textarea v-model="answer_2" placeholder="Deine Antwort"></v-textarea>
+    <h4>{{ $t("What did you not like about the SWC?") }}</h4>
+    <v-textarea
+      v-model="answer_2"
+      v-bind:placeholder="$t('Your Answer')"
+    ></v-textarea>
     <br />
-    <h4>Hast du Fragen/Anregungen für uns?</h4>
-    <v-textarea v-model="answer_3" placeholder="Deine Antwort"></v-textarea>
+    <h4>{{ $t("Do you have any questions or suggestions?") }}</h4>
+    <v-textarea
+      v-model="answer_3"
+      v-bind:placeholder="$t('Your Answer')"
+    ></v-textarea>
     <br />
     <v-btn
       :href="`mailto:${mailAdress}?subject=Feedback SWC &body=
@@ -25,7 +33,7 @@
        Hast du Fragen/Anregungen für uns?%0D%0A %0D%0A
        ${answer_3}`"
     >
-      E-Mail schicken
+      {{ $t("Send E-Mail") }}
     </v-btn>
   </div>
 </template>

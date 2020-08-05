@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Fundsachen</h1>
+    <h1>{{ $t("Lost and Found") }}</h1>
     <v-layout v-if="loading"
       ><v-flex xs12 class="text-center" style="padding: 30px;"
         ><v-progress-circular
@@ -33,10 +33,12 @@
               ><a
                 :href="`mailto:${mailAdress}?subject=Fundsache: ${singleNews.title}&body=${mailText1} ${singleNews.title} ${mailText2}`"
               >
-                Kontaktmail zur Fundsache schicken
+                {{ $t("Is this yours? Send us an E-Mail…") }}
               </a></v-card-text
             >
-            <v-expansion-panel-header><b>Infos...</b></v-expansion-panel-header>
+            <v-expansion-panel-header
+              ><b>{{ $t("Information") }}</b></v-expansion-panel-header
+            >
 
             <v-expansion-panel-content class="text--primary">
               <div>{{ singleNews.description }}</div>
