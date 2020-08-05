@@ -23,7 +23,7 @@
             <v-btn v-on:click="more_l_beer"><v-icon>mdi-beer</v-icon></v-btn>
           </td>
           <td>
-            <v-btn color="red" v-on:click="less_beer"
+            <v-btn color="red" v-on:click="less_l_beer"
               ><v-icon>mdi-minus</v-icon></v-btn
             >
           </td>
@@ -76,12 +76,13 @@
     </v-simple-table>
 
     <div v-if="(entered === 'false')">
-      <label for="rMale">Mann: </label>
+      <label class="mr-2" for="rMale">Mann: </label>
       <input type="radio" id="rMale" value="male" v-model="gender" />
 
-      <label for="rFemale">Frau: </label>
+      <label class="ml-2 mr-2" for="rFemale">Frau: </label>
       <input type="radio" id="rFemale" value="female" v-model="gender" />
 
+      <br />
       <br />
       <br />
       <br />
@@ -495,4 +496,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+input[type="radio"] {
+  -ms-transform: scale(3); /* IE 9 */
+  -webkit-transform: scale(3); /* Chrome, Safari, Opera */
+  transform: scale(3);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+</style>
