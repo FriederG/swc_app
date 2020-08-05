@@ -1,6 +1,6 @@
 <template
   ><div>
-    <h1>Spielplan</h1>
+    <h1>{{ $t("Spielplan") }}</h1>
     <br />
     <!--Loading Bereich --------------------------------------------------------------------->
     <v-layout v-if="loading"
@@ -18,12 +18,12 @@
     <!--Ende Loading -->
 
     <div v-if="!loading">
-      <h4>Tag wählen:</h4>
+      <h4>{{ $t("TagWählen") }}</h4>
       <v-layout row>
         <v-flex xs12 sm6 offset-sm3>
           <v-select
             name="day"
-            label="Tag"
+            v-bind:label="$t('Tag')"
             id="day"
             v-model="day"
             required
@@ -43,7 +43,7 @@
     </div>
 
     <div v-if="!loading">
-      <h4>Team auswählen:</h4>
+      <h4>{{ $t("TeamWählen") }}</h4>
       <v-layout row>
         <v-flex xs12 sm6 offset-sm3>
           <v-select
@@ -72,7 +72,7 @@
     ></v-data-table>
 -->
     <div v-if="day === ''">
-      <v-alert type="info">Bitte Turniertag auswählen</v-alert>
+      <v-alert type="info"> {{ $t("BitteTagWählen") }}</v-alert>
     </div>
 
     <div v-if="!loading && day != ''">
@@ -82,10 +82,10 @@
             <h4>{{ group.time | date }}</h4>
           </tr>
           <tr>
-            <th class="text-left">Feld</th>
+            <th class="text-left">{{ $t("Feld") }}</th>
             <th class="text-left">Team 1</th>
             <th class="text-left">Team 2</th>
-            <th>Ergebnis</th>
+            <th>{{ $t("Ergebnis") }}</th>
           </tr>
         </thead>
 
@@ -170,7 +170,7 @@
 
     <br /><br />
     <div v-if="!loading && day != ''">
-      <h2>Finalspiele</h2>
+      <h2>{{ $t("Finalspiele") }}</h2>
       <v-container v-for="group in finalsGroupedByDate" :key="group.id">
         <h4>{{ group.time | date }}</h4>
         <div v-for="game in group.characters" :key="game.id">

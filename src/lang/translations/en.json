@@ -12,5 +12,36 @@
   "menu_9": "General Information",
   "menu_10": "FAQ",
   "menu_11": "Lost and Found",
-  "menu_12": "Feedback"
+  "menu_12": "Feedback",
+
+  "Spielplan": "Game Schedule",
+  "TagWählen": "Select Day",
+  "Tag": "Day",
+  "TeamWählen": "Select Team",
+  "BitteTagWählen": "Please Select the Day",
+  "GruppenSpiele": "Group Games",
+  "Finalspiele": "Final Games",
+  "Feld": "Pitch",
+  "Ergebnis": "Result",
+
+  "Gruppentabelle": "Group Table",
+  "Herren": "Male",
+  "Damen": "Female",
+  "Punkte": "Pnts.",
+  "Sieg": "W",
+  "Niederlage": "L",
+  "Untschieden": "D",
+
+  "Musikwünsche": "Music Wishes",
+  "LiedwunschEingeben": "Insert Song Name",
+  "DuHastNoch": "You still have",
+  "NameDesLieds": "Name of the Song",
+  "LiedHinzufügen": "Add Song",
+  "DuKannstNoch": "You can vote",
+  "MalVoten": "times (then 30s waiting time)",
+  "Danach": "Afterwards",
+  "Wartezeit": "Waiting Time",
+  "Noch": "Still",
+  "BisWiederMusikWunsch": "until you can insert the next wish",
+  "BisWiederVoten": "until you are allowed to vote again"
 }

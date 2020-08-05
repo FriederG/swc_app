@@ -12,5 +12,37 @@
   "menu_9": "Turnierinformationen",
   "menu_10": "FAQ",
   "menu_11": "Fundsachen",
-  "menu_12": "Feedback"
+  "menu_12": "Feedback",
+
+  "Spielplan": "Spielpan",
+  "TagWählen": "Tag wählen",
+  "Tag": "Tag",
+  "TeamWählen": "Team auswählen",
+  "BitteTagWählen": "Bitte Turniertag auswählen",
+  "GruppenSpiele": "Gruppenspiele",
+  "Finalspiele": "Finalspiele",
+  "Feld": "Feld",
+  "Ergebnis": "Ergebnis",
+
+  "Gruppentabelle": "Gruppentabellen",
+  "Herren": "Herren",
+  "Damen": "Damen",
+  "Punkte": "Pkt.",
+  "Sieg": "S",
+  "Niederlage": "N",
+  "Untschieden": "U",
+
+  "Musikwünsche": "Musikünsche",
+  "LiedwunschEingeben": "Musikwunsch eingeben",
+  "DuHastNoch": "Du hast noch",
+  "NameDesLieds": "Name des Lieds",
+  "LiedHinzufügen": "Lied hinzufügen",
+  "DuKannstNoch": "Du kannst noch",
+  "MalVoten": "Mal voten (dann 30s Wartezeit)",
+  "Danach": "Danach",
+  "Wartezeit": "Wartezeit",
+  "Noch": "Noch",
+  "BisWiederMusikWunsch": "bis du wieder einen Musikwunsch eintragen kannst",
+  "BisWiederVoten": "bis du wieder voten kannst"
+
 }
