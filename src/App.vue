@@ -38,6 +38,16 @@
     >
       <v-list shaped>
         <v-subheader>Menu</v-subheader>
+        <div class="ml-4">
+          <v-button
+            v-for="entry in languages"
+            :key="entry.title"
+            @click="changeLocale(entry.language)"
+            class="lang_button"
+          >
+            <flag :iso="entry.flag" v-bind:squared="false" /> {{ entry.title }}
+          </v-button>
+        </div>
         <v-list-item-group color="primary">
           <div v-for="item in menuItems" :key="item.title">
             <!--Items aus der DB weren nur angezeigt, wenn sie aktiv gesetzt sind -->
@@ -69,13 +79,19 @@
 
 <script>
 import router from "@/router";
+import { i18n } from "./main";
 
 export default {
   data() {
     return {
       sideNav: false,
+      languages: [
+        { flag: "de", language: "de", title: "Deutsch" },
+        { flag: "gb", language: "en", title: "English" },
+      ],
     };
   },
+
   computed: {
     dbMenuItems() {
       return this.$store.getters.loadedMenueItems;
@@ -173,6 +189,19 @@ export default {
 
       router.push("/admin/login");
     },
+
+    changeLocale(locale) {
+      i18n.locale = locale;
+    },
   },
 };
 </script>
+
+<style scoped>
+.lang_button {
+  font-size: 20px;
+}
+.lang_button:active {
+  background-color: lightgrey;
+}
+</style>
