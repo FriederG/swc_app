@@ -1,13 +1,19 @@
 <template>
   <v-container>
     <!-- Test Area: Löschen falls nicht mehr benötigt -->
+    <v-layout row>
+      <v-flex xs12>
+        <h1>Musikwünsche</h1>
+        <br />
+      </v-flex>
+    </v-layout>
 
-    <v-alert color="green" icon="mdi-clock-time-ten-outline" v-if="(countdown)">
+    <v-alert type="info" icon="mdi-clock-time-ten-outline" v-if="(countdown)">
       Noch {{ countdown }}s bis du wieder einen Musikwunsch eintragen kannst.
     </v-alert>
 
     <v-alert
-      color="green"
+      type="info"
       icon="mdi-clock-time-ten-outline"
       v-if="(vote_cooldown)"
     >
@@ -16,12 +22,6 @@
 
     <!-- Test Area: Löschen falls nicht mehr benötigt -->
 
-    <v-layout row>
-      <v-flex xs12 sm6 offset-sm3>
-        <h2>Musikwünsche</h2>
-        <br />
-      </v-flex>
-    </v-layout>
     <v-layout v-if="loading"
       ><v-flex xs12 class="text-center" style="padding: 30px;"
         ><v-progress-circular
@@ -86,6 +86,7 @@
                 v-if="votes <= 4"
                 style="margin: 10px;"
                 outlined
+                color="green"
                 @click="onUpvote(song.id, song.rating)"
               >
                 <v-icon>mdi-menu-up</v-icon>
@@ -95,6 +96,7 @@
                 v-if="votes <= 4"
                 style="margin: 10px;"
                 outlined
+                color="red"
                 @click="onDownVote(song.id, song.rating)"
               >
                 <v-icon>mdi-menu-down</v-icon>
