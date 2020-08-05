@@ -160,6 +160,7 @@ new Vue({
     //Zum Start Daten laden
     this.$store.dispatch("loadNews");
     this.$store.dispatch("loadTeams");
+    this.$store.dispatch("loadSelectTeams");
     this.$store.dispatch("loadGames");
     this.$store.dispatch("loadFinalGames");
     this.$store.dispatch("loadGroups");

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Gruppentabellen</h1>
+    <h1>{{ $t("Gruppentabelle") }}</h1>
     <br /><br />
     <v-layout v-if="loading"
       ><v-flex xs12 class="text-center" style="padding: 30px;"
@@ -102,14 +102,14 @@
               ]"
             >
               <v-list-item-content>
-                <v-list-item-subtitle v-if="game.gameGender === 'male'"
-                  >Herren</v-list-item-subtitle
-                >
-                <v-list-item-subtitle v-if="game.gameGender === 'female'"
-                  >Damen</v-list-item-subtitle
-                >
+                <v-list-item-subtitle v-if="game.gameGender === 'male'">{{
+                  $t("Herren")
+                }}</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="game.gameGender === 'female'">{{
+                  $t("Damen")
+                }}</v-list-item-subtitle>
                 <v-list-item-subtitle
-                  >Platz: {{ game.pitch }},
+                  >{{ $t("Feld") }}: {{ game.pitch }},
                   {{ game.time | date }}</v-list-item-subtitle
                 >
                 <v-list-item-title
@@ -121,7 +121,9 @@
                 >
               </v-list-item-content>
               <v-list-item-content>
-                <v-list-item-subtitle>Ergebnis</v-list-item-subtitle>
+                <v-list-item-subtitle>{{
+                  $t("Ergebnis")
+                }}</v-list-item-subtitle>
                 <v-list-item-title
                   >{{ game.scoreTeam1 }} :
                   {{ game.scoreTeam2 }}</v-list-item-title

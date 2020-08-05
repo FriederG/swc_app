@@ -19,12 +19,7 @@ export default {
         link: "/results",
         isActive: true,
       },*/
-      {
-        icon: "mdi-beer",
-        title: "Pegelstand",
-        link: "/pegelstand",
-        isActive: true,
-      },
+
       //{ icon: "mdi-instagram", title: "Insta-Feed", link: "/instafeed" },
       /* {
         icon: "mdi-music",
@@ -41,24 +36,33 @@ export default {
         isActive: true,
       },*/
       {
+        icon: "mdi-help",
+        title: "FAQ",
+        englishTitle: "FAQ",
+        link: "/faq",
+        isActive: true,
+      },
+      {
+        icon: "mdi-beer",
+        title: "Pegelstand",
+        englishTitle: "Alcohol Level",
+        link: "/pegelstand",
+        isActive: true,
+      },
+      {
         icon: "mdi-football-australian",
         title: "Turnierinformationen",
+        englishTitle: "About",
         link: "/about",
         isActive: true,
       },
-      { icon: "mdi-help", title: "FAQ", link: "/faq", isActive: true },
+
       /* {
         icon: "mdi-hanger",
         title: "Fundsachen",
         link: "/fundsachen",
         isActive: true,
       },*/
-      {
-        icon: "mdi-chat-outline",
-        title: "Feedback",
-        link: "/feedback",
-        isActive: true,
-      },
     ],
   },
   mutations: {
@@ -74,6 +78,9 @@ export default {
       });
       if (payload.title) {
         news.title = payload.title;
+      }
+      if (payload.englishTitle) {
+        news.title = payload.englishTitle;
       }
       if (payload.description) {
         news.description = payload.description;
@@ -96,6 +103,7 @@ export default {
             items.push({
               id: key,
               title: obj[key].title,
+              englishTitle: obj[key].englishTitle,
               icon: obj[key].icon,
               link: obj[key].link,
               isActive: obj[key].isActive,

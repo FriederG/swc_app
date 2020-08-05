@@ -3,13 +3,13 @@
     <!-- Test Area: Löschen falls nicht mehr benötigt -->
     <v-layout row>
       <v-flex xs12>
-        <h1>Musikwünsche</h1>
+        <h1>{{ $t("Musikwünsche") }}</h1>
         <br />
       </v-flex>
     </v-layout>
 
     <v-alert type="info" icon="mdi-clock-time-ten-outline" v-if="(countdown)">
-      Noch {{ countdown }}s bis du wieder einen Musikwunsch eintragen kannst.
+      {{ $t("Noch") }} {{ countdown }}s {{ $t("BisWiederMusikWunsch") }}
     </v-alert>
 
     <v-alert
@@ -17,7 +17,7 @@
       icon="mdi-clock-time-ten-outline"
       v-if="(vote_cooldown)"
     >
-      Noch {{ countdown_2 }}s bis du wieder voten kannst.
+      {{ $t("Noch") }} {{ countdown_2 }}s {{ $t("BisWiederVoten") }}
     </v-alert>
 
     <!-- Test Area: Löschen falls nicht mehr benötigt -->
@@ -42,11 +42,14 @@
           <form @submit.prevent="onCreateSong">
             <v-layout row>
               <v-flex xs12 sm6 offset-sm3>
-                <h4>Liedwunsch eingeben</h4>
-                <h5>Du hast noch {{ 3 - wunschGemacht }} Musikwünsche</h5>
+                <h4>{{ $t("LiedwunschEingeben") }}</h4>
+                <h5>
+                  {{ $t("DuHastNoch") }} {{ 3 - wunschGemacht }}
+                  {{ $t("Musikwünsche") }}
+                </h5>
                 <v-text-field
                   name="title"
-                  label="Name des Lieds"
+                  v-bind:label="$t('NameDesLieds')"
                   id="title"
                   v-model="title"
                   required
@@ -56,9 +59,9 @@
 
             <v-layout row>
               <v-flex xs12 sm6 offset-sm3>
-                <v-btn class="primary" :disabled="!formIsValid" type="submit"
-                  >Lied hinzufügen</v-btn
-                >
+                <v-btn class="primary" :disabled="!formIsValid" type="submit">{{
+                  $t("LiedHinzufügen")
+                }}</v-btn>
                 <!--      {{ submittableDateTime }} -->
               </v-flex>
             </v-layout>
@@ -69,7 +72,7 @@
       <v-card-text v-if="wunschGemacht > 2">WUnsch gemacht</v-card-text>
       <br />
       <h5 v-if="votes <= 4">
-        Du kannst noch {{ 5 - votes }} Mal voten (danach 30s Wartezeit).
+        {{ $t("DuKannstNoch") }} {{ 5 - votes }} {{ $t("MalVoten") }}.
       </h5>
 
       <!-- Anzeige und Bearbeitung -->

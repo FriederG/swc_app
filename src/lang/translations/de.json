@@ -23,7 +23,37 @@
 
   "Lost and Found": "Fundsachen",
   "Is this yours? Send us an E-Mail…": "Kontaktmail zur Fundsache schicken",
-  "Information": "Infos"
+  "Information": "Infos",
 
+  "Spielplan": "Spielpan",
+  "TagWählen": "Tag wählen",
+  "Tag": "Tag",
+  "TeamWählen": "Team auswählen",
+  "BitteTagWählen": "Bitte Turniertag auswählen",
+  "GruppenSpiele": "Gruppenspiele",
+  "Finalspiele": "Finalspiele",
+  "Feld": "Feld",
+  "Ergebnis": "Ergebnis",
+
+  "Gruppentabelle": "Gruppentabellen",
+  "Herren": "Herren",
+  "Damen": "Damen",
+  "Punkte": "Pkt.",
+  "Sieg": "S",
+  "Niederlage": "N",
+  "Untschieden": "U",
+
+  "Musikwünsche": "Musikünsche",
+  "LiedwunschEingeben": "Musikwunsch eingeben",
+  "DuHastNoch": "Du hast noch",
+  "NameDesLieds": "Name des Lieds",
+  "LiedHinzufügen": "Lied hinzufügen",
+  "DuKannstNoch": "Du kannst noch",
+  "MalVoten": "Mal voten (dann 30s Wartezeit)",
+  "Danach": "Danach",
+  "Wartezeit": "Wartezeit",
+  "Noch": "Noch",
+  "BisWiederMusikWunsch": "bis du wieder einen Musikwunsch eintragen kannst",
+  "BisWiederVoten": "bis du wieder voten kannst"
 
 }
