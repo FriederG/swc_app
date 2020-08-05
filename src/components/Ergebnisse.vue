@@ -71,7 +71,7 @@
         </div>
       </v-container>
 -->
-
+      <!--
       <v-data-table
         mobile-breakpoint="200px"
         :headers="headers"
@@ -80,7 +80,32 @@
         item-key="name"
         group-by="group"
         class="elevation-1"
-      ></v-data-table>
+        hide-default-footer
+        disable-filtering
+        dense
+      ></v-data-table>-->
+
+      <v-data-table
+        ref="table"
+        mobile-breakpoint="200px"
+        :headers="headers"
+        :items="teamsByWins"
+        :items-per-page="100"
+        item-key="name"
+        group-by="group"
+        class="elevation-1"
+        hide-default-footer
+        disable-filtering
+      >
+        <template v-slot:group.header="{ items, isOpen, toggle }">
+          <th colspan="6">
+            <v-icon @click="toggle"
+              >{{ isOpen ? "mdi-minus" : "mdi-plus" }}
+            </v-icon>
+            Gruppe: {{ items[0].group }}
+          </th>
+        </template>
+      </v-data-table>
 
       <!-- Finalspiele anzeigen ------------------------------------------------------------>
       <v-container v-for="finalGame in groupedByFinal" :key="finalGame.id">
@@ -179,6 +204,13 @@ export default {
       modelGroup: "",
       selectedTeam: "",
     };
+  },
+  mounted() {
+    let table = this.$refs.table;
+    let keys = Object.keys(table.$vnode.componentInstance.openCache);
+    keys.forEach((x) => {
+      table.$vnode.componentInstance.openCache[x] = false;
+    });
   },
   computed: {
     loading() {
