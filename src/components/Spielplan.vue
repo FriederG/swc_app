@@ -347,8 +347,8 @@ export default {
 
 <style>
 .selectedTeam {
-  color: black;
-  background-color: green;
+  color: white;
+  background-color: #006100;
 }
 .damenTeam {
   background-color: lightgray;

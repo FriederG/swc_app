@@ -4,7 +4,7 @@
       <div>
         <div><h2>Schietwettercup 2021</h2></div>
 
-        <div><h4>Open Beta v.0.2</h4></div>
+        <div><h4>Prerelease v.1.0</h4></div>
         <br />
         <!--News Sektion -->
         <v-container v-if="loading">
@@ -73,9 +73,10 @@
                     <v-card class="mx-auto" max-width="400"
                       ><h4 style="padding: 20px;">
                         <v-icon>mdi-calendar</v-icon> Spielplan
-                      </h4>
-                    </v-card></router-link
-                  >
+                      </h4> </v-card
+                    ><br
+                  /></router-link>
+
                   <router-link style="text-decoration: none;" to="/results">
                     <v-card class="mx-auto" max-width="400"
                       ><h4 style="padding: 20px;">

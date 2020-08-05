@@ -77,6 +77,7 @@ export default {
     },
 
     menuItems() {
+      if ()
       let menuItems = this.dbMenuItems;
 
       if (this.userIsAuthenticated) {
