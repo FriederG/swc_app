@@ -5,6 +5,7 @@ import router from "./router";
 import { store } from "./store/index";
 import vuetify from "./plugins/vuetify";
 import VueI18n from "vue-i18n";
+import FlagIcon from "vue-flag-icon";
 import DateFilter from "./filters/date";
 import DayFilter from "./filters/day";
 import messages from "./lang";
@@ -38,6 +39,9 @@ Vue.config.productionTip = false;
 //sprachdatei konfigurieren
 //mehr Infos: https://webdeasy.de/vue-i18n-app/
 Vue.use(VueI18n);
+
+Vue.use(FlagIcon);
+Vue.config.productionTip = false;
 
 Vue.use(VueInstagram);
 
