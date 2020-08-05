@@ -5,6 +5,7 @@
         <div><h2>Schietwettercup 2021</h2></div>
 
         <div><h4>Prerelease v.1.0</h4></div>
+        {{ $t("Über das Turnier") }}
         <br />
         <!--News Sektion -->
         <v-container v-if="loading">

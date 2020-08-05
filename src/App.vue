@@ -34,16 +34,18 @@
       <v-list shaped>
         <v-subheader>Menu</v-subheader>
         <div class="ml-4">
-          <v-button
+          <button
             v-for="entry in languages"
             :key="entry.title"
             @click="changeLocale(entry.language)"
             class="lang_button"
+            style="margin-right: 50px;"
           >
-            <flag :iso="entry.flag" v-bind:squared="false" /> {{ entry.title }}
-          </v-button>
+            <flag :iso="entry.flag" v-bind:squared="false" />
+          </button>
         </div>
-        <v-list-item-group color="primary">
+        <!--Deutsche Menü -------------------------->
+        <v-list-item-group color="primary" v-if="this.$i18n.locale === 'de'">
           <div v-for="item in menuItems" :key="item.title">
             <!--Items aus der DB weren nur angezeigt, wenn sie aktiv gesetzt sind -->
             <v-list-item v-if="item.isActive" :to="item.link">
@@ -52,6 +54,32 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title v-text="item.title"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </div>
+
+          <v-list-item @click="onLogout" v-if="userIsAuthenticated">
+            <v-list-item-icon>
+              <v-icon>mdi-logout</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Logout</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+
+        <!--Englishe Menü ---------------->
+        <v-list-item-group color="primary" v-if="this.$i18n.locale === 'en'">
+          <div v-for="item in menuItems" :key="item.title">
+            <!--Items aus der DB weren nur angezeigt, wenn sie aktiv gesetzt sind -->
+            <v-list-item v-if="item.isActive" :to="item.link">
+              <v-list-item-icon>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title
+                  v-text="item.englishTitle"
+                ></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </div>
@@ -93,7 +121,6 @@ export default {
     },
 
     menuItems() {
-      if ()
       let menuItems = this.dbMenuItems;
 
       if (this.userIsAuthenticated) {
@@ -188,6 +215,7 @@ export default {
 
     changeLocale(locale) {
       i18n.locale = locale;
+      console.log(i18n.locale);
     },
   },
 };
