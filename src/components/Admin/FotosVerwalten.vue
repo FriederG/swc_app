@@ -4,7 +4,10 @@
       <v-flex xs12 sm6 offset-sm3>
         <h2>Neues Foto hochladen</h2>
       </v-flex>
-    </v-layout>
+      Bitte möglichst kleine Fotos (unter 1MB) hochladen, um Ladezeiten zu
+      reduzieren. </v-layout
+    ><br />
+
     <v-layout row>
       <v-flex xs12>
         <!--Prevent verhindert http-request-->
@@ -21,8 +24,8 @@
                 accept="image/*"
                 @change="onFilePicked"
               />
-            </v-flex>
-          </v-layout>
+            </v-flex> </v-layout
+          ><br />
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <img :src="imageUrl" height="150" />
@@ -112,6 +115,7 @@ export default {
         image: this.image,
       };
       this.$store.dispatch("createPhoto", photoData);
+
       //this.$router.push("/admin/news/edit");
     },
     onPickFile() {
