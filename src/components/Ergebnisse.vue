@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>{{ $t("Gruppentabelle") }}</h1>
-    <br /><br />
+    {{ $t("AufPlusKlicken") }}<br /><br />
     <v-layout v-if="loading"
       ><v-flex xs12 class="text-center" style="padding: 30px;"
         ><v-progress-circular
@@ -16,75 +16,6 @@
     >
 
     <div v-if="!loading">
-      <!--
-      <h4>Deine Gruppe:</h4>
-      <v-layout row>
-        <v-flex xs12 sm6 offset-sm3>
-          <v-select
-            name="day"
-            label="Gruppe"
-            id="day"
-            v-model="modelGroup"
-            required
-            :items="singleGroups"
-            item-text="group"
-            return-object
-            solo
-            ><template slot="selection" slot-scope="{ item }">
-              {{ item.group }}
-            </template>
-            <template slot="item" slot-scope="{ item }">
-              {{ item.group }}
-            </template></v-select
-          >
-        </v-flex>
-      </v-layout>
-
-      <v-container v-for="group in selectedGroups" :key="group.groupTitle">
-        <h1>Gruppe: {{ group.groupTitle }} {{ modelGroup.group }}</h1>
-
-        <div id="list-complete-demo">
-          <transition-group name="list-complete" tag="p">
-            <div
-              v-for="team in group.characters"
-              :key="team.title"
-              class="list-complete-item group_display"
-            >
-              <v-card class="mx-auto" max-width="400">
-                <v-list-item>
-                  <v-list-item-content
-                    ><v-card-title>{{ team.title }}</v-card-title>
-
-                    <v-card-text
-                      ><b>Punkte: {{ team.points }} </b><br /><br />Siege:
-                      {{ team.wins }}<br />
-                      Unentschieden: {{ team.draw }}<br />Niederlagen:
-                      {{ team.losses }}<br />
-                      Tordifferenz: {{ team.totalScore }} -
-                      {{ team.opponentScore }} : {{ team.scoreDifference }}
-                    </v-card-text>
-                  </v-list-item-content>
-                </v-list-item> </v-card
-              ><br />
-            </div>
-          </transition-group>
-        </div>
-      </v-container>
--->
-      <!--
-      <v-data-table
-        mobile-breakpoint="200px"
-        :headers="headers"
-        :items="teamsByWins"
-        :items-per-page="100"
-        item-key="name"
-        group-by="group"
-        class="elevation-1"
-        hide-default-footer
-        disable-filtering
-        dense
-      ></v-data-table>-->
-
       <v-data-table
         ref="table"
         mobile-breakpoint="200px"
@@ -102,7 +33,7 @@
             <v-icon @click="toggle"
               >{{ isOpen ? "mdi-minus" : "mdi-plus" }}
             </v-icon>
-            Gruppe: {{ items[0].group }}
+            {{ $t("Gruppe") }}: {{ items[0].group }}
           </th>
         </template>
       </v-data-table>

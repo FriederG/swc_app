@@ -3,9 +3,7 @@
     <div>
       <div>
         <div><h2>Schietwettercup 2021</h2></div>
-
         <div><h4>Prerelease v.1.0</h4></div>
-        {{ $t("Über das Turnier") }}
         <br />
         <!--News Sektion -->
         <v-container v-if="loading">
@@ -15,7 +13,7 @@
           >
           <router-link style="text-decoration: none;" to="/about">
             <v-card class="mx-auto" max-width="400"
-              ><h3 style="padding: 20px;">Allgemeine Informationen</h3>
+              ><h3 style="padding: 20px;">{{ $t("AllgemeineInfos") }}</h3>
               <v-img
                 class="white--text align-end"
                 height="200px"
@@ -25,7 +23,7 @@
           ><br />
           <router-link style="text-decoration: none;" to="/pegelstand">
             <v-card class="mx-auto" max-width="400"
-              ><h3 style="padding: 20px;">Pegelstand messen</h3>
+              ><h3 style="padding: 20px;">{{ $t("PegelstandMessen") }}</h3>
               <v-img
                 class="white--text align-end"
                 height="200px"
@@ -73,7 +71,7 @@
                   <router-link style="text-decoration: none;" to="/spielplan">
                     <v-card class="mx-auto" max-width="400"
                       ><h4 style="padding: 20px;">
-                        <v-icon>mdi-calendar</v-icon> Spielplan
+                        <v-icon>mdi-calendar</v-icon> {{ $t("Spielplan") }}
                       </h4> </v-card
                     ><br
                   /></router-link>
@@ -81,7 +79,8 @@
                   <router-link style="text-decoration: none;" to="/results">
                     <v-card class="mx-auto" max-width="400"
                       ><h4 style="padding: 20px;">
-                        <v-icon>mdi-account-multiple</v-icon> Gruppen
+                        <v-icon>mdi-account-multiple</v-icon>
+                        {{ $t("Gruppen") }}
                       </h4>
                     </v-card></router-link
                   >
@@ -91,7 +90,7 @@
 
             <router-link style="text-decoration: none;" to="/pegelstand">
               <v-card class="mx-auto" max-width="400"
-                ><h3 style="padding: 20px;">Pegelstand messen</h3>
+                ><h3 style="padding: 20px;">{{ $t("PegelstandMessen") }}</h3>
                 <v-img
                   class="white--text align-end"
                   height="200px"
@@ -103,7 +102,7 @@
             <br />
             <router-link style="text-decoration: none;" to="/musik">
               <v-card class="mx-auto" max-width="400"
-                ><h3 style="padding: 20px;">Musikwünsche</h3>
+                ><h3 style="padding: 20px;">{{ $t("Musikwünsche") }}</h3>
                 <v-img
                   class="white--text align-end"
                   height="200px"
