@@ -1,13 +1,13 @@
 <template>
   <v-container>
+    <div v-if="current_month !== 6">
+      {{ $t("Still Working") }}
+    </div>
     <div v-if="current_month === 6">
-      <h3>Der Kiel Rugby Adventskalender</h3>
+      <h3>{{ $t("Advent Calendar") }}</h3>
       <div v-if="entered_k === 'false'">
         <br />
-        Dieses Jahr haben wir uns etwas ganz Besonderes ausgedacht um euch die
-        Wartezeit auf den SWC zu versüßen: Der offizielle Kiel-Rugby
-        Sommer-Adventskalender 2021. Vom 1. bis 23. Juli gibt es jeden Tag ein
-        Video aus der Weihnachtssschmiede der FT Adler.
+        {{ $t("This Year") }}
         <br /><br />
         <div class="day_card" @click="enter">
           <img

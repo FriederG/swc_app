@@ -6,8 +6,8 @@
     Für weitere Informationen klicke auf den Punkt in der Karte.
   </div> -->
   <div>
-    <h2>Übersichtsplan</h2>
-    Klicke auf die Punkte, um mehr zum jeweiligen Ort zu erfahren.
+    <h2>{{ $t("Map") }}</h2>
+    {{ $t("Click on the Dots") }}
 
     <v-hotspot
       :init-options="hotspotConfig"

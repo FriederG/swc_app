@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Fotos vom SWC</h1>
+    <h1>{{ $t("Photos") }}</h1>
     <v-layout v-if="loading"
       ><v-flex xs12 class="text-center" style="padding: 30px;"
         ><v-progress-circular
