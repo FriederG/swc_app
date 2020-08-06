@@ -16,10 +16,10 @@
         <edit-news-dialog :news="singleNews"></edit-news-dialog>
         <delete-news-dialog :news="singleNews"></delete-news-dialog>
         <v-card-text class="text--primary">
-          <div>{{ singleNews.date }}</div>
+          <div>{{ singleNews.date | day }}</div>
         </v-card-text>
         <v-expansion-panel-header
-          ><b>Beitrag lesen...</b></v-expansion-panel-header
+          ><b>Beitrag anzeigen...</b></v-expansion-panel-header
         >
 
         <v-expansion-panel-content class="text--primary">

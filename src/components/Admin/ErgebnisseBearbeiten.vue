@@ -50,7 +50,7 @@
           id="team1"
           v-model="selectedTeam"
           required
-          :items="teams"
+          :items="resultTeamsOrderedByName"
           item-text="title"
           solo
           ><option>Fe</option></v-autocomplete
@@ -220,6 +220,11 @@ export default {
     teams() {
       return this.$store.getters.loadedTeams;
     },
+
+    resultTeamsOrderedByName() {
+      return _.orderBy(this.teams, "title");
+    },
+
     gamesByDate: function () {
       let sortedGames = _.groupBy(this.games, "time");
       return sortedGames;

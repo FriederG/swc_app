@@ -59,7 +59,6 @@
               <v-btn class="primary" :disabled="!formIsValid" type="submit"
                 >Beitrag erstellen</v-btn
               >
-              {{ submittableDateTime }}
             </v-flex>
           </v-layout>
         </form>
