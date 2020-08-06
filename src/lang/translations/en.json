@@ -87,10 +87,20 @@
   "Advent Calendar": "The Kiel Rugby Advent Calendar",
   "Still Working": "Looks like you're too early. The Kiel Rugby Christmas Elves are still at work. Come back later!",
 
-  "Map": "Layout",
+  "Map": "Map Professor-Peters-Platz",
+  "PPP": "The tournament is located at the Proffessor-Peters-Platz in Kiel.",
+
   "Click on the Dots": "Click on the dots, to get more information about the location",
   "Clubhouse": "Here in the clubhouse there is the legendary Schietwettercup buffet. We start at 8:00 in the morning.",
   "Party Time": "Party Tent and Barbecue Station",
   "Lunch is Barbecue": "Lunch is barbecue time. In the evening, you can find the legendary Schwietwettercup Party is here",
-  "Pitch Tents": "Here you can pitch your Tents"
+  "Pitch Tents": "Here you can pitch your Tents",
+
+  "AufGehts": "Let's get this party started!",
+  "Ranhalten": "Keep at it, this is still considered sober in Germany!",
+  "Fahrt": "We're getting somewhere!",
+  "Gut dabei": "Shots, shots, shots, shots!",
+  "SagBescheid": "You're not gonna throw up, are you?",
+  "Glückwunsch": "Congratulations, other people would be dead by now.",
+  "Oha": "WTF"
 }

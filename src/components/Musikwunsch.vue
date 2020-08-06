@@ -69,7 +69,6 @@
         </v-flex>
       </v-layout>
 
-      <v-card-text v-if="wunschGemacht > 2">WUnsch gemacht</v-card-text>
       <br />
       <h5 v-if="votes <= 4">
         {{ $t("DuKannstNoch") }} {{ 5 - votes }} {{ $t("MalVoten") }}.

@@ -43,7 +43,7 @@
   "Niederlage": "N",
   "Untschieden": "U",
 
-  "Musikwünsche": "Musikünsche",
+  "Musikwünsche": "Musikwünsche",
   "LiedwunschEingeben": "Musikwunsch eingeben",
   "DuHastNoch": "Du hast noch",
   "NameDesLieds": "Name des Lieds",
@@ -62,7 +62,7 @@
   "Gruppen": "Gruppen",
   "EinTurnierDer": "Ein Turnier der FT Adler Kiel",
 
-  "AufPlusKlicken": "Auf Plus klicken, um Gruppe zu öffnen",
+  "AufPlusKlicken": "Auf + klicken, um Gruppe zu öffnen",
 
   "Pegelstand": "Pegelstand",
   "Bier": "Bier",
@@ -86,13 +86,21 @@
   "Advent Calendar": "Der Kiel Ruby Adventskalender",
   "Still Working": "Es sieht so aus als ob du zu früh dran bist. Die Weihnachtsschmiede arbeitet noch. Komm später wieder!",
 
-  "Map": "Übersichtskarte",
-  "Click on the Dots": "Clicke auf die Punkte, um mehr zum jeweiligen Ort zu erfahren.",
+  "Map": "Karte Professor-Peters-Platz",
+  "PPP": "Der Schietwettercup findet auf dem Professor-Peters-Platz in Kiel statt.",
+  "Click on the Dots": "Klicke auf die Punkte, um mehr zum jeweiligen Ort zu erfahren.",
   "Clubhouse": "Hier im Vereinsheim gibt es das legendäre Schietwettercup-Buffet. Los gehts morgens um 8:00 Uhr.",
   "Party Time": "Party Zelt und Grillstation",
   "Lunch is Barbecue": "Mittags gibt's Gegrilltes. Abends steigt hier die legendäre SWC-Party.",
-  "Pitch Tents": "Hier könnt ihr eure Zelte aufschlagen."
+  "Pitch Tents": "Hier könnt ihr eure Zelte aufschlagen.",
 
+  "AufGehts": "Auf geht's!",
+  "Ranhalten": "Ranhalten, das gilt in Deutschland noch als nüchtern!",
+  "Fahrt": "Die Sache nimmt langsam Fahrt auf!",
+  "Gut dabei": "Gut dabei, aber einer geht noch rein.",
+  "SagBescheid": "Sag Bescheid, wenn du Kotzen musst.",
+  "Glückwunsch": "Glückwunsch, 2 - Promille Schallmauer geknackt!",
+  "Oha": "Oha"
 
 
 

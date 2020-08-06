@@ -6,14 +6,16 @@
       <table>
         <tr>
           <td>
-            <b>{{ $t("Bier") }}(0,3l)</b>
+            <b>{{ $t("Bier") }} (0,3l)</b>
           </td>
           <td>{{ beer_count }}</td>
           <td>
-            <v-btn v-on:click="more_beer"><v-icon>mdi-beer</v-icon></v-btn>
+            <v-btn outlined color="green" v-on:click="more_beer"
+              ><v-icon>mdi-beer</v-icon></v-btn
+            >
           </td>
           <td>
-            <v-btn color="red" v-on:click="less_beer"
+            <v-btn outlined color="red" v-on:click="less_beer"
               ><v-icon>mdi-minus</v-icon></v-btn
             >
           </td>
@@ -24,10 +26,12 @@
           </td>
           <td>{{ l_beer_count }}</td>
           <td>
-            <v-btn v-on:click="more_l_beer"><v-icon>mdi-beer</v-icon></v-btn>
+            <v-btn outlined color="green" v-on:click="more_l_beer"
+              ><v-icon>mdi-beer</v-icon></v-btn
+            >
           </td>
           <td>
-            <v-btn color="red" v-on:click="less_l_beer"
+            <v-btn outlined color="red" v-on:click="less_l_beer"
               ><v-icon>mdi-minus</v-icon></v-btn
             >
           </td>
@@ -38,10 +42,12 @@
           </td>
           <td>{{ wine_count }}</td>
           <td>
-            <v-btn v-on:click="more_wine"><v-icon>mdi-beer</v-icon></v-btn>
+            <v-btn outlined color="green" v-on:click="more_wine"
+              ><v-icon>mdi-beer</v-icon></v-btn
+            >
           </td>
           <td>
-            <v-btn color="red" v-on:click="less_wine"
+            <v-btn outlined color="red" v-on:click="less_wine"
               ><v-icon>mdi-minus</v-icon></v-btn
             >
           </td>
@@ -50,10 +56,12 @@
           <td><b>Shot</b></td>
           <td>{{ shot_count }}</td>
           <td>
-            <v-btn v-on:click="more_shots"><v-icon>mdi-beer</v-icon></v-btn>
+            <v-btn outlined color="green" v-on:click="more_shots"
+              ><v-icon>mdi-beer</v-icon></v-btn
+            >
           </td>
           <td>
-            <v-btn color="red" v-on:click="less_shots"
+            <v-btn outlined color="red" v-on:click="less_shots"
               ><v-icon>mdi-minus</v-icon></v-btn
             >
           </td>
@@ -62,23 +70,69 @@
           <td><b>Drink</b></td>
           <td>{{ drink_count }}</td>
           <td>
-            <v-btn v-on:click="more_drinks"><v-icon>mdi-beer</v-icon></v-btn>
+            <v-btn outlined color="green" v-on:click="more_drinks"
+              ><v-icon>mdi-beer</v-icon></v-btn
+            >
           </td>
           <td>
-            <v-btn color="red" v-on:click="less_drinks"
+            <v-btn outlined color="red" v-on:click="less_drinks"
               ><v-icon>mdi-minus</v-icon></v-btn
             >
           </td>
         </tr>
       </table>
       <br />
-      <p v-if="gender === 'male'">
+      <h3 v-if="gender === 'male'">
         {{ $t("DeinPegel") }}: {{ alc_calc_male.toFixed(2) }} Promille
-      </p>
-      <p v-if="gender === 'female'">
+      </h3>
+      <h3 v-if="gender === 'female'">
         {{ $t("DeinPegel") }}: {{ alc_calc_female.toFixed(2) }} Promille
-      </p>
-      <v-btn v-on:click="clear">Reset</v-btn>
+      </h3>
+      <br />
+      <v-card outlined>
+        <!-- Alk-Feedback -->
+        <v-card-title v-if="!check">{{ $t("AufGehts") }}</v-card-title>
+
+        <v-card-title v-if="check < 0.5 && check > 0.1">{{
+          $t("Ranhalten")
+        }}</v-card-title>
+        <v-card-title v-if="check < 1 && check > 0.5">{{
+          $t("Fahrt")
+        }}</v-card-title>
+        <v-card-title v-if="check < 1.5 && check > 1">{{
+          $t("Gut dabei")
+        }}</v-card-title>
+        <v-card-title v-if="check < 2 && check > 1.5">{{
+          $t("SagBescheid")
+        }}</v-card-title>
+        <v-card-title v-if="check < 3 && check > 2"
+          >{{ $t("Glückwunsch") }}
+          <iframe
+            src="https://giphy.com/embed/lXiRuVywOOkJpN1Dy"
+            width="300"
+            height="360"
+            frameBorder="0"
+            class="giphy-embed"
+            allowFullScreen
+          ></iframe
+        ></v-card-title>
+        <v-card-title v-if="check < 10 && check > 3">{{
+          $t("Oha")
+        }}</v-card-title>
+      </v-card>
+      <b v-if="check > 10">
+        <iframe
+          src="https://giphy.com/embed/14cDsqOkks6O8U"
+          width="300"
+          height="480"
+          frameBorder="0"
+          class="giphy-embed"
+          allowFullScreen
+        ></iframe>
+      </b>
+
+      <br /><br />
+      <v-btn outlined color="red" v-on:click="clear">Reset</v-btn>
     </v-simple-table>
 
     <div v-if="(entered === 'false')">
@@ -348,6 +402,7 @@ export default {
 
       this.bac = false;
       clearInterval(this.counter);
+      this.check = "";
 
       this.beer_count = 0;
       this.wine_count = 0;
@@ -501,6 +556,10 @@ export default {
 </script>
 
 <style scoped>
+.v-card__text,
+.v-card__title {
+  word-break: normal; /* maybe !important  */
+}
 input[type="radio"] {
   -ms-transform: scale(3); /* IE 9 */
   -webkit-transform: scale(3); /* Chrome, Safari, Opera */

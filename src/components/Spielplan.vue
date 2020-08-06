@@ -52,7 +52,7 @@
             id="team1"
             v-model="selectedTeam"
             required
-            :items="selectTeams"
+            :items="selectTeamsSorted"
             item-text="title"
             outlined
             ><option>Fe</option></v-select
@@ -276,6 +276,12 @@ export default {
 
     selectTeams() {
       return this.$store.getters.loadedSelectTeams;
+    },
+
+    selectTeamsSorted() {
+      let sortedTeams = _.orderBy(this.selectTeams, "title");
+
+      return sortedTeams;
     },
 
     gamesByDate: function () {
