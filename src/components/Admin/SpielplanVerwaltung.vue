@@ -295,7 +295,7 @@
                   v-model="team1"
                   required
                   item-value="id"
-                  :items="maleTeams"
+                  :items="maleTeamsOrderedByName"
                   item-text="title"
                 ></v-select>
                 <!--item-value="id"-->
@@ -311,7 +311,7 @@
                   item-value="id"
                   v-model="team2"
                   required
-                  :items="maleTeams"
+                  :items="maleTeamsOrderedByName"
                   item-text="title"
                 ></v-select>
               </v-flex>
@@ -329,7 +329,7 @@
                   v-model="team1"
                   item-value="id"
                   required
-                  :items="femaleTeams"
+                  :items="femaleTeamsOrderedByName"
                   item-text="title"
                 ></v-select>
               </v-flex>
@@ -344,7 +344,7 @@
                   v-model="team2"
                   item-value="id"
                   required
-                  :items="femaleTeams"
+                  :items="femaleTeamsOrderedByName"
                   item-text="title"
                 ></v-select>
               </v-flex>
@@ -452,12 +452,20 @@ export default {
       return this.teams.filter((c) => c.gender.indexOf(herren) < 1);
     },
 
+    maleTeamsOrderedByName() {
+      return _.orderBy(this.maleTeams, "title");
+    },
+
+    femaleTeamsOrderedByName() {
+      return _.orderBy(this.femaleTeams, "title");
+    },
+
     //Gruppenauswahl zur besseren Übersicht
     singleGroups() {
       return _.chain(this.teams)
         .groupBy((character) => character.group)
         .map((characters, group) => ({ group, characters }))
-        .orderBy((group) => Number(group.group), ["asc"])
+        .orderBy((group) => Number(group.group), ["desc"])
         .value();
     },
 

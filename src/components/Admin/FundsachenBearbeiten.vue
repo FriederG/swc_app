@@ -1,5 +1,7 @@
 <template
   ><v-expansion-panels>
+    <h2>Fundsachen bearbeiten</h2>
+    <br /><br />
     <v-expansion-panel
       v-for="singleNews in lostItems"
       :key="singleNews.id"

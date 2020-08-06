@@ -1,7 +1,5 @@
 <template
   ><div>
-    Menü anpassen
-
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
         <h2>Menüpunkte anpassen</h2>
@@ -36,7 +34,6 @@
     -->
 
     <v-list shaped>
-      <v-subheader>Menu</v-subheader>
       <v-list-item-group color="primary">
         <v-list-item v-for="item in menuItems" :key="item.title">
           <v-list-item-icon>
