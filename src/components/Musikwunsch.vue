@@ -9,7 +9,8 @@
     </v-layout>
 
     <v-alert type="info" icon="mdi-clock-time-ten-outline" v-if="(countdown)">
-      {{ $t("Noch") }} {{ countdown }}s {{ $t("BisWiederMusikWunsch") }}
+      {{ $t("Noch") }} {{ Math.floor(countdown) }} min
+      {{ $t("BisWiederMusikWunsch") }}
     </v-alert>
 
     <v-alert
@@ -156,7 +157,7 @@ export default {
     if (parseInt(localStorage.getItem("Wunsch")) === 3) {
       this.timer();
     }
-    if (parseInt(localStorage.getItem("votes")) === 10) {
+    if (parseInt(localStorage.getItem("votes")) === 5) {
       this.timer_2();
     }
   },
@@ -229,7 +230,7 @@ export default {
           parseInt(localStorage.getItem("votes")) + 1
         );
 
-        if (parseInt(localStorage.getItem("votes")) === 4) {
+        if (parseInt(localStorage.getItem("votes")) === 5) {
           this.timestamp_c = new Date();
           localStorage.setItem("timestamp_c", this.timestamp_c);
           this.timestamp_d = new Date(localStorage.getItem("timestamp_c"));
@@ -261,7 +262,7 @@ export default {
           "votes",
           parseInt(localStorage.getItem("votes")) + 1
         );
-        if (parseInt(localStorage.getItem("votes")) === 4) {
+        if (parseInt(localStorage.getItem("votes")) === 5) {
           this.timestamp_c = new Date();
           localStorage.setItem("timestamp_c", this.timestamp_c);
           this.timestamp_d = new Date(localStorage.getItem("timestamp_c"));
@@ -286,11 +287,13 @@ export default {
         this.timestamp_a = new Date();
 
         this.time_dif_music =
-          Math.floor(Math.abs(this.timestamp_b - this.timestamp_a) / 1000) % 60;
+          (Math.floor(Math.abs(this.timestamp_b - this.timestamp_a) / 1000) /
+            60) %
+          60;
 
-        this.countdown = 60 - this.time_dif_music;
+        this.countdown = 30 - this.time_dif_music;
 
-        if (this.time_dif_music === 59) {
+        if (this.time_dif_music === 30) {
           localStorage.removeItem("Wunsch");
           this.wunschGemacht = localStorage.getItem("Wunsch");
           this.countdown = null;
