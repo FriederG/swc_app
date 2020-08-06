@@ -24,7 +24,7 @@
                 @click="editDialog = false"
                 >Abbrechen</v-btn
               >
-              <v-btn text class="blue--text darken-1" @click="onSaveChanges"
+              <v-btn text class="green--text darken-1" @click="onSaveChanges"
                 >Ändern</v-btn
               >
             </v-card-actions>

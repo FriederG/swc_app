@@ -40,7 +40,7 @@
             <v-card-actions>
               <v-btn
                 text
-                class="blue--text darken-1"
+                class="green--text darken-1"
                 @click="editDialog = false"
                 >Close</v-btn
               >
