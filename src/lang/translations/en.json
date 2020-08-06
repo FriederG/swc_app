@@ -54,5 +54,24 @@
   "Wartezeit": "Waiting Time",
   "Noch": "Still",
   "BisWiederMusikWunsch": "until you can insert the next wish",
-  "BisWiederVoten": "until you are allowed to vote again"
+  "BisWiederVoten": "until you are allowed to vote again",
+
+  "Gruppe": "Group",
+
+  "AllgemeineInfos": "General Information",
+  "PegelstandMessen": "Alcohol Level",
+  "Gruppen": "Groups",
+  "EinTurnierDer": "A Tournament of FT Adler Kiel",
+
+  "AufPlusKlicken": "Klick on + to open group",
+
+  "Pegelstand": "Alcohol Level",
+  "Bier": "Beer",
+  "Wein": "Wine",
+  "DeinPegel": "Alcohol Level",
+  "Mann": "Male",
+  "Frau": "Female",
+  "Gewicht": "Weight",
+  "Bestätigen": "Confirm",
+  "OhneGewähr": "The values calculated here are without guarantee and are for entertainment purposes only. Under no circumstances should this calculator be used to evaluate fitness to drive. Drink responsibly!"
 }

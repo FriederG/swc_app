@@ -27,7 +27,7 @@ export default {
     return {
       hotspotConfig: {
         image:
-          "https://kielrugby.com/wp-content/uploads/2020/07/map_openStreet-2.jpg",
+          "https://kielrugby.com/wp-content/uploads/2020/08/map_openStreet2.jpg",
         editable: false,
         interactivity: "hover",
         data: [

@@ -1,11 +1,13 @@
 <template>
   <div>
-    <h1>Pegelstand</h1>
+    <h1>{{ $t("Pegelstand") }}</h1>
     <br />
     <v-simple-table v-if="(entered === 'true')">
       <table>
         <tr>
-          <td><b>Bier(0,3l)</b></td>
+          <td>
+            <b>{{ $t("Bier") }}(0,3l)</b>
+          </td>
           <td>{{ beer_count }}</td>
           <td>
             <v-btn v-on:click="more_beer"><v-icon>mdi-beer</v-icon></v-btn>
@@ -17,7 +19,9 @@
           </td>
         </tr>
         <tr>
-          <td><b>Bier (0,5l)</b></td>
+          <td>
+            <b>{{ $t("Bier") }} (0,5l)</b>
+          </td>
           <td>{{ l_beer_count }}</td>
           <td>
             <v-btn v-on:click="more_l_beer"><v-icon>mdi-beer</v-icon></v-btn>
@@ -29,7 +33,9 @@
           </td>
         </tr>
         <tr>
-          <td><b>Wein</b></td>
+          <td>
+            <b>{{ $t("Wein") }}</b>
+          </td>
           <td>{{ wine_count }}</td>
           <td>
             <v-btn v-on:click="more_wine"><v-icon>mdi-beer</v-icon></v-btn>
@@ -67,19 +73,19 @@
       </table>
       <br />
       <p v-if="gender === 'male'">
-        Dein Pegel: {{ alc_calc_male.toFixed(2) }} Promille
+        {{ $t("DeinPegel") }}: {{ alc_calc_male.toFixed(2) }} Promille
       </p>
       <p v-if="gender === 'female'">
-        Dein Pegel: {{ alc_calc_female.toFixed(2) }} Promille
+        {{ $t("DeinPegel") }}: {{ alc_calc_female.toFixed(2) }} Promille
       </p>
       <v-btn v-on:click="clear">Reset</v-btn>
     </v-simple-table>
 
     <div v-if="(entered === 'false')">
-      <label class="mr-2" for="rMale">Mann: </label>
+      <label class="mr-2" for="rMale">{{ $t("Mann") }}: </label>
       <input type="radio" id="rMale" value="male" v-model="gender" />
 
-      <label class="ml-2 mr-2" for="rFemale">Frau: </label>
+      <label class="ml-2 mr-2" for="rFemale">{{ $t("Frau") }}: </label>
       <input type="radio" id="rFemale" value="female" v-model="gender" />
 
       <br />
@@ -92,15 +98,13 @@
         v-model="weight"
         thumb-label="always"
       ></v-slider>
-      <p>Gewicht: {{ weight }} kg</p>
+      <p>{{ $t("Gewicht") }}: {{ weight }} kg</p>
       <br />
-      <v-btn v-on:click="enter" color="primary">Bestätigen</v-btn>
+      <v-btn v-on:click="enter" color="primary">{{ $t("Bestätigen") }}</v-btn>
       <br />
       <br />
       <v-alert style="font-size: small;" type="info">
-        Die hier berechneten Werte sind ohne Gewähr und dienen ausschließlich
-        der Unterhaltung. Auf keinen Fall sollte dieser Rechner dazu verwendet
-        werden Fahrtauglichkeit zu bewerten. Trinkt verantwortlich!
+        {{ $t("OhneGewähr") }}
       </v-alert>
     </div>
   </div>

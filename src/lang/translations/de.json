@@ -54,6 +54,30 @@
   "Wartezeit": "Wartezeit",
   "Noch": "Noch",
   "BisWiederMusikWunsch": "bis du wieder einen Musikwunsch eintragen kannst",
-  "BisWiederVoten": "bis du wieder voten kannst"
+  "BisWiederVoten": "bis du wieder voten kannst",
+
+  "Gruppe": "Gruppe",
+
+  "AllgemeineInfos": "Allgemeine Informationen",
+  "PegelstandMessen": "Pegelstand messen",
+  "Gruppen": "Gruppen",
+  "EinTurnierDer": "Ein Turnier der FT Adler Kiel",
+
+  "AufPlusKlicken": "Auf Plus klicken, um Gruppe zu öffnen",
+
+  "Pegelstand": "Pegelstand",
+  "Bier": "Bier",
+  "Wein": "Wein",
+  "DeinPegel": "Dein Pegel",
+  "Mann": "Mann",
+  "Frau": "Frau",
+  "Gewicht": "Gewicht",
+  "Bestätigen": "Bestätigen",
+  "OhneGewähr": "Die hier berechneten Werte sind ohne Gewähr und dienen ausschließlich\n        der Unterhaltung. Auf keinen Fall sollte dieser Rechner dazu verwendet\n        werden Fahrtauglichkeit zu bewerten. Trinkt verantwortlich!"
+
+
+
+
+
 
 }
