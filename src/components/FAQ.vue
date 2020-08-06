@@ -2,7 +2,7 @@
   <div>
     <h1>FAQ</h1>
 
-    <h3 class="green--text">Allgemeine Fragen zum Turnier</h3>
+    <h3 class="green--text">{{ $t("General Questions") }}</h3>
     <br />
     <v-expansion-panels>
       <v-expansion-panel>
@@ -40,7 +40,7 @@
       </v-expansion-panel>
     </v-expansion-panels>
     <br />
-    <h3 class="green--text">Camping und Parken</h3>
+    <h3 class="green--text">{{ $t("Camping and Parking") }}</h3>
     <br />
     <v-expansion-panels>
       <v-expansion-panel>
@@ -78,7 +78,7 @@
       </v-expansion-panel>
     </v-expansion-panels>
     <br />
-    <h3 class="green--text">Essen und Verpflegung</h3>
+    <h3 class="green--text">{{ $t("Verpflegung") }}</h3>
     <br />
     <v-expansion-panels>
       <v-expansion-panel>
