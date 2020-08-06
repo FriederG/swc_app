@@ -15,20 +15,19 @@
     >
     <v-layout v-if="!loading">
       <v-expansion-panels>
-        <v-expansion-panel
+        <div
           v-for="singleNews in fotos"
           :key="singleNews.id"
           class="mb-2"
+          style="max-width: 600px;"
         >
-          <v-card class="mx-auto" max-width="400">
-            <v-img
-              class="white--text align-end"
-              height="200px"
-              :src="singleNews.imageUrl"
-            >
-            </v-img>
-          </v-card>
-        </v-expansion-panel>
+          <expandable-image
+            :src="singleNews.imageUrl"
+            class="v-image"
+            max-height="100px"
+          >
+          </expandable-image>
+        </div>
       </v-expansion-panels>
     </v-layout>
   </div>
