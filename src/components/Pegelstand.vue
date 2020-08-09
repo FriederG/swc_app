@@ -38,6 +38,22 @@
         </tr>
         <tr>
           <td>
+            <b>{{ $t("Radler") }} (0,3l)</b>
+          </td>
+          <td>{{ radler_count }}</td>
+          <td>
+            <v-btn outlined color="green" v-on:click="more_radler"
+              ><v-icon>mdi-beer</v-icon></v-btn
+            >
+          </td>
+          <td>
+            <v-btn outlined color="red" v-on:click="less_radler"
+              ><v-icon>mdi-minus</v-icon></v-btn
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
             <b>{{ $t("Wein") }}</b>
           </td>
           <td>{{ wine_count }}</td>
@@ -76,6 +92,22 @@
           </td>
           <td>
             <v-btn outlined color="red" v-on:click="less_drinks"
+              ><v-icon>mdi-minus</v-icon></v-btn
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Drink {{ $t("strong") }}</b>
+          </td>
+          <td>{{ s_drink_count }}</td>
+          <td>
+            <v-btn outlined color="green" v-on:click="more_s_drinks"
+              ><v-icon>mdi-beer</v-icon></v-btn
+            >
+          </td>
+          <td>
+            <v-btn outlined color="red" v-on:click="less_s_drinks"
               ><v-icon>mdi-minus</v-icon></v-btn
             >
           </td>
@@ -172,9 +204,11 @@ export default {
     return {
       beer_count: 0,
       l_beer_count: 0,
+      radler_count: 0,
       wine_count: 0,
       shot_count: 0,
       drink_count: 0,
+      s_drink_count: 0,
 
       gender: "female",
       weight: 75,
@@ -200,9 +234,11 @@ export default {
       this.weight = parseInt(localStorage.getItem("weight"));
       this.beer_count = parseInt(localStorage.getItem("beer_count"));
       this.l_beer_count = parseInt(localStorage.getItem("l_beer_count"));
+      this.radler_count = parseInt(localStorage.getItem("radler_count"));
       this.wine_count = parseInt(localStorage.getItem("wine_count"));
       this.shot_count = parseInt(localStorage.getItem("shot_count"));
       this.drink_count = parseInt(localStorage.getItem("drink_count"));
+      this.s_drink_count = parseInt(localStorage.getItem("s_drink_count"));
     } else {
       this.entered = "false";
       this.gender = "female";
@@ -217,6 +253,10 @@ export default {
       localStorage.setItem("drink_count", this.drink_count);
       this.l_beer_count = 0;
       localStorage.setItem("l_beer_count", this.l_beer_count);
+      this.radler_count = 0;
+      localStorage.setItem("radler_count", this.radler_count);
+      this.s_drink_count = 0;
+      localStorage.setItem("s_drink_count", this.s_drink_count);
     }
     if (localStorage.getItem("bac") === "true") {
       this.bac = true;
@@ -254,6 +294,19 @@ export default {
 
       this.l_beer_count = this.l_beer_count + 1;
       localStorage.setItem("beer_count", this.l_beer_count);
+    },
+    more_radler() {
+      if (this.bac === false) {
+        this.timestamp_1 = new Date();
+        localStorage.setItem("timestamp_1", this.timestamp_1);
+        this.timestamp_2 = new Date(localStorage.getItem("timestamp_1"));
+        this.bac = true;
+        localStorage.setItem("bac", "true");
+        this.timedifference();
+      }
+
+      this.radler_count = this.radler_count + 1;
+      localStorage.setItem("radler_count", this.radler_count);
     },
 
     more_wine() {
@@ -295,12 +348,27 @@ export default {
       this.drink_count = this.drink_count + 1;
       localStorage.setItem("drink_count", this.drink_count);
     },
+    more_s_drinks() {
+      if (this.bac === false) {
+        this.timestamp_1 = new Date();
+        localStorage.setItem("timestamp_1", this.timestamp_1);
+        this.timestamp_2 = new Date(localStorage.getItem("timestamp_1"));
+        this.bac = true;
+        localStorage.setItem("bac", "true");
+        this.timedifference();
+      }
+
+      this.s_drink_count = this.s_drink_count + 1;
+      localStorage.setItem("s_drink_count", this.s_drink_count);
+    },
     less_beer() {
       if (
         this.beer_count === 1 &&
         this.l_beer_count === 0 &&
+        this.radler_count === 0 &&
         this.shot_count === 0 &&
         this.drink_count === 0 &&
+        this.s_drink_count === 0 &&
         this.wine_count === 0
       ) {
         this.beer_count = this.beer_count - 1;
@@ -316,9 +384,11 @@ export default {
     less_l_beer() {
       if (
         this.l_beer_count === 1 &&
+        this.radler_count === 0 &&
         this.beer_count === 0 &&
         this.shot_count === 0 &&
         this.drink_count === 0 &&
+        this.s_drink_count === 0 &&
         this.wine_count === 0
       ) {
         this.l_beer_count = this.l_beer_count - 1;
@@ -326,17 +396,39 @@ export default {
         this.bac = false;
         localStorage.setItem("bac", "false");
         clearInterval(this.counter);
-      } else if (this.beer_count > 0) {
+      } else if (this.l_beer_count > 0) {
         this.l_beer_count = this.l_beer_count - 1;
         localStorage.setItem("l_beer_count", this.l_beer_count);
+      }
+    },
+    less_radler() {
+      if (
+        this.radler_count === 1 &&
+        this.l_beer_count === 0 &&
+        this.beer_count === 0 &&
+        this.shot_count === 0 &&
+        this.drink_count === 0 &&
+        this.s_drink_count === 0 &&
+        this.wine_count === 0
+      ) {
+        this.radler_count = this.radler_count - 1;
+        localStorage.setItem("radler_count", this.radler_count);
+        this.bac = false;
+        localStorage.setItem("bac", "false");
+        clearInterval(this.counter);
+      } else if (this.radler_count > 0) {
+        this.radler_count = this.radler_count - 1;
+        localStorage.setItem("radler_count", this.radler_count);
       }
     },
     less_wine() {
       if (
         this.beer_count === 0 &&
         this.shot_count === 0 &&
+        this.radler_count === 0 &&
         this.drink_count === 0 &&
         this.l_beer_count === 0 &&
+        this.s_drink_count === 0 &&
         this.wine_count === 1
       ) {
         this.wine_count = this.wine_count - 1;
@@ -353,7 +445,9 @@ export default {
       if (
         this.beer_count === 0 &&
         this.shot_count === 1 &&
+        this.radler_count === 0 &&
         this.drink_count === 0 &&
+        this.s_drink_count === 0 &&
         this.l_beer_count === 0 &&
         this.wine_count === 0
       ) {
@@ -371,6 +465,8 @@ export default {
       if (
         this.beer_count === 0 &&
         this.shot_count === 0 &&
+        this.radler_count === 0 &&
+        this.s_drink_count === 0 &&
         this.drink_count === 1 &&
         this.l_beer_count === 0 &&
         this.wine_count === 0
@@ -383,6 +479,26 @@ export default {
       } else if (this.drink_count > 0) {
         this.drink_count = this.drink_count - 1;
         localStorage.setItem("drink_count", this.drink_count);
+      }
+    },
+    less_s_drinks() {
+      if (
+        this.beer_count === 0 &&
+        this.shot_count === 0 &&
+        this.radler_count === 0 &&
+        this.s_drink_count === 1 &&
+        this.drink_count === 0 &&
+        this.l_beer_count === 0 &&
+        this.wine_count === 0
+      ) {
+        this.s_drink_count = this.s_drink_count - 1;
+        localStorage.setItem("s_drink_count", this.s_drink_count);
+        this.bac = false;
+        localStorage.setItem("bac", "false");
+        clearInterval(this.counter);
+      } else if (this.s_drink_count > 0) {
+        this.s_drink_count = this.s_drink_count - 1;
+        localStorage.setItem("s_drink_count", this.s_drink_count);
       }
     },
     enter() {
@@ -409,12 +525,16 @@ export default {
       this.shot_count = 0;
       this.drink_count = 0;
       this.l_beer_count = 0;
+      this.radler_count = 0;
+      this.s_drink_count = 0;
 
       localStorage.setItem("beer_count", this.beer_count);
       localStorage.setItem("wine_count", this.wine_count);
       localStorage.setItem("shot_count", this.shot_count);
       localStorage.setItem("drink_count", this.drink_count);
       localStorage.setItem("l_beer_count", this.l_beer_count);
+      localStorage.setItem("radler_count", this.radler_count);
+      localStorage.setItem("s_drink_count", this.s_drink_count);
       localStorage.setItem("entered", "false");
       localStorage.setItem("weight", 70);
       localStorage.setItem("gender", "female");
@@ -448,6 +568,8 @@ export default {
           (this.beer_count * 12 +
             this.l_beer_count * 20 +
             this.wine_count * 15 +
+            this.radler_count * 5 +
+            this.s_drink_count * 30 +
             this.shot_count * 7 +
             this.drink_count * 12) /
             (this.weight * 0.55) -
@@ -471,12 +593,18 @@ export default {
           localStorage.setItem("drink_count", this.drink_count);
           this.l_beer_count = 0;
           localStorage.setItem("l_beer_count", this.l_beer_count);
+          this.radler_count = 0;
+          localStorage.setItem("radler_count", this.radler_count);
+          this.s_drink_count = 0;
+          localStorage.setItem("s_drink_count", this.radler_count);
         }
       } else if (this.gender === "male") {
         this.check =
           (this.beer_count * 12 +
             this.l_beer_count * 20 +
             this.wine_count * 15 +
+            this.radler_count * 5 +
+            this.s_drink_count * 30 +
             this.shot_count * 7 +
             this.drink_count * 12) /
             (this.weight * 0.68) -
@@ -500,6 +628,10 @@ export default {
           localStorage.setItem("drink_count", this.drink_count);
           this.l_beer_count = 0;
           localStorage.setItem("l_beer_count", this.l_beer_count);
+          this.radler_count = 0;
+          localStorage.setItem("radler_count", this.radler_count);
+          this.s_drink_count = 0;
+          localStorage.setItem("s_drink_count", this.s_drink_count);
         }
       }
     },
@@ -511,6 +643,8 @@ export default {
         this.wine_count === 0 &&
         this.drink_count === 0 &&
         this.l_beer_count === 0 &&
+        this.radler_count === 0 &&
+        this.s_drink_count === 0 &&
         this.shot_count === 0
       ) {
         return 0;
@@ -520,6 +654,8 @@ export default {
           (this.beer_count * 12 +
             this.l_beer_count * 20 +
             this.wine_count * 15 +
+            this.radler_count * 5 +
+            this.s_drink_count * 30 +
             this.shot_count * 7 +
             this.drink_count * 12) /
             (this.weight * 0.68) -
@@ -532,6 +668,8 @@ export default {
       if (
         this.beer_count === 0 &&
         this.l_beer_count === 0 &&
+        this.radler_count === 0 &&
+        this.s_drink_count === 0 &&
         this.wine_count === 0 &&
         this.drink_count === 0 &&
         this.shot_count === 0
@@ -543,6 +681,8 @@ export default {
           (this.beer_count * 12 +
             this.l_beer_count * 20 +
             this.wine_count * 15 +
+            this.radler_count * 5 +
+            this.s_drink_count * 30 +
             this.shot_count * 7 +
             this.drink_count * 12) /
             (this.weight * 0.55) -
