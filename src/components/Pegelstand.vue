@@ -140,6 +140,7 @@
         <v-card-title v-if="check < 3 && check > 2"
           >{{ $t("Glückwunsch") }}
           <iframe
+            v-if="!loading"
             src="https://giphy.com/embed/lXiRuVywOOkJpN1Dy"
             width="300"
             height="360"
@@ -154,6 +155,7 @@
       </v-card>
       <b v-if="check > 10">
         <iframe
+          v-if="!loading"
           src="https://giphy.com/embed/14cDsqOkks6O8U"
           width="300"
           height="480"
@@ -293,7 +295,7 @@ export default {
       }
 
       this.l_beer_count = this.l_beer_count + 1;
-      localStorage.setItem("beer_count", this.l_beer_count);
+      localStorage.setItem("l_beer_count", this.l_beer_count);
     },
     more_radler() {
       if (this.bac === false) {
@@ -637,6 +639,9 @@ export default {
     },
   },
   computed: {
+    loading() {
+      return this.$store.getters.loading;
+    },
     alc_calc_male() {
       if (
         this.beer_count === 0 &&

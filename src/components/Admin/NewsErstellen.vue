@@ -13,7 +13,7 @@
             <v-flex xs12 sm6 offset-sm3>
               <v-text-field
                 name="title"
-                label="Title"
+                label="Titel"
                 id="title"
                 v-model="title"
                 required
@@ -25,7 +25,7 @@
             <v-flex xs12 sm6 offset-sm3>
               <v-textarea
                 name="description"
-                label="Description"
+                label="Inhalt"
                 id="description"
                 multi-line
                 v-model="description"
@@ -36,8 +36,10 @@
 
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
+              Bitte möglichst kleine Fotos (unter 1MB) hochladen, um Ladezeiten
+              zu reduzieren.
               <v-btn raised class="primary" @click="onPickFile"
-                >Upload Image</v-btn
+                >Foto hochladen</v-btn
               >
               <input
                 type="file"

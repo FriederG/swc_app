@@ -1,5 +1,7 @@
 <template
   ><v-expansion-panels>
+    <h2>News bearbeiten</h2>
+    <br /><br />
     <v-expansion-panel
       v-for="singleNews in news"
       :key="singleNews.id"

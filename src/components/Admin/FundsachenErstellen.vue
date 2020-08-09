@@ -35,9 +35,11 @@
           </v-layout>
 
           <v-layout row>
-            <v-flex xs12 sm6 offset-sm3>
+            <v-flex xs12 sm6 offset-sm3
+              >Bitte möglichst kleine Fotos (unter 1MB) hochladen, um Ladezeiten
+              zu reduzieren.<br />
               <v-btn raised class="primary" @click="onPickFile"
-                >Upload Image</v-btn
+                >Foto wählen</v-btn
               >
               <input
                 type="file"

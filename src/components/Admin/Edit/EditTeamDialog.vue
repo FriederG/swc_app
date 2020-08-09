@@ -69,7 +69,7 @@
                 @click="editDialog = false"
                 >Close</v-btn
               >
-              <v-btn text class="blue--text darken-1" @click="onSaveChanges"
+              <v-btn text class="green--text darken-1" @click="onSaveChanges"
                 >Save</v-btn
               >
             </v-card-actions>
